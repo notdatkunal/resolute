@@ -1,0 +1,13 @@
+.btn-dark{
+    margin-left: 30px;
+    padding: 10px;
+    border-radius: 20px;
+    justify-content: center;
+    color: #ffff;
+    background-color: black;
+}
+
+.nav-link{
+    cursor: pointer;
+}
+
