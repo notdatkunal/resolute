@@ -1,0 +1,86 @@
+.dashboard-main-wrapper {
+    min-height: 100%;
+    /* padding-top: 60px; */
+    position: relative;
+}
+
+.dashboard-wrapper {
+    position: relative;
+    left: 0;
+    margin-left: 264px;
+    min-height: 870px !important;
+    z-index: -1;
+}
+
+
+.dashboard-content {
+    padding: 100px 30px 60px 30px;
+}
+
+
+
+
+.dashboard-influence {}
+
+.influencer-profile-data {}
+
+.influencer-profile-data .user-avatar {
+    margin-right: 40px;
+}
+
+.influencer-profile-data .user-avatar-info {
+    display: block;
+    margin-top: 14px;
+}
+
+.influencer-profile-data .user-avatar-name {
+    float: left;
+    padding-right: 20px;
+}
+
+.user-avatar-address {}
+
+.influencer-profile-data .user-avatar-address {}
+
+.influencer-profile-data .user-avatar-email {
+    text-decoration: underline;
+}
+
+.influencer-profile-data .user-social-media {
+    padding: 16px 99px;
+    text-align: center;
+    border-right: 1px solid #e6e6f2;
+}
+
+.influencer-profile-data .user-social-media:last-child {
+    border-right: transparent;
+}
+
+.user-social-box {
+    background-color: #f9f9fc;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.dashboard-influence .progress {
+    width: 86%;
+    background-color: #ededfa;
+}
+
+.campaign-table {}
+
+.campaign-table .dropdown-toggle::after {
+    display: none;
+}
+
+.campaign-card {
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+
+.campaign-img {
+    margin-bottom: 25px;
+}
+
+.campaign-info {}
+

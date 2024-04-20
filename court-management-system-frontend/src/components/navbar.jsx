@@ -1,6 +1,8 @@
 import { Router, useNavigate } from 'react-router-dom';
 import '../assets/css/components/navbar.css'
 import { useSelector } from 'react-redux';
+import logo from '../assets/images/logo.png'; // Import logo image
+import searchIcon from '../assets/images/search-icon.png'; // Import search icon image
 
 
 export default function NavBar(){
@@ -17,10 +19,15 @@ export default function NavBar(){
         navigate('/');
     }
 
+
+    const ARB  = () =>{
+    }
+
+
     
     return(<>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="logo"><a href="index.html"><img src="src/assets/images/logo.png"/></a></div>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light topbar">
+                <div className="logo"><a href="index.html"><img src={logo}/></a></div>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -37,10 +44,10 @@ export default function NavBar(){
                             Services
                         </a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{marginTop: "-0.4rem"}}> {/* Dropdown menu content */}
-                            <a className="dropdown-item" href="#">ARB</a>
-                            <a className="dropdown-item" href="#">Medi</a>
-                            <a className="dropdown-item" href="#">Concili</a>
-                            <a className="dropdown-item" href="#">Free Legal Aid</a>
+                            <a className="dropdown-item" onClick={ARB}>ARB</a>
+                            <a className="dropdown-item" onClick={ARB}>Medi</a>
+                            <a className="dropdown-item" onClick={ARB}>Concili</a>
+                            <a className="dropdown-item" onClick={ARB}>Free Legal Aid</a>
                             {/* <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="#">More Services</a> */}
                         </div>
@@ -60,7 +67,7 @@ export default function NavBar(){
                         <li className="nav-item">
                             <form className="form-inline my-2 my-lg-0">
                                 <div className="search_icon">
-                                    <img src="src/assets/images/search-icon.png"/>
+                                    <img src={searchIcon}/>
                                 </div>
                             </form>
                         </li>

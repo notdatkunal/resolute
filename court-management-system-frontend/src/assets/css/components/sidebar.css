@@ -1,0 +1,559 @@
+@charset "UTF-8";
+/**
+ * Summary:
+ *
+ *  0. ELEMENT
+ *      - 0.1. Body / Typography
+ *      - 0.2. Type Elements
+        - 0.3. Header
+        - 0.4. Sidebar
+        - 0.5. Container
+        - 0.6. Pageheader
+        - 0.7. Footer
+
+   -------------------------
+
+ *  1. Dashboard
+
+ *      - 1.1. TYPE ELEMENT
+ *      - 1.2. TYPE ELEMENT
+
+   --------------------------
+
+2. UI Elements
+
+    - 2.1.  Alerts
+    - 2.2.  Buttons
+    - 2.3.  Cards
+    - 2.4.  General
+    - 2.5.  Modals
+    - 2.6.  Notifications
+    - 2.7.  Icon
+    - 2.8.  Tabs
+    - 2.9.  Accordions
+    - 2.10. Typography
+    - 2.11. Listgroup
+    - 2.12. Multiselect
+    - 2.13. Badge
+    - 2.14. Pagination
+    - 2.15. Switch Toogle
+    - 2.16. Spinner
+
+
+    ----------------------------
+
+3. Charts
+
+    - 3.1.  Chartist js
+    - 3.2.  Sparklines
+    - 3.3.  Chart.js
+    - 3.4.  Morris.js
+    - 3.5.  C3 Charts.js
+
+     ----------------------------
+
+4. Forms
+
+    - 4.1.  Elements
+    - 4.2.  Validations
+    - 4.3.  Multiselect
+    - 4.4.  Wizard
+    - 4.5.  Input Mask
+    - 4.6.  Summar Note text editor
+    - 4.7.  Multi Upload
+
+
+     ----------------------------
+
+
+5. Tables
+
+    - 5.1.  General
+    - 5.2.  Data Tables
+    - 5.3.  Table Filters
+
+
+
+         ----------------------------
+
+
+6. Pages
+
+    - 6.1.   Blank Page
+    - 6.2.   Blank Page Header
+    - 6.3.   Login
+    - 6.4.   Sign up
+    - 6.5.   Forgot Password
+    - 6.6.   Profile
+    - 6.7.   Pricing
+    - 6.8.   Timline
+    - 6.9.   Calendar
+    - 6.10.  Metrics
+    - 6.11.  Media Object
+    - 6.12.  Shortable / Nestable
+    - 6.13.  404 Error
+
+
+
+
+
+
+         ----------------------------
+
+7. Email
+
+    - 7.1.  Inbox
+    - 7.2.  Email Detail
+    - 7.3.  Email Compose
+    - 7.4.  Message Chat
+
+       ----------------------------
+
+
+8. Layouts
+
+    - 8.1. Primary Header
+    - 8.2. Success Header
+    - 8.3. Warning Header
+    - 8.4. Danger Header
+    - 8.5. Search Input
+    - 8.6. Off Canvas Menu
+    - 8.7. Without Left Sidebar
+    - 8.8. Without Right Sidebar
+    - 8.9. Without Both Sidebars
+    - 8.10. Fixed Left Sidebar
+    - 8.11. Boxed Layout
+    - 8.12. Page Aside
+    - 8.13. Collapsible Sidebar
+    - 8.14. Sub Navigation
+
+
+
+       ----------------------------
+
+
+9. Maps
+
+    - 9.1.  Google Map
+    - 9.2.  Vector Map
+
+       ----------------------------
+
+
+10. Menu Level
+
+    - 10.1.  Level 1
+    - 10.2.  Level 2
+   */
+
+
+/* ==========================================================================
+   0. ELEMENT
+   ========================================================================== */
+
+
+/* 0.1. Body / Typography
+   ========================================================================== */
+
+a:hover{
+    cursor: pointer;
+}
+
+
+
+/*-----------------------
+Fontawesome size
+-------------------------*/
+
+
+.fa-sm {
+    font-size: 24px !important;
+}
+
+.fa-xs {
+    font-size: 11px !important;
+}
+
+
+
+/* ------  Top Header User Info --------  */
+
+
+/* -------------------- 0.4. Sidebar ----------------------- */
+
+
+.navigation-horizontal {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: auto;
+   /* background-color: #fff;
+    -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    -webkit-transition: all 0.3s ease;*/
+}
+
+.navigation-horizontal .nav-link[data-toggle="collapse"] {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navigation-horizontal .nav-link[data-toggle="collapse"]::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 8px;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+.navigation-horizontal .nav-link[data-toggle="collapse"][aria-expanded="false"]:after {
+    transform: rotate(-90deg);
+}
+
+.navigation-horizontal .nav-link[data-toggle="collapse"]:after {
+    transition: transform .35s ease, opacity .35s ease;
+    opacity: .5;
+}
+
+.navigation-horizontal .navbar-nav {
+    width: 100%;
+}
+
+.navigation-horizontal .navbar {
+    position: relative;
+    padding: 0px;
+}
+
+
+.navigation-horizontal .navbar-nav .nav-link {
+   font-size: 13px;
+    padding: 9px 30px 9px 20px;
+    margin-bottom: 2px;
+    color: #71789e;
+    transition: 0.3s;
+    margin: 6px 1px;
+}
+
+.navigation-horizontal .nav-link i {
+    font-size: 14px;
+    margin-right: 9px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 16px;
+}
+
+.nav-divider {
+    padding: 10px 14px;
+    line-height: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.navigation-horizontal .submenu {
+       background-color: #e2e2eb;
+    margin-top: -6px;
+    margin-right: 1px;
+    margin-left: 1px;
+}
+
+.navigation-horizontal .submenu .nav .nav-item .nav-link {
+    font-size: 12px;
+    padding: 0px 12px;
+    transition: 0.3s;
+    line-height: 1;
+}
+
+.navigation-horizontal .navbar-nav .nav-link:focus,
+.navigation-horizontal .navbar-nav .nav-link.active {
+    background-color: #e2e2eb;
+    color: #3d405c;
+    border-radius: 2px;
+}
+
+.navigation-horizontal .navbar-nav .nav-link:focus,
+.navigation-horizontal .navbar-nav .nav-link:hover {
+    background-color: #e2e2eb;
+    color: #3d405c;
+    border-radius: 2px;
+}
+
+.navigation-horizontal .submenu .nav .nav-item .nav-link:hover {
+    color: #3d405c;
+    border-radius: 2px;
+    background-color: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* -----------------------
+Left Navigation Sidebar
+------------------------- */
+
+.nav-left-sidebar {
+    position: fixed;
+    width: 264px;
+    height: 100%;
+    top: 60px;
+    overflow: auto;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    -webkit-transition: all 0.3s ease;
+}
+
+.nav-left-sidebar .nav-link[data-toggle="collapse"] {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-left-sidebar .nav-link[data-toggle="collapse"]::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 20px;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+.nav-left-sidebar .nav-link[data-toggle="collapse"][aria-expanded="false"]:after {
+    transform: rotate(-90deg);
+}
+
+.nav-left-sidebar .nav-link[data-toggle="collapse"]:after {
+    transition: transform .35s ease, opacity .35s ease;
+    opacity: .5;
+}
+
+.nav-left-sidebar .navbar-nav {
+    width: 100%;
+}
+
+.nav-left-sidebar .navbar {
+    position: relative;
+    padding: 14px;
+}
+
+
+.nav-left-sidebar .navbar-nav .nav-link {
+    font-size: 14px;
+    padding: 12px;
+    /* margin-bottom: 2px; */
+    color: #71789e;
+    transition: 0.3s;
+}
+
+.nav-left-sidebar .nav-link i {
+    font-size: 14px;
+    margin-right: 9px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 16px;
+}
+
+.nav-divider {
+    padding: 10px 14px;
+    line-height: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.nav-left-sidebar .submenu {
+    padding-left: 12px;
+    padding-right: 12px;
+    /* margin-top: 5px; */
+    background: #24274a;
+}
+
+.nav-left-sidebar .submenu .nav .nav-item .nav-link {
+    font-size: 14px;
+    padding: 6px 12px;
+    transition: 0.3s;
+}
+
+.nav-left-sidebar .navbar-nav .nav-link:focus,
+.nav-left-sidebar .navbar-nav .nav-link.active {
+    background-color: #e2e2eb;
+    color: #3d405c;
+    border-radius: 2px;
+}
+
+.nav-left-sidebar .navbar-nav .nav-link:focus,
+.nav-left-sidebar .navbar-nav .nav-link:hover {
+    background-color: #e2e2eb;
+    color: #3d405c;
+    border-radius: 2px;
+}
+
+.nav-left-sidebar .submenu .nav .nav-item .nav-link:hover {
+    color: #3d405c;
+    border-radius: 2px;
+    background-color: transparent;
+}
+
+.nav-left-sidebar .navbar-toggler {
+    background-color: #fff;
+}
+.navbar-toggler {
+    padding: .25rem 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+/* -----------------------
+Leftsidebar - Primary
+------------------------- */
+
+.sidebar-primary {
+    background-color: #414da7;
+}
+
+.sidebar-primary .nav-divider {
+    color: #ddddff;
+}
+
+.sidebar-primary.nav-left-sidebar .nav-link i {
+    color: #8991d4;
+}
+
+
+.sidebar-primary.nav-left-sidebar .navbar-nav .nav-link {
+    color: #8991d4;
+}
+
+.sidebar-primary.nav-left-sidebar .navbar-nav .nav-link:focus,
+.sidebar-primary.nav-left-sidebar .navbar-nav .nav-link:hover {
+    color: #fff;
+    background-color: #5761c2;
+    border-radius: 2px;
+}
+
+.sidebar-primary.nav-left-sidebar .navbar-nav .nav-link:focus,
+.sidebar-primary.nav-left-sidebar .navbar-nav .nav-link.active {
+    background-color: #5761c2;
+    color: #fff;
+    border-radius: 2px;
+}
+
+.sidebar-primary.nav-left-sidebar .submenu .nav .nav-item .nav-link:hover {
+    color: #fff;
+    border-radius: 2px;
+    background-color: transparent;
+}
+
+
+/* -----------------------
+Leftsidebar - dark
+------------------------- */
+
+.sidebar-dark {
+    background-color: #0e0c28;
+    -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    -webkit-transition: all 0.3s ease;
+}
+
+.sidebar-dark .nav-divider {
+    color: #a4aadb;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.sidebar-dark.nav-left-sidebar .nav-link i {
+    color: #7a80b4;
+}
+
+
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-link {
+    color: #7a80b4;
+}
+
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-link:focus,
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-link:hover {
+    color: #fff;
+    background-color: #242849;
+    border-radius: 2px;
+}
+
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-link:focus,
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-link.active {
+    background-color: #242849;
+    color: #fff;
+    border-radius: 2px;
+}
+
+.sidebar-dark.nav-left-sidebar .submenu .nav .nav-item .nav-link:hover {
+    color: #fff;
+    border-radius: 2px;
+    background-color: #242849;
+}
+
+.sidebar-dark.nav-left-sidebar .navbar-nav .nav-item .badge{
+    position: absolute;
+    right: 40px;
+    display: none;
+}
+
+/*-----navigation dark ---*/
+
+
+/*-----------------------
+Sidebar Page Navigations
+-------------------------*/
+
+.sidebar-nav-fixed {
+    position: sticky;
+    top: 5rem;
+}
+
+.sidebar-nav-fixed ul li a {
+    font-size: 14px;
+    color: #71728e;
+    display: block;
+    padding: 5px 15px;
+    background: transparent;
+    border-radius: 4px;
+    line-height: 1.8;
+}
+
+.sidebar-nav-fixed ul li a:hover {
+    cursor: pointer;
+    color: #5969ff;
+}
+
+.sidebar-nav-fixed ul li a.active {
+    display: block;
+    color: #5969ff;
+    background: #e0e0fd;
+}
+
+
+
+
+
