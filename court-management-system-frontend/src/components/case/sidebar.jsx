@@ -1,5 +1,5 @@
 import React from 'react';
-import "../assets/css/components/sidebar.css"
+import "../../assets/css/components/sidebar.css"
 import CaseHistory from './case-history';
 
 

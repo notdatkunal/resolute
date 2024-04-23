@@ -17,5 +17,5 @@
     left: 0; /* or any other value as needed */
     width: 100%; /* or any desired width */
     background-color: #fff; /* background color */
-    z-index: 0;
+    z-index: 1;
 }

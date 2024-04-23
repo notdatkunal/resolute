@@ -1,6 +1,6 @@
-import NavBar from "./navbar";
-import "../assets/css/components/search-case.css"
-import DatePicker from "./datepicker";
+import NavBar from "../navbar";
+import "../../assets/css/components/search-case.css"
+import DatePicker from "../datepicker";
 
 
 

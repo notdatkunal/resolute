@@ -1,16 +1,17 @@
-import CaseHistory from "./case/case-history";
-import Documents from "./case/documents";
-import Proceedings from "./case/proceedings";
-import NavBar from "./navbar";
-import Sidebar from "./case/sidebar";
+import NavBar from "../navbar";
+import Sidebar from "./sidebar";
 import { useState } from "react";
-import Order from "./case/order";
-import Communication from "./case/communication";
+import Cases from "./cases";
+import Banks from "./banks";
+import Arbitrators from "./arbitrators";
+import Borrowers from "./borrowers";
+import UploadDocuments from "./upload-documents";
+import AdminSearchCase from "./search-case";
 
-export default function Dashboard(){
+export default function AdminDashboard(){
 
 
-    const [activeComponent, setActiveComponent] = useState("CaseHistory");
+    const [activeComponent, setActiveComponent] = useState("Cases");
     const [id, setId] = useState("1");
     
     
@@ -26,11 +27,12 @@ export default function Dashboard(){
     };
   
     const componentMapping = {
-      CaseHistory: <CaseHistory/>,
-      Documents: <Documents />,
-      Proceedings: <Proceedings />,
-      Order: <Order />,
-      Communication:<Communication/>
+        Cases: <AdminSearchCase/>,
+        AllCases: <Cases/>,
+        Banks: <Banks/>,
+        Arbitrators:<Arbitrators/> ,
+        Borrowers: <Borrowers/>,
+        Upload: <UploadDocuments/>,
     };
 
 

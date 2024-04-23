@@ -70,7 +70,7 @@
   }
   .container1 {
     position: relative;
-    margin: calc(25px + 2vh) auto 0 auto;
+    margin: calc(12vh) auto 0 auto;
     padding: 0;
     width: 100%;
     max-width: 840px;

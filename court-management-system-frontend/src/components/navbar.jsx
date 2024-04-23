@@ -74,8 +74,8 @@ export default function NavBar(){
                     </ul>
                 </div>
                 <div>
-                    {isLoggedIn?<button className="btn btn-dark" onClick={login}> Sign Out </button>
-                        :<button className="btn btn-dark" onClick={login}> Sign In </button>
+                    {isLoggedIn?<button className="btn btn-dark" onClick={login}> Log Out </button>
+                        :<button className="btn btn-dark" onClick={login}> Log In </button>
                     }
                 </div>
          </nav>
