@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Arbitrators() {
+export default function Arbitrators({toggleComponent}) {
 
   var [arbitrators, setArbitrators] = useState([
   ]);
@@ -103,6 +103,13 @@ export default function Arbitrators() {
   };
 
 
+  const AddArbitrator = () => {
+    debugger;
+    toggleComponent("AddArbitrator");
+  }
+
+
+
 
 
 
@@ -119,7 +126,7 @@ export default function Arbitrators() {
         <div style={{display:'flex', justifyContent:'flex-end', }}>
           <button className="btn" 
           style={{backgroundColor:"#F3525A", color:'white'}} 
-          // onClick={AddEmployee}
+          onClick={AddArbitrator}
           >
           Add Arbitrator</button>
         </div>

@@ -126,6 +126,11 @@ export default function Cases(){
       const selectedValue = event.target.value;
       setSelectedFilter(selectedValue);
     };
+
+
+    const AddCase = () =>{
+      
+    }
   
   
   
@@ -142,7 +147,7 @@ export default function Cases(){
           <div style={{display:'flex', justifyContent:'flex-end', }}>
             <button className="btn" 
             style={{backgroundColor:"#F3525A", color:'white'}} 
-            // onClick={AddEmployee}
+            onClick={AddCase}
             >
             Add Case</button>
           </div>

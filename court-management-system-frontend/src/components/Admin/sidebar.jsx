@@ -11,10 +11,10 @@ const Sidebar = ({toggleComponent}) => {
     toggleComponent("Cases");
   };
 
-  const toggleAllCases = () => {
-    // debugger;
-    toggleComponent("AllCases");
-  };
+  // const toggleAllCases = () => {
+  //   // debugger;
+  //   toggleComponent("AllCases");
+  // };
 
   const toggleBanks = () => {
     toggleComponent("Banks");
@@ -60,14 +60,14 @@ const Sidebar = ({toggleComponent}) => {
                    <i className="fa-solid fa-briefcase"></i>
                     Cases <span className="badge badge-success">6</span>
                 </a>
-                <div id="submenu-1" className="collapse submenu" style={{}}>
+                {/* <div id="submenu-1" className="collapse submenu" style={{}}>
                   <ul className="nav flex-column">
-                    {/* <li className="nav-item">
+                    <li className="nav-item">
                       <a className="nav-link" 
                          aria-expanded="false">
                          <i class="fa-solid fa-search"></i>                          
                           Search Case</a>
-                    </li> */}
+                    </li>
                     <li className="nav-item">
                       <a className="nav-link"
                           data-toggle="collapse" 
@@ -79,7 +79,7 @@ const Sidebar = ({toggleComponent}) => {
                       All Cases</a>
                     </li>
                   </ul>
-                </div>
+                </div> */}
               </li> 
               <li className="nav-item">
                 <a className="nav-link" 
@@ -156,6 +156,18 @@ const Sidebar = ({toggleComponent}) => {
                          aria-expanded="false">
                          <i class="fa-solid fa-file-arrow-up"></i>                          
                           Documents</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" 
+                         aria-expanded="false">
+                         <i class="fa-solid fa-file-arrow-up"></i>                          
+                          Bank Documents</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" 
+                         aria-expanded="false">
+                         <i class="fa-solid fa-file-arrow-up"></i>                          
+                          Borrower Documents</a>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" href="dashboard-finance.html">

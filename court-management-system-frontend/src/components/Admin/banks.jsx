@@ -3,7 +3,7 @@ import { useState } from "react";
 
 
 
-export default function Banks(){
+export default function Banks({toggleComponent}){
 
 
     var [banks, setBanks] = useState([
@@ -107,6 +107,10 @@ export default function Banks(){
     };
   
 
+  const AddBank = () => {
+      debugger;
+      toggleComponent("AddBank");
+  }
 
 
 
@@ -123,7 +127,7 @@ export default function Banks(){
           <div style={{display:'flex', justifyContent:'flex-end', }}>
             <button className="btn" 
             style={{backgroundColor:"#F3525A", color:'white'}} 
-            // onClick={AddEmployee}
+            onClick={() => AddBank()}
             >
             Add Bank</button>
           </div>

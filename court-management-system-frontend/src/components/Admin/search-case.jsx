@@ -4,7 +4,17 @@ import DatePicker from "../datepicker";
 
 
 
-export default function AdminSearchCase(){
+const AdminSearchCase = ({toggleComponent}) => {
+
+
+
+    const AddCase = () => {
+        debugger;
+        toggleComponent("AddCase");
+    }
+
+
+
     return(<>
     <main>
     <div>
@@ -25,6 +35,13 @@ export default function AdminSearchCase(){
             </svg>
             <div className="go-icon"><i className="fa fa-arrow-right"></i></div>
         </div>
+    </div>
+    <div style={{position:'absolute', float:"left", marginTop:"4em", marginLeft:"5em"}}>
+            <button className="btn" 
+            style={{backgroundColor:"#F3525A", color:'white', height:"40px"}} 
+            onClick={() => AddCase()}
+            >
+            Add Case</button>
     </div>
     <DatePicker></DatePicker>
     <div className="container">
@@ -50,3 +67,6 @@ export default function AdminSearchCase(){
     </main>
     </>);
 }
+
+
+export default AdminSearchCase;

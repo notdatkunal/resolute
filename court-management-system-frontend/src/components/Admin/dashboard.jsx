@@ -1,12 +1,14 @@
 import NavBar from "../navbar";
 import Sidebar from "./sidebar";
 import { useState } from "react";
-import Cases from "./cases";
 import Banks from "./banks";
 import Arbitrators from "./arbitrators";
 import Borrowers from "./borrowers";
 import UploadDocuments from "./upload-documents";
 import AdminSearchCase from "./search-case";
+import AddCase from "./add-case";
+import AddBank from "./add-bank";
+import AddArbitrator from "./add-arbitrator";
 
 export default function AdminDashboard(){
 
@@ -16,7 +18,7 @@ export default function AdminDashboard(){
     
     
     const toggleComponent = (component) => {
-    //   debugger;
+      debugger;
       console.log(component);
       setActiveComponent(component);
     };
@@ -27,12 +29,15 @@ export default function AdminDashboard(){
     };
   
     const componentMapping = {
-        Cases: <AdminSearchCase/>,
-        AllCases: <Cases/>,
-        Banks: <Banks/>,
-        Arbitrators:<Arbitrators/> ,
+        Cases: <AdminSearchCase toggleComponent={toggleComponent}/>,
+        // AllCases: <Cases/>,
+        Banks: <Banks toggleComponent={toggleComponent}/>,
+        Arbitrators:<Arbitrators toggleComponent={toggleComponent}/> ,
         Borrowers: <Borrowers/>,
         Upload: <UploadDocuments/>,
+        AddCase: <AddCase toggleComponent={toggleComponent}/>,
+        AddBank: <AddBank toggleComponent={toggleComponent}/>,
+        AddArbitrator: <AddArbitrator toggleComponent={toggleComponent}/>,
     };
 
 
