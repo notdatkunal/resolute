@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { getAllArbitratorsAPI } from "../../services/adminServices";
 
 export default function Arbitrators({toggleComponent}) {
 
-  var [arbitrators, setArbitrators] = useState([
-  ]);
+  var [arbitrators, setArbitrators] = useState([]);
   var [selectedFilter, setSelectedFilter] = useState("");
   var [cities, setCities] = useState([]);
 
 
   const headerMapping = {
-    'Serial No.': 'serial_no',
-    'Arbitrator Id': 'bank_id',
-    'Arbitrator Name': 'bank_name',
-    'Registration Date': 'registration_date',
+    'Serial No.': 'serialNo',
+    'Arbitrator Id': 'arbitratorId',
+    'Arbitrator Name': 'arbitratorName',
+    'Authorised Officer Name': 'authorisedOfficerName',
+    'Location': 'location',
+    'Username': 'username',
+    'Registration Date': 'registrationDate',
   };
 
 
@@ -29,22 +33,38 @@ export default function Arbitrators({toggleComponent}) {
   // },[selectedFilter]);
 
 
-  // const getArbitrators = async(selectedFilter) => {
-  //   debugger;
-  //   const response = await getArbitratorsAPI(selectedFilter, authState);
-  //   if(response.status == 200){
-  //     if(response.data == "EXPIRED" || response.data == "INVALID"){
-  //       navigate("/login");
-  //       // toast.warning("Session Time Expired");
-  //     }
-  //     else{
-  //       setArbitrators(response.data);
-  //     }
-  //   }else{
-  //     toast.error('Error while calling get arbitrators api')
-  //   }
-  // }
+  const getArbitrators = async(selectedFilter) => {
+    debugger;
+    const response = await getArbitratorsAPI(selectedFilter);
+    if(response.status == 200){
+      if(response.data == "EXPIRED" || response.data == "INVALID"){
+        navigate("/login");
+        toast.warning("Session Time Expired");
+      }
+      else{
+        setArbitrators(response.data);
+      }
+    }else{
+      toast.error('Error while calling get arbitrators api')
+    }
+  }
 
+  const getAllArbitrators = async() => {
+    debugger;
+    const response = await getAllArbitratorsAPI();
+    if(response && response.status == 200){
+      debugger;
+      // if(response.data == "EXPIRED" || response.data == "INVALID"){
+      //   navigate("/login");
+      //   toast.warning("Session Time Expired");
+      // }
+      // else{
+        setArbitrators(response.data);
+      // }
+    }else{
+      toast.error('Error while calling get arbitrators api')
+    }
+  }
 
   
   // const getCities = async() => {
@@ -75,10 +95,10 @@ export default function Arbitrators({toggleComponent}) {
 
 
   const renderArbitrators = () =>
-    arbitrators.map(order => (
-      <tr key={order.order_id}>
+    arbitrators.map(arbitrator => (
+      <tr key={arbitrator.arbitrator_id}>
         {Object.keys(headerMapping).map(label => (
-            <td style={{textAlign:'center'}} key={label}>{order[headerMapping[label]]}</td>
+            <td style={{textAlign:'center'}} key={label}>{arbitrator[headerMapping[label]]}</td>
         ))}
       </tr>
     ));
@@ -108,6 +128,11 @@ export default function Arbitrators({toggleComponent}) {
     toggleComponent("AddArbitrator");
   }
 
+
+
+  useEffect( () => {
+    getAllArbitrators();
+  }, [])
 
 
 

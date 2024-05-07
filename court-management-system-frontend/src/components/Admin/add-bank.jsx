@@ -2,6 +2,8 @@ import { useState } from "react";
 import "../../assets/css/components/Admin/add-case.css"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { addBank } from "../../services/adminServices";
+import { toast } from "react-toastify";
 
 
 
@@ -57,26 +59,27 @@ export default function AddBank({toggleComponent}){
   
   
     const Submit = async () =>{
-      debugger;
-      var role_name = selectedFilter;
-      var data = authState;
-      var sentData = {data, bank, role_name}
-      const response = await AddEmployee(sentData);
-      if(response.status == 200 && response.data != 0){
-        if(response.data == "EXPIRED" || response.data == "INVALID"){
-          navigate("/login");
-          toast.warning("Session Time Expired");
+        debugger;
+      //   var role_name = selectedFilter;
+      //   var data = authState;
+        var sentData = {bank}
+        const response = await addBank(sentData);
+        if(response.status == 200){
+          // if(response.data == "EXPIRED" || response.data == "INVALID"){
+          //   navigate("/login");
+          //   toast.warning("Session Time Expired");
+          // }
+          // else{
+            debugger;
+            toggleComponent("Banks");
+            toast.success("Bank Added Successfully");
+          // }  
+        }else{
+          toast.error("Failed To Add Bank");
         }
-        else{
-          toggleComponent("EmployeeDirectory");
-          toast.success("Employee Added Successfully");
-        }  
-      }else{
-        toast.error("Failed To Add Employee");
       }
-    }
+    
   
-
 
 
 

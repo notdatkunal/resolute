@@ -1,19 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { getAllBorrowersAPI } from "../../services/adminServices";
 
 
 export default function Borrowers() {
 
   var [borrowers, setBorrowers] = useState([
   ]);
-  var [selectedFilter, setSelectedFilter] = useState("");
-  var [cities, setCities] = useState([]);
+  // var [selectedFilter, setSelectedFilter] = useState("");
+  // var [cities, setCities] = useState([]);
 
 
   const headerMapping = {
-    'Serial No.': 'serial_no',
-    'Borrower Id': 'bank_id',
-    'Borrower Name': 'bank_name',
-    'Registration Date': 'registration_date',
+    'Serial No.': 'serialNo',
+    'Borrower Id': 'borrowerId',
+    'Borrower Name': 'borrowerName',
+    'Registration Date': 'registrationDate',
   };
 
 
@@ -47,6 +49,25 @@ export default function Borrowers() {
   // }
 
 
+
+    const getAllBorrowers = async() => {
+      debugger;
+      const response = await getAllBorrowersAPI();
+      if(response.status == 200){
+        // if(response.data == "EXPIRED" || response.data == "INVALID"){
+          //   navigate("/login");
+          // toast.warning("Session Time Expired");
+          // }
+          // else{
+          setBorrowers(response.data);
+            // }
+      }else{
+        toast.error('Error while calling get banks api')
+      }
+    }
+
+
+
   
   // const getCities = async() => {
   //   const response = await getCitiesAPI(authState);
@@ -65,21 +86,21 @@ export default function Borrowers() {
 
 
 
-  const renderOption = () => {
-    return cities.map(city => (
-      <option key={city} value={city}>
-        {city}
-      </option>
-    ));
-  }
+  // const renderOption = () => {
+  //   return cities.map(city => (
+  //     <option key={city} value={city}>
+  //       {city}
+  //     </option>
+  //   ));
+  // }
 
 
 
   const renderBorrowers = () =>
-    borrowers.map(order => (
-      <tr key={order.order_id}>
+    borrowers.map(borrower => (
+      <tr key={borrower.borrower_id}>
         {Object.keys(headerMapping).map(label => (
-            <td style={{textAlign:'center'}} key={label}>{order[headerMapping[label]]}</td>
+            <td style={{textAlign:'center'}} key={label}>{borrower[headerMapping[label]]}</td>
         ))}
       </tr>
     ));
@@ -102,6 +123,12 @@ export default function Borrowers() {
     const selectedValue = event.target.value;
     setSelectedFilter(selectedValue);
   };
+
+
+
+  useEffect( () => {
+    getAllBorrowers();
+  }, [])
 
 
 

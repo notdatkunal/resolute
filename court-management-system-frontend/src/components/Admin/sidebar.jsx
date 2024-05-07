@@ -31,8 +31,8 @@ const Sidebar = ({toggleComponent}) => {
     toggleComponent("Borrowers");
   };
 
-  const toggleUpload = () => {
-    toggleComponent("Upload");
+  const toggleDocumentUpload = () => {
+    toggleComponent("DocumentUpload");
   };
 
 
@@ -65,7 +65,7 @@ const Sidebar = ({toggleComponent}) => {
                     <li className="nav-item">
                       <a className="nav-link" 
                          aria-expanded="false">
-                         <i class="fa-solid fa-search"></i>                          
+                         <i className="fa-solid fa-search"></i>                          
                           Search Case</a>
                     </li>
                     <li className="nav-item">
@@ -75,7 +75,7 @@ const Sidebar = ({toggleComponent}) => {
                           data-target="#submenu-1-1" 
                           aria-controls="submenu-1-1"       
                           onClick={() => {toggleAllCases()}}>
-                      <i class="fa-solid fa-folder"></i>                        
+                      <i className="fa-solid fa-folder"></i>                        
                       All Cases</a>
                     </li>
                   </ul>
@@ -88,7 +88,7 @@ const Sidebar = ({toggleComponent}) => {
                    aria-expanded="false" 
                    data-target="#submenu-2" 
                    aria-controls="submenu-2">
-                  <i class="fa-solid fa-building-columns"></i>
+                  <i className="fa-solid fa-building-columns"></i>
                    Banks
                   </a>
                 {/* <div id="submenu-2" className="collapse submenu" style={{}}>
@@ -124,7 +124,7 @@ const Sidebar = ({toggleComponent}) => {
                    aria-expanded="false" 
                    data-target="#submenu-2" 
                    aria-controls="submenu-2">
-                  <i class="fa-solid fa-gavel"></i>
+                  <i className="fa-solid fa-gavel"></i>
                    Arbitrators
                 </a>
               </li>
@@ -135,7 +135,7 @@ const Sidebar = ({toggleComponent}) => {
                    aria-expanded="false" 
                    data-target="#submenu-2" 
                    aria-controls="submenu-2">
-                    <i class="fa-solid fa-users-line"></i>
+                    <i className="fa-solid fa-users-line"></i>
                     Borrowers
                 </a>
               </li>
@@ -146,44 +146,46 @@ const Sidebar = ({toggleComponent}) => {
                    aria-expanded="false" 
                    data-target="#submenu-5" 
                    aria-controls="submenu-5">
-                    <i class="fa-solid fa-upload"></i>
+                    <i className="fa-solid fa-upload"></i>
                     Upload
                 </a>
                 <div id="submenu-5" className="collapse submenu" style={{}}>
                   <ul className="nav flex-column">
                     <li className="nav-item">
                       <a className="nav-link" 
-                         aria-expanded="false">
-                         <i class="fa-solid fa-file-arrow-up"></i>                          
+                         aria-expanded="false"
+                         onClick={() => toggleDocumentUpload()}
+                         >
+                         <i className="fa-solid fa-file-arrow-up"></i>                          
                           Documents</a>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" 
                          aria-expanded="false">
-                         <i class="fa-solid fa-file-arrow-up"></i>                          
+                         <i className="fa-solid fa-file-arrow-up"></i>                          
                           Bank Documents</a>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" 
                          aria-expanded="false">
-                         <i class="fa-solid fa-file-arrow-up"></i>                          
+                         <i className="fa-solid fa-file-arrow-up"></i>                          
                           Borrower Documents</a>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" href="dashboard-finance.html">
-                      <i class="fa-solid fa-video"></i>
+                      <i className="fa-solid fa-video"></i>
                         Meeting Recordings</a>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" href="dashboard-sales.html">
-                      <i class="fa-solid fa-file-video"></i>
+                      <i className="fa-solid fa-file-video"></i>
                         Minutes of Meeting</a>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" 
                          href="#" 
                          aria-expanded="false">
-                          <i class="fa-solid fa-file-image"></i>
+                          <i className="fa-solid fa-file-image"></i>
                           Screenshot</a>
                     </li>
                   </ul>

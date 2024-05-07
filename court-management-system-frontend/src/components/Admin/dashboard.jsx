@@ -34,7 +34,7 @@ export default function AdminDashboard(){
         Banks: <Banks toggleComponent={toggleComponent}/>,
         Arbitrators:<Arbitrators toggleComponent={toggleComponent}/> ,
         Borrowers: <Borrowers/>,
-        Upload: <UploadDocuments/>,
+        DocumentUpload: <UploadDocuments/>,
         AddCase: <AddCase toggleComponent={toggleComponent}/>,
         AddBank: <AddBank toggleComponent={toggleComponent}/>,
         AddArbitrator: <AddArbitrator toggleComponent={toggleComponent}/>,

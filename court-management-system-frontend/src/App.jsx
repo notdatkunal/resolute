@@ -7,6 +7,7 @@ import SearchCase from './components/case/search-case'
 // import CaseHistory from './components/case-history'
 import Dashboard from './components/dashboard'
 import AdminDashboard from './components/Admin/dashboard'
+import { ToastContainer } from 'react-toastify'
 
 const App = createBrowserRouter([
   {
@@ -33,8 +34,9 @@ const App = createBrowserRouter([
     path: '/admin/',
     element: <AdminDashboard></AdminDashboard>,
     errorElement: <ErrorPage />,
-  }
-
+  },
 ])
+
+
 
 export default App

@@ -2,6 +2,8 @@ import { useState } from "react";
 import "../../assets/css/components/Admin/add-case.css"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { addCase } from "../../services/adminServices";
+import { toast } from "react-toastify";
 
 
 
@@ -45,8 +47,8 @@ export default function AddCase({toggleComponent}){
     });
 
 
-    var [selectedFilter, setSelectedFilter] = useState("ADMIN");  
-    var [roles, setRoles] = useState([]);
+    // var [selectedFilter, setSelectedFilter] = useState("ADMIN");  
+    // var [roles, setRoles] = useState([]);
     var [states, setStates] = useState(["Maharashtra"]);
     var [zones, setZones] = useState(["East", "West", "South1", "South2", "North"]);
     const [creditNumber, setCreditNumber] = useState("");
@@ -70,13 +72,13 @@ export default function AddCase({toggleComponent}){
     };
   
   
-    const renderOption = () => {
-    return roles.map(role => (
-        <option key={role} value={role}>
-        {role}
-        </option>
-    ));
-    }
+    // const renderOption = () => {
+    // return roles.map(role => (
+    //     <option key={role} value={role}>
+    //     {role}
+    //     </option>
+    // ));
+    // }
     
 
 
@@ -118,51 +120,53 @@ export default function AddCase({toggleComponent}){
             value = value.slice(0, maxLength);
         }
 
-        setUser({ ...caseData, account_number: value });
+        setCaseData({ ...caseData, account_number: value });
     };
 
-      const getRoles = async () => {
-        var response = await getRolesAPI(authState);
+    //   const getRoles = async () => {
+    //     var response = await getRolesAPI(authState);
+    //     if(response.status == 200){
+    //       if(response.data == "EXPIRED" || response.data == "INVALID"){
+    //         navigate("/login");
+    //         toast.warning("Session Time Expired");
+    //       }
+    //       else{
+    //         setRoles(response.data);
+    //       }    
+    //     }else{
+    //       toast.error("Failed To Load Roles");
+    //     }
+    //   }
+  
+  
+      const Submit = async (event) =>{
+        debugger;
+        event.preventDefault();
+      //   var role_name = selectedFilter;
+      //   var data = authState;
+        var sentData = {caseData}
+        const response = await addCase(sentData);
         if(response.status == 200){
-          if(response.data == "EXPIRED" || response.data == "INVALID"){
-            navigate("/login");
-            toast.warning("Session Time Expired");
-          }
-          else{
-            setRoles(response.data);
-          }    
+          // if(response.data == "EXPIRED" || response.data == "INVALID"){
+          //   navigate("/login");
+          //   toast.warning("Session Time Expired");
+          // }
+          // else{
+            debugger;
+            toggleComponent("Cases");
+            toast.success("Case Added Successfully");
+          // }  
         }else{
-          toast.error("Failed To Load Roles");
+          toast.error("Failed To Add Case");
         }
-      }
-  
-  
-    const Submit = async () =>{
-      debugger;
-      var role_name = selectedFilter;
-      var data = authState;
-      var sentData = {data, caseData, role_name}
-      const response = await AddEmployee(sentData);
-      if(response.status == 200 && response.data != 0){
-        if(response.data == "EXPIRED" || response.data == "INVALID"){
-          navigate("/login");
-          toast.warning("Session Time Expired");
-        }
-        else{
-          toggleComponent("EmployeeDirectory");
-          toast.success("Employee Added Successfully");
-        }  
-      }else{
-        toast.error("Failed To Add Employee");
-      }
-    }
-  
+      }  
 
 
 
 
     return(
     <div>
+    <form onSubmit={Submit}>
     <div className="Auth-form-content col">
         <h1 className="Auth-form-title">Add Case</h1>
         <div className="row">
@@ -227,7 +231,7 @@ export default function AddCase({toggleComponent}){
                 value={creditNumber}
                 onChange={(e) => formatCreditNumber(e.target.value)}
                 required
-            />
+                />
         </div>        
         </div>
         <div className="row">
@@ -593,5 +597,6 @@ export default function AddCase({toggleComponent}){
         </div>
     <div className="col">
     </div>
+    </form>
     </div>);
 }
