@@ -19,8 +19,28 @@ export default function NavBar(){
         navigate('/');
     }
 
-
     const ARB  = () =>{
+        navigate('/')
+    }
+    
+    const medi  = () =>{
+        navigate('/')
+    }
+
+    const concili  = () =>{
+        navigate('/')
+    }
+
+    const freeLegalAid  = () =>{
+        navigate('/')
+    }
+
+    const aboutUs  = () =>{
+        navigate('/about');
+    }
+
+    const faq  = () =>{
+        navigate('/faq');
     }
 
 
@@ -45,9 +65,9 @@ export default function NavBar(){
                         </a>
                         <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{marginTop: "-0.4rem"}}> {/* Dropdown menu content */}
                             <a className="dropdown-item" onClick={ARB}>ARB</a>
-                            <a className="dropdown-item" onClick={ARB}>Medi</a>
-                            <a className="dropdown-item" onClick={ARB}>Concili</a>
-                            <a className="dropdown-item" onClick={ARB}>Free Legal Aid</a>
+                            <a className="dropdown-item" onClick={medi}>Medi</a>
+                            <a className="dropdown-item" onClick={concili}>Concili</a>
+                            <a className="dropdown-item" onClick={freeLegalAid}>Free Legal Aid</a>
                             {/* <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="#">More Services</a> */}
                         </div>
@@ -56,11 +76,14 @@ export default function NavBar(){
                             <a className="nav-link" href="blog.html">Blog</a>
                         </li> */}
                         <li className="nav-item">
-                            <a className="nav-link" href="about.html">About</a>
+                            <a className="nav-link" onClick={aboutUs}>About</a>
                         </li>
                         {/* <li className="nav-item">
                             <a className="nav-link" href="events.html">Events</a>
                         </li> */}
+                        <li className="nav-item">
+                            <a className="nav-link"  onClick={faq}>FAQ</a>
+                        </li>
                         <li className="nav-item">
                             <a className="nav-link" href="contact.html">Contact Us</a>
                         </li>

@@ -121,3 +121,25 @@ export async function getSearchedCaseAPI(data){
         return null;
     }
 }
+
+
+
+
+export async function uploadFile(data) {
+    try {
+      debugger;
+      let url = createUrl(`/media/bulk`);
+      const response = await axios.post(url, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          // You can include any additional headers here if needed
+        },
+      });
+  
+      return response; // Assuming your server returns JSON data
+    } catch (error) {
+    //   console.error('Error uploading file:', error);
+    //   throw error; // Throw the error for handling in the component
+        return null;
+    }
+  };

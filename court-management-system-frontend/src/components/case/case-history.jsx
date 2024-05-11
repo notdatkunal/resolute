@@ -1,10 +1,62 @@
 import NavBar from "../navbar";
 import Sidebar from "./sidebar";
 import "../../assets/css/components/case.css"
+import { useEffect, useState } from "react";
+import { getCaseHistoryAPI } from "../../services/caseServices";
 
 
 
 export default function CaseHistory(){
+
+    const [caseDetails, setCaseDetails] = useState({
+            "caseType" :"",
+            "fillingNumber": "",
+            "fillingDate":"",
+            "registrationDate":"",
+            "registrationNumber":"",
+            "CNRNumber":"",
+    })
+    const [caseStatus, setCaseStatus] = useState({
+            "firstHearingDate" :"",
+            "nextHearingDate": "",
+            "caseStage":"",
+            "courtAndJudgeNumber":"",
+    });
+
+
+    const getCaseHistory = async () =>{
+        debugger;
+      //   var role_name = selectedFilter;
+      //   var data = authState;
+        const response = await getCaseHistoryAPI();
+        if(response.status == 200){
+          // if(response.data == "EXPIRED" || response.data == "INVALID"){
+          //   navigate("/login");
+          //   toast.warning("Session Time Expired");
+          // }
+          // else{
+            debugger;
+            setCaseDetails(response.data.caseDetails);
+            setCaseStatus(response.data.caseStatus);
+          // }  
+        }else{
+          toast.error("Failed To Add Bank");
+        }
+      }
+    
+  
+
+    useEffect(()=>{
+        getCaseHistory();
+    }, [])
+
+
+
+
+
+
+
+
     return(
         <>
             {/* <div class="m-b-20">
@@ -25,27 +77,27 @@ export default function CaseHistory(){
                         <tbody>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Case Type</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>SUMMARY CIVIL SUIT</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.caseType}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Filling Number</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>112150/2019</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.fillingNumber}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Filling Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>08-11-2019</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.fillingDate}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Registration Number</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>100051/2021</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.registrationNumber}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Registration Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>26-11-2019</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.registrationDate}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>CNR Number</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>MHCC010114862019</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.CNRNumber}</td>
                             </tr>
                         </tbody>
                         <thead className="table-active table-dark">
@@ -54,19 +106,19 @@ export default function CaseHistory(){
                         <tbody>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>First Hearing Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>06-01-2020</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.firstHearingDate}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Next Hearing Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>07-05-2024</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.nextHearingDate}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Case Stage</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>Summons for judgement hearing</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.caseStage}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Court Number And Judge</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>83-Court 83 ADDL. SESSIONS JUDGE</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.courtAndJudgeNumber}</td>
                             </tr>
                         </tbody>
                     </table>

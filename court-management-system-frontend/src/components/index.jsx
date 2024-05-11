@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Footer from "./footer";
 import NavBar from "./navbar";
 
@@ -7,6 +8,16 @@ import NavBar from "./navbar";
 
 
 export default function Home(){
+
+   const navigate = useNavigate();
+
+
+
+   const aboutUs = () =>{
+      debugger;
+      navigate('/about');
+   }
+
     return(<>
     <div className="header_section">
         <NavBar></NavBar>
@@ -32,7 +43,7 @@ export default function Home(){
                                     <h1 className="banner_title">Business Agency Profit Your Marketing</h1>
                                     <p className="banner_text">It is a long established fact that a reader will be distracted by the readable content of a page when</p>
                                     <div className="btn_main">
-                                       <div className="contact_bt active "><a href="#">Contact Us</a></div>
+                                       <div className="contact_bt active "><a href="">Contact Us</a></div>
                                        <div className="readmore_bt"><a href="#">Read More</a></div>
                                     </div>
                                  </div>
@@ -99,7 +110,7 @@ export default function Home(){
       <div className="about_section layout_padding">
          <div className="container">
             <h1 className="about_title">About Us</h1>
-            <p className="about_text">It is a long established fact that a reader will be distracted by the readable content of a page when</p>
+            <p className="about_text">At our esteemed company, we pride ourselves on our expertise in online dispute resolution through arbitration and mediation. </p>
             <div className="about_section_2">
                <div className="row">
                   <div className="col-lg-6">
@@ -107,8 +118,8 @@ export default function Home(){
                   </div>
                   <div className="col-lg-6">
                      <div className="about_title_main">
-                        <p className="lorem_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words </p>
-                        <div className="read_bt"><a href="#">Read More</a></div>
+                        <p className="lorem_text">Our dedicated team of legal experts possesses extensive experience in navigating the intricacies of resolving disputes through digital platforms, ensuring swift and efficient resolution for our clients.</p>
+                        <div className="read_bt"><a onClick={aboutUs}>Read More</a></div>
                      </div>
                   </div>
                </div>
@@ -117,37 +128,39 @@ export default function Home(){
       </div>
       {/* <!--about section end --> */}
       {/* <!-- services section start --> */}
-      <div className="services_section layout_padding">
+      <div className="services_section layout_padding" id="services_section">
          <div className="container">
             <h1 className="services_title">What We Do</h1>
             <p className="about_text">It is a long established fact that a reader will be distracted by the readable content of a page when</p>
             <div className="services_section_2">
                <div className="row">
-                  <div className="col-lg-4">
+                  <div className="col-lg-6">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-1.png"/></div>
                      </div>
-                     <h4 className="selection_text">Selection of Business</h4>
-                     <p className="ipsum_text">There are many variations of passages of Lorem Ipsum available, but the form, by injected humour, or randomised</p>
+                     <h4 className="selection_text">Arbitration</h4>
+                     <p className="" style={{textAlign:"justify"}}>Arbitration is a method of resolving disputes outside of the court system. In arbitration, parties present their case to a neutral third party, known as an arbitrator, who then renders a decision that is binding on both parties. This process is often chosen for its efficiency, confidentiality, and flexibility in selecting the arbitrator and procedural rules.</p>
+                  </div>
+                  <div className="col-lg-5">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-4.png"/></div>
                      </div>
-                     <h4 className="selection_text">Securities Transactions</h4>
-                     <p className="ipsum_text">There are many variations of passages of Lorem Ipsum available, but the form, by injected humour, or randomised</p>
+                     <h4 className="selection_text">Mediation</h4>
+                     <p className="" style={{textAlign:"justify"}}>Mediation involves a neutral third party, the mediator, who facilitates communication and negotiation between disputing parties to help them reach a voluntary agreement. Unlike arbitration, the mediator does not impose a decision but rather assists the parties in finding common ground and crafting mutually acceptable solutions. Mediation is prized for its informality, cost-effectiveness, and ability to preserve relationships.</p>
                   </div>
-                  <div className="col-lg-4">
+                  <div className="col-lg-6">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-2.png"/></div>
                      </div>
-                     <h4 className="selection_text">Research and Analytics</h4>
-                     <p className="ipsum_text">There are many variations of passages of Lorem Ipsum available, but the form, by injected humour, or randomised</p>
-                     <div className="icon_box">
+                     <h4 className="selection_text">Conciliation</h4>
+                     <p className="" style={{textAlign:"justify"}}>Conciliation shares similarities with mediation but typically involves a more active role for the conciliator in proposing solutions and encouraging compromise. Similar to mediation, conciliation aims to resolve disputes amicably and without resorting to litigation. It often proves beneficial in cases where emotions are high, and parties may need additional guidance to find resolution</p>
+                  </div>
+                     {/* <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-5.png"/></div>
                      </div>
                      <h4 className="selection_text">Advisory Activities</h4>
-                     <p className="ipsum_text">There are many variations of passages of Lorem Ipsum available, but the form, by injected humour, or randomised</p>
-                  </div>
-                  <div className="col-lg-4">
+                     <p className="ipsum_text">There are many variations of passages of Lorem Ipsum available, but the form, by injected humour, or randomised</p> */}
+                  {/* <div className="col-lg-4">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-3.png"/></div>
                      </div>
@@ -158,7 +171,7 @@ export default function Home(){
                      </div>
                      <h4 className="selection_text">Management and Asset</h4>
                      <p className="ipsum_text">There are many variations of passages of Lorem Ipsum available, but the form, by injected humour, or randomised</p>
-                  </div>
+                  </div> */}
                </div>
             </div>
          </div>
@@ -212,7 +225,7 @@ export default function Home(){
                   <div className="col-md-6">
                      <div className="map_main">
                         <div className="map-responsive">
-                           <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France" width="600" height="400" frameborder="0" style={{border: 0, width: "100%"}}></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.897073768439!2d72.832334178834!3d18.935949436447043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1da35870c23%3A0x69b487517fcd373!2sMK%20Bhavan%2C%20Old%20Custom%20House%20Rd%2C%20Ballard%20Estate%2C%20Fort%2C%20Mumbai%2C%20Maharashtra%20400001!5e0!3m2!1sen!2sin!4v1715265856330!5m2!1sen!2sin" width="600" height="400" style={{border:"0"}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                        
                         </div>
                      </div>
                   </div>
