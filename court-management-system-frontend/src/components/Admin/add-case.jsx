@@ -112,7 +112,7 @@ export default function AddCase({toggleComponent}){
 
 
     const handleAccountNumberChange = (e) => {
-        const maxLength = 10; // Set maximum length
+        const maxLength = 12; // Set maximum length
         let value = e.target.value;
         
         // Enforce maximum length

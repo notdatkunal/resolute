@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import './App.css'
 import ErrorPage from './components/error-page'
 import Home from './components'
@@ -10,6 +10,7 @@ import AdminDashboard from './components/Admin/dashboard'
 import { ToastContainer } from 'react-toastify'
 import AboutUs from './components/about'
 import Faq from './components/faq'
+import { useSelector } from 'react-redux'
 
 const App = createBrowserRouter([
   {
@@ -29,26 +30,53 @@ const App = createBrowserRouter([
   },
   {
     path: '/search-case',
-    element: <SearchCase></SearchCase>,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: '/about',
-    element: <AboutUs></AboutUs>,
+    element: <PrivateRoute>
+      <SearchCase />
+    </PrivateRoute>,
     errorElement: <ErrorPage />,
   },
   {
     path: '/case/:id',
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute>
+      <Dashboard />
+    </PrivateRoute>,
     errorElement: <ErrorPage />,
   },
   {
     path: '/admin',
-    element: <AdminDashboard></AdminDashboard>,
+    element: <AdminPrivateRoute>
+      <AdminDashboard />
+    </AdminPrivateRoute>,
     errorElement: <ErrorPage />,
   },
-])
+]);
 
+// Private Route component for authenticated users
+function PrivateRoute({ children }) {
+  // const { isLoggedIn } = useAuth(); // Assuming isLoggedIn state from AuthContext
+  const isLoggedIn = useSelector((state)=> state.user);
 
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+// Admin Private Route component for authorized admins (optional)
+function AdminPrivateRoute({ children }) {
+  debugger;
+  // const { isAdmin } = useAuth(); // Assuming isAdmin state from AuthContext (optional)
+  const isLoggedIn  = useSelector((state)=> state.user.user.isLoggedIn);
+  const isAdmin = useSelector((state) => state.user.user.role);
+
+  if (!isLoggedIn && isAdmin != "admin") {
+    return <Navigate to="/unauthorized" replace />; // Redirect to unauthorized page
+  } else if(!isLoggedIn){
+    return <Navigate to="/login" replace />;
+  }
+
+  return <PrivateRoute>{children}</PrivateRoute>; // Nested PrivateRoute for combined protection
+}
 
 export default App

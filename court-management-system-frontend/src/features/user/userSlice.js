@@ -3,27 +3,28 @@ import { createSlice } from '@reduxjs/toolkit'
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    id: 0,
-    username: "",
+    userId: 0,
+    userName: "",
     token:"",
     isLoggedIn: false,
-    isAdmin: false,
+    role: "",
   },
   reducers: {
     login: (state, action) => {
-      const { id, username, token } = action.payload;
-      state.id = id;
-      state.username = username;
+      const { id, username, token, role} = action.payload;
+      state.userId = id;
+      state.userName = username;
       state.token = token;
+      state.role = role;
       state.isLoggedIn = true;
       console.log('USER PAYLOAD:', state);
     },
     logout: (state, action) => {
-      state.id = 0;
-      state.username = "";
+      state.userId = 0;
+      state.userName = "";
       state.token = "";
       state.isLoggedIn = false;
-      state.isAdmin = false;
+      state.role = "";
     }
   },
 })

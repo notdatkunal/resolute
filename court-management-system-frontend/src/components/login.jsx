@@ -7,6 +7,8 @@ import NavBar from './navbar'
 import '../assets/css/components/login.css'
 import { useDispatch } from 'react-redux';
 import { login } from '../features/user/userSlice';
+import { loginAPI } from '../services/loginService';
+import { toast } from 'react-toastify';
 
 
 
@@ -15,7 +17,7 @@ export default function Login() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  var [email, setEmail] = useState("");
+  var [username, setUsername] = useState("");
   var [password, setPassword] = useState("");
 //   const [authState,setAuthState] = useContext(AuthContext);
   
@@ -74,6 +76,37 @@ export default function Login() {
 //     }
 // }
   
+
+const Submit = async (e) =>{
+  e.preventDefault();
+  debugger;
+  const response = await loginAPI(username, password);
+  if(response.status == 200){
+    dispatch(login(response.data))
+    if (response.data != 0) {
+      switch (response.data.role) {
+        case "admin":
+          navigate("/admin");              
+          break;
+        case "bank":
+          navigate("/search-case");              
+          break;
+        case "arbitrator":
+          navigate("/search-case");              
+          break;
+        default:
+          break;
+      }
+      toast.success(`Welcome ${response.data.username}!`);
+    }
+  }else{
+    toast.error("Failed To Login, Please Try Again");
+  }
+}
+
+
+
+
 
   return (<>
   <div>
@@ -137,12 +170,18 @@ export default function Login() {
           />
         </svg>
       </div>
-      <form action="" className="log-in, form" autoComplete="off">
+      <form action="" className="log-in, form" autoComplete="off" onSubmit={Submit}>
         <h4>We are <span>RESOLUTE</span></h4>
         <p>Welcome back! Log in to your account to view today's clients:</p>
         <div className="floating-label">
-          <input placeholder="Email" type="email" name="email" id="email" autoComplete="off" />
-          <label htmlFor="email">Email:</label>
+          <input 
+              placeholder="Username" 
+              type="text" 
+              name="username" 
+              id="username" 
+              autoComplete="off" 
+              onChange={(e) => setUsername(e.target.value)}/>
+          <label htmlFor="email">Username:</label>
           <div className="icon">
             <svg
               enableBackground="new 0 0 100 100"
@@ -161,7 +200,13 @@ export default function Login() {
           </div>
         </div>
         <div className="floating-label">
-          <input placeholder="Password" type="password" name="password" id="password" autoComplete="off" />
+          <input 
+                placeholder="Password" 
+                type="password" 
+                name="password" 
+                id="password" 
+                autoComplete="off" 
+                onChange={(e) => setPassword(e.target.value)}/>
           <label htmlFor="password">Password:</label>
           <div className="icon">
             <svg
@@ -180,7 +225,7 @@ export default function Login() {
             </svg>
           </div>
         </div>
-        <button type="submit" onClick={() => false}>Log in</button>
+        <button type="submit">Log in</button>
       </form>
     </div>  
     </div>  
