@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../../assets/css/components/Admin/add-case.css"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { addArbitrator } from "../../services/adminServices";
+import { addArbitrator, getArbitratorAPI, updateArbitratorAPI } from "../../services/adminServices";
 import { toast } from "react-toastify";
 
 
 
-export default function AddArbitrator({toggleComponent}){
+export default function UpdateArbitrator({id, toggleComponent}){
 
     const [arbitrator, setArbitrator] = useState({
         arbitratorName: "",
@@ -57,12 +57,31 @@ export default function AddArbitrator({toggleComponent}){
     //     }
     // }
   
+    const getArbitrator = async(id) => {
+        debugger;
+        const response = await getArbitratorAPI(id);
+        if(response.status == 200){
+            // if(response.data == "EXPIRED" || response.data == "INVALID"){
+            //   navigate("/login");
+            // toast.warning("Session Time Expired");
+            // }
+            // else{
+                setArbitrator(response.data);
+                // }
+            }else{
+                toast.error('Error while calling get bank api')
+            }
+    }
+
+
+
+
   
     const Submit = async () =>{
       debugger;
     //   var role_name = selectedFilter;
     //   var data = authState;
-      const response = await addArbitrator(arbitrator);
+      const response = await updateArbitratorAPI(arbitrator, id);
       if(response.status == 200){
         // if(response.data == "EXPIRED" || response.data == "INVALID"){
         //   navigate("/login");
@@ -71,26 +90,31 @@ export default function AddArbitrator({toggleComponent}){
         // else{
           debugger;
           toggleComponent("Arbitrators");
-          toast.success("Arbitrator Added Successfully");
+          toast.success("Arbitrator Update Successfully");
         // }  
       }else{
-        toast.error("Failed To Add Arbitrator");
+        toast.error("Failed To Update Arbitrator");
       }
     }
   
 
+
+    useEffect( ()=> { 
+        getArbitrator(id);
+    }, [])
 
 
 
     return(
     <div>
     <div className="Auth-form-content col">
-        <h1 className="Auth-form-title">Add Arbitrator</h1>
+        <h1 className="Auth-form-title">Update Arbitrator</h1>
         <div className="form-group mt-1 col">
             <label>Arbitrator Name</label>
             <input
             type="text"
             name="arbitratorName"
+            value={arbitrator.arbitratorName}
             className="form-control mt-1"
             placeholder="Arbitrator Name"
             onChange={onTextChange}
@@ -102,6 +126,7 @@ export default function AddArbitrator({toggleComponent}){
             <input
             type="text"
             name="location"
+            value={arbitrator.location}
             className="form-control mt-1"
             placeholder="Location"
             onChange={onTextChange}
@@ -113,6 +138,7 @@ export default function AddArbitrator({toggleComponent}){
             <input
             type="email"
             name="email"
+            value={arbitrator.email}
             className="form-control mt-1"
             placeholder="Email"
             onChange={onTextChange}
@@ -124,6 +150,7 @@ export default function AddArbitrator({toggleComponent}){
             <input
             type="text"
             name="username"
+            value={arbitrator.username}
             className="form-control mt-1"
             placeholder="Username"
             onChange={onTextChange}

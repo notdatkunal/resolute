@@ -10,40 +10,41 @@ import { toast } from "react-toastify";
 export default function AddCase({toggleComponent}){
 
     const [caseData, setCaseData] = useState({
-        state: "",
-        zone: "",
-        branch_name: "",
-        customer_id: "",
-        account_number: "",
-        creditNumber: "",
-        customer_name: "",
-        actual_product: "",
-        flag_product_group_co: "",
-        nature_of_legal_action: "",
-        total_tos_on_initiation_co: "",
-        total_tos_on_initiation_co_in_cr: "",
-        notice_date_lrn_co: null,
-        reference_letter_issued_date: null,
-        case_no: "",
-        soc_filing_date: null,
-        claim_amount_in_soc: "",
-        date_of_1st_hearing: null,
-        last_date_of_hearing: null,
-        stages_of_last_hearing_date: "",
-        next_date_of_hearing: null,
-        stages_for_next_hearing: "",
-        case_status: "",
-        details_remark: "",
-        award_date: null,
-        award_amount: "",
-        sec17_application_filing_date_co: null,
-        sec17_order_date: null,
-        sec17_status: "",
-        court_name: "",
+        state: "Maharashtra",
+        zone: "East",
+        branchName: "",
+        customerId: "",
+        accountNumber: "",
+        creditCardNumber: "",
+        customerName: "",
+        actualProduct: "",
+        flagProductGroup: "",
+        natureOfLegalAction: "",
+        totalTos: "",
+        totalTosInCr: "",
+        noticeDate: null,
+        refLetter: null,
+        caseNo: "",
+        socFillingDate: null,
+        claimAmountInSOC: "",
+        firstHearingDate: null,
+        lastHearingDate: null,
+        stagesOfLastHearingDate: "",
+        nextHearingDate: null,
+        stagesOfNextHearingDate: "",
+        caseStatus: "LRN Sent",
+        flagForContested:"contested",
+        detailsRemark: "",
+        awardDate: null,
+        awardAmount: "",
+        sec17AppFillingDate: null,
+        sec17OrderDate: null,
+        sec17AppStatus: "",
+        courtName: "",
         place: "",
-        arbitrator_judge_name: "",
-        lawyer_name: "",
-        lm_name: ""
+        arbitrator: "",
+        lawyerName: "",
+        lmName: ""
     });
 
 
@@ -62,7 +63,7 @@ export default function AddCase({toggleComponent}){
     const onTextChange = (args) =>{
         var copy = {...caseData};
         copy[args.target.name] = args.target.value;
-        setUser(copy);
+        setCaseData(copy);
     }
 
 
@@ -108,6 +109,7 @@ export default function AddCase({toggleComponent}){
             value = value.match(/.{1,4}/g).join(' ');
         }
         setCreditNumber(value);
+        setCaseData({ ...caseData, creditCardNumber: value });
     };
 
 
@@ -120,7 +122,7 @@ export default function AddCase({toggleComponent}){
             value = value.slice(0, maxLength);
         }
 
-        setCaseData({ ...caseData, account_number: value });
+        setCaseData({ ...caseData, accountNumber: value });
     };
 
     //   const getRoles = async () => {
@@ -144,8 +146,7 @@ export default function AddCase({toggleComponent}){
         event.preventDefault();
       //   var role_name = selectedFilter;
       //   var data = authState;
-        var sentData = {caseData}
-        const response = await addCase(sentData);
+        const response = await addCase(caseData);
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
           //   navigate("/login");
@@ -173,6 +174,8 @@ export default function AddCase({toggleComponent}){
         <div className="form-group mt-1 col">
             <label>State</label>
             <select className="form-control mt-1"
+                    name="state"
+                    defaultValue={"Maharashtra"}
                     onChange={handleFilterChange}>
             {renderStates()}
             </select>
@@ -180,6 +183,8 @@ export default function AddCase({toggleComponent}){
         <div className="form-group mt-1 col">
             <label>Zone</label>
             <select className="form-control mt-1"
+                    name="zone"
+                    defaultValue={"East"}
                     onChange={handleFilterChange}>
             {renderZones()}
             </select>
@@ -188,11 +193,10 @@ export default function AddCase({toggleComponent}){
             <label>Branch Name</label>
             <input
             type="text"
-            name="branch_name"
+            name="branchName"
             className="form-control mt-1"
             placeholder="e.g Sangli"
             onChange={onTextChange}
-            required
             />
         </div>
         </div>
@@ -201,7 +205,7 @@ export default function AddCase({toggleComponent}){
             <label>Customer Id</label>
             <input
             type="number"
-            name="customer_id"
+            name="customerId"
             className="form-control mt-1"
             placeholder="e.g 9923130244"
             onChange={onTextChange}
@@ -212,10 +216,10 @@ export default function AddCase({toggleComponent}){
             <label>Account Number</label>
             <input
             type="text"
-            name="account_number"
+            name="accountNumber"
             className="form-control mt-1"
             placeholder="Account Number"
-            value={caseData.account_number}
+            value={caseData.accountNumber}
             onChange={handleAccountNumberChange}            
             required
             />
@@ -224,13 +228,12 @@ export default function AddCase({toggleComponent}){
             <label>Credit Card Number</label>
             <input
                 type="tel"
-                name="credit-number"
+                name="creditNumber"
                 className="form-control mt-1"
                 placeholder="Credit Card Number"
                 maxLength={19}
                 value={creditNumber}
                 onChange={(e) => formatCreditNumber(e.target.value)}
-                required
                 />
         </div>        
         </div>
@@ -239,7 +242,7 @@ export default function AddCase({toggleComponent}){
             <label>Customer Name</label>
             <input
             type="text"
-            name="customer_name"
+            name="customerName"
             className="form-control mt-1"
             placeholder="Customer Name"
             onChange={onTextChange}
@@ -250,22 +253,20 @@ export default function AddCase({toggleComponent}){
             <label>Actual Product</label>
             <input
             type="text"
-            name="actual_product"
+            name="actualProduct"
             className="form-control mt-1"
             placeholder="Actual Product"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>Flag-Product Group CO</label>
             <input
             type="text"
-            name="actual_product"
+            name="flagProductGroup"
             className="form-control mt-1"
             placeholder="Flag-Product Group CO"
             onChange={onTextChange}
-            required
             />
         </div>
         </div>
@@ -274,33 +275,30 @@ export default function AddCase({toggleComponent}){
             <label>Nature of Legal Action</label>
             <input
             type="text"
-            name="actual_product"
+            name="natureOfLegalAction"
             className="form-control mt-1"
             placeholder="Nature of Legal Action"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>Total Tos On Initiation Co</label>
             <input
             type="text"
-            name="actual_product"
+            name="totalTos"
             className="form-control mt-1"
-            placeholder="Nature of Legal Action"
+            placeholder="Total Tos On Initiation Co"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>Total Tos On Initiation Co In Cr.</label>
             <input
             type="text"
-            name="actual_product"
+            name="totalTosInCr"
             className="form-control mt-1"
-            placeholder="Nature of Legal Action"
+            placeholder="Total Tos On Initiation Co In Cr."
             onChange={onTextChange}
-            required
             />
         </div>
         </div>
@@ -309,11 +307,10 @@ export default function AddCase({toggleComponent}){
             <label>Notice Date (LRN) Co</label>
             <div className="col">
             <DatePicker
-                selected={caseData.notice_date_lrn_co}
-                onChange={(date) => handleDateChange(date, "notice_date_lrn_co")}                
+                selected={caseData.noticeDate}
+                onChange={(date) => handleDateChange(date, "noticeDate")}                
                 className="form-control mt-1"
                 placeholderText="Notice Date (LRN) Co"
-                required
                 />        
             </div>
         </div>
@@ -321,11 +318,10 @@ export default function AddCase({toggleComponent}){
             <label>Referance Later Issued Date</label>
             <div className="col">
             <DatePicker
-                selected={caseData.reference_letter_issued_date}
-                onChange={(date) => handleDateChange(date, "reference_letter_issued_date")}                
+                selected={caseData.refLetter}
+                onChange={(date) => handleDateChange(date, "refLetter")}                
                 className="form-control mt-1"
                 placeholderText="Reference Letter Issued Date"
-                required
                 />        
             </div>
         </div>
@@ -333,9 +329,9 @@ export default function AddCase({toggleComponent}){
             <label>Case No</label>
             <input
             type="text"
-            name="actual_product"
+            name="caseNo"
             className="form-control mt-1"
-            placeholder="Nature of Legal Action"
+            placeholder="Case No"
             onChange={onTextChange}
             required
             />
@@ -346,11 +342,10 @@ export default function AddCase({toggleComponent}){
             <label>SOC Filing Date</label>
             <div className="col">
             <DatePicker
-                selected={caseData.soc_filing_date}
-                onChange={(date) => handleDateChange(date, "soc_filing_date")}                
+                selected={caseData.socFillingDate}
+                onChange={(date) => handleDateChange(date, "socFillingDate")}                
                 className="form-control mt-1"
                 placeholderText="Soc Filing Date"
-                required
                 />        
             </div>
         </div>
@@ -358,22 +353,20 @@ export default function AddCase({toggleComponent}){
             <label>Claim Amount in Soc</label>
             <input
             type="text"
-            name="actual_product"
+            name="claimAmountInSOC"
             className="form-control mt-1"
             placeholder="Claim Amount in Soc"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>Date of 1st Hearing</label>
             <div className="col">
             <DatePicker
-                selected={caseData.date_of_1st_hearing}
-                onChange={(date) => handleDateChange(date, "date_of_1st_hearing")}                
+                selected={caseData.firstHearingDate}
+                onChange={(date) => handleDateChange(date, "firstHearingDate")}                
                 className="form-control mt-1"
                 placeholderText="Date of 1st Hearing"
-                required
                 />        
             </div>
         </div>
@@ -383,11 +376,10 @@ export default function AddCase({toggleComponent}){
             <label>Last Date of Hearing</label>
             <div className="col">
             <DatePicker
-                selected={caseData.last_date_of_hearing}
-                onChange={(date) => handleDateChange(date, "last_date_of_hearing")}                
+                selected={caseData.lastHearingDate}
+                onChange={(date) => handleDateChange(date, "lastHearingDate")}                
                 className="form-control mt-1"
                 placeholderText="Last Date of Hearing"
-                required
                 />        
             </div>
         </div>
@@ -395,22 +387,20 @@ export default function AddCase({toggleComponent}){
             <label>Stages of Last Hearing Date</label>
             <input
             type="text"
-            name="actual_product"
+            name="stagesOfLastHearingDate"
             className="form-control mt-1"
-            placeholder="Last Date of Hearing"
+            placeholder="Stages of Last Hearing Date"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>Next Date of Hearing</label>
             <div className="col">
             <DatePicker
-                selected={caseData.next_date_of_hearing}
-                onChange={(date) => handleDateChange(date, "next_date_of_hearing")}                
+                selected={caseData.nextHearingDate}
+                onChange={(date) => handleDateChange(date, "nextHearingDate")}                
                 className="form-control mt-1"
                 placeholderText="Next Date of Hearing"
-                required
                 />        
             </div>
         </div>
@@ -420,16 +410,17 @@ export default function AddCase({toggleComponent}){
             <label>Stages for Next Hearing</label>
             <input
             type="text"
-            name="actual_product"
+            name="stagesOfNextHearingDate"
             className="form-control mt-1"
-            placeholder="Last Date of Hearing"
+            placeholder="Stages for Next Hearing"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>Case Status</label>
             <select className="form-control mt-1"
+                    name="caseStatus"
+                    defaultValue={"LRN Sent"}
                     onChange={handleFilterChange}>
                 <option value="LRN Sent">LRN Sent</option>
                 <option value="Award Passed">Award Passed</option>
@@ -440,6 +431,8 @@ export default function AddCase({toggleComponent}){
         <div className="form-group mt-1 col">
             <label>Flag For Contested/Uncontested</label>
             <select className="form-control mt-1"
+                    name="flagForContested"
+                    defaultValue={"Contested"}
                     onChange={handleFilterChange}>
                 <option value="contested">Contested</option>
                 <option value="uncontested">Uncontested</option>
@@ -451,22 +444,20 @@ export default function AddCase({toggleComponent}){
             <label>Details Remark</label>
             <input
             type="text"
-            name="actual_product"
+            name="detailsRemark"
             className="form-control mt-1"
             placeholder="Details Remark"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>Award Date</label>
             <div className="col">
             <DatePicker
-                selected={caseData.award_date}
-                onChange={(date) => handleDateChange(date, "award_date")}                
+                selected={caseData.awardDate}
+                onChange={(date) => handleDateChange(date, "awardDate")}                
                 className="form-control mt-1"
                 placeholderText="Award Date"
-                required
                 />        
             </div>
         </div>
@@ -474,11 +465,10 @@ export default function AddCase({toggleComponent}){
             <label>Award Amount</label>
             <input
             type="text"
-            name="actual_product"
+            name="awardAmount"
             className="form-control mt-1"
             placeholder="Award Amount"
             onChange={onTextChange}
-            required
             />
         </div>
         </div>        
@@ -487,11 +477,10 @@ export default function AddCase({toggleComponent}){
             <label>Sec.17 - Application Filing Date Co</label>
             <div className="col">
             <DatePicker
-                selected={caseData.sec17_application_filing_date_co}
-                onChange={(date) => handleDateChange(date, "sec17_application_filing_date_co")}                
+                selected={caseData.sec17AppFillingDate}
+                onChange={(date) => handleDateChange(date, "sec17AppFillingDate")}                
                 className="form-control mt-1"
                 placeholderText="sec17 Application Filing Date Co"
-                required
                 />        
             </div>
         </div>
@@ -499,11 +488,10 @@ export default function AddCase({toggleComponent}){
             <label>Sec.17 - Order Date</label>
             <div className="col">
             <DatePicker
-                selected={caseData.sec17_order_date}
-                onChange={(date) => handleDateChange(date, "sec17_order_date")}                
+                selected={caseData.sec17OrderDate}
+                onChange={(date) => handleDateChange(date, "sec17OrderDate")}                
                 className="form-control mt-1"
                 placeholderText="Sec-17 order date"
-                required
                 />        
             </div>
         </div>
@@ -511,11 +499,10 @@ export default function AddCase({toggleComponent}){
             <label>Sec.17 - Status</label>
             <input
             type="text"
-            name="actual_product"
+            name="sec17AppStatus"
             className="form-control mt-1"
             placeholder="Sec.17 - Status"
             onChange={onTextChange}
-            required
             />
         </div>
         </div>
@@ -524,33 +511,30 @@ export default function AddCase({toggleComponent}){
             <label>Court Name</label>
             <input
             type="text"
-            name="actual_product"
+            name="courtName"
             className="form-control mt-1"
             placeholder="Court Name"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>Place (Location of court)</label>
             <input
             type="text"
-            name="actual_product"
+            name="place"
             className="form-control mt-1"
             placeholder="Place (Location of court)"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>Arbitrator / Judge Name</label>
             <input
             type="text"
-            name="actual_product"
+            name="arbitrator"
             className="form-control mt-1"
             placeholder="Arbitrator / Judge Name"
             onChange={onTextChange}
-            required
             />
         </div>
         </div>
@@ -559,22 +543,20 @@ export default function AddCase({toggleComponent}){
             <label>Lawyer Name</label>
             <input
             type="text"
-            name="actual_product"
+            name="lawyerName"
             className="form-control mt-1"
             placeholder="Lawyer Name"
             onChange={onTextChange}
-            required
             />
         </div>
         <div className="form-group mt-1 col">
             <label>LM Name</label>
             <input
             type="text"
-            name="actual_product"
+            name="lmName"
             className="form-control mt-1"
             placeholder="LM Name"
             onChange={onTextChange}
-            required
             />
         </div>
         </div>

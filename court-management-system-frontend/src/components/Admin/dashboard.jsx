@@ -9,6 +9,8 @@ import AdminSearchCase from "./search-case";
 import AddCase from "./add-case";
 import AddBank from "./add-bank";
 import AddArbitrator from "./add-arbitrator";
+import UpdateBank from "./update-bank";
+import UpdateArbitrator from "./update-arbitrator";
 
 export default function AdminDashboard(){
 
@@ -17,10 +19,11 @@ export default function AdminDashboard(){
     const [id, setId] = useState("1");
     
     
-    const toggleComponent = (component) => {
+    const toggleComponent = (component, id) => {
       debugger;
       console.log(component);
       setActiveComponent(component);
+      setId(id);
     };
 
     const updateData = (component) => {
@@ -37,7 +40,9 @@ export default function AdminDashboard(){
         DocumentUpload: <UploadDocuments/>,
         AddCase: <AddCase toggleComponent={toggleComponent}/>,
         AddBank: <AddBank toggleComponent={toggleComponent}/>,
+        UpdateBank: <UpdateBank id={id} toggleComponent={toggleComponent}/>,
         AddArbitrator: <AddArbitrator toggleComponent={toggleComponent}/>,
+        UpdateArbitrator: <UpdateArbitrator id={id} toggleComponent={toggleComponent}/>,
     };
 
 

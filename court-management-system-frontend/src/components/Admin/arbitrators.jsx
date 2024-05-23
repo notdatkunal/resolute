@@ -13,7 +13,6 @@ export default function Arbitrators({toggleComponent}) {
     'Serial No.': 'serialNo',
     'Arbitrator Id': 'arbitratorId',
     'Arbitrator Name': 'arbitratorName',
-    'Authorised Officer Name': 'authorisedOfficerName',
     'Location': 'location',
     'Username': 'username',
     'Registration Date': 'registrationDate',
@@ -93,6 +92,30 @@ export default function Arbitrators({toggleComponent}) {
   }
 
 
+  // const deleteArbitrator = async(id) => {
+  //   debugger;
+  //   const response = await deleteBankAPI(id);
+  //   if(response.status == 200){
+  //     // if(response.data == "EXPIRED" || response.data == "INVALID"){
+  //       //   navigate("/login");
+  //       // toast.warning("Session Time Expired");
+  //       // }
+  //       // else{
+  //         toast.success("Bank Delete Successfully");
+  //         // }
+  //       }else{
+  //         toast.error('Error while calling get banks api')
+  //       }
+  //     }
+
+
+  const updateArbitrator = async(id) => {
+    debugger;
+    toggleComponent("UpdateArbitrator", id);
+  }
+
+
+
 
   const renderArbitrators = () =>
     arbitrators.map(arbitrator => (
@@ -100,6 +123,19 @@ export default function Arbitrators({toggleComponent}) {
         {Object.keys(headerMapping).map(label => (
             <td style={{textAlign:'center'}} key={label}>{arbitrator[headerMapping[label]]}</td>
         ))}
+          <td style={{textAlign:'center'}}>
+            <button className="btn btn-primary" 
+                    style={{marginRight:'1rem'}}
+                    onClick={() => updateArbitrator(arbitrator.arbitrator_id)}
+            >
+              Update
+            </button>
+            {/* <button className="btn btn-danger"
+                    onClick={() => deleteArbitrator(arbitrator.arbitrator_id)}
+            >
+              Delete
+            </button> */}
+          </td>
       </tr>
     ));
 
@@ -110,7 +146,8 @@ export default function Arbitrators({toggleComponent}) {
       <tr>
           {Object.keys(headerMapping).map(label => (
               <th style={{textAlign:'center'}} key={label}>{label}</th>
-          ))}
+            ))}
+            <th style={{textAlign:'center'}}>Action</th>
       </tr>
       </thead>
     );

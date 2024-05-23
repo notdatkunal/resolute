@@ -1,18 +1,26 @@
 import { Router, useNavigate } from 'react-router-dom';
 import '../assets/css/components/navbar.css'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/images/logo.png'; // Import logo image
 import searchIcon from '../assets/images/search-icon.png'; // Import search icon image
+import { logout } from '../features/user/userSlice';
 
 
 export default function NavBar(){
 
     const navigate = useNavigate();
-    const isLoggedIn = useSelector(state => state.isLoggedIn); // Select isLoggedIn state from Redux store
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.user.user.isLoggedIn); // Select isLoggedIn state from Redux store
 
 
     const login = () =>{
         navigate('/login');
+    }
+
+    const signout = () =>{
+        debugger;
+        dispatch(logout());
+        navigate('/');
     }
 
     const home  = () =>{
@@ -84,9 +92,9 @@ export default function NavBar(){
                         <li className="nav-item">
                             <a className="nav-link"  onClick={faq}>FAQ</a>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <a className="nav-link" href="contact.html">Contact Us</a>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <form className="form-inline my-2 my-lg-0">
                                 <div className="search_icon">
@@ -97,7 +105,7 @@ export default function NavBar(){
                     </ul>
                 </div>
                 <div>
-                    {isLoggedIn?<button className="btn btn-dark" onClick={login}> Log Out </button>
+                    {isLoggedIn?<button className="btn btn-dark" onClick={signout}> Log Out </button>
                         :<button className="btn btn-dark" onClick={login}> Log In </button>
                     }
                 </div>

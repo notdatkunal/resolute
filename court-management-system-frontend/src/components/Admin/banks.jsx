@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { getAllBanksAPI } from "../../services/adminServices";
+import { deleteBankAPI, getAllBanksAPI } from "../../services/adminServices";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 
@@ -9,6 +11,7 @@ export default function Banks({toggleComponent}){
 
     var [banks, setBanks] = useState([
     ]);
+    const navigate = useNavigate();
     var [selectedFilter, setSelectedFilter] = useState("");
     // var [cities, setCities] = useState([]);
   
@@ -17,6 +20,7 @@ export default function Banks({toggleComponent}){
       'Serial No.': 'serialNo',
       'Bank Id': 'bankId',
       'Bank Name': 'bankName',
+      'Username': 'username',
       'Registration Date': 'registrationDate',
     };
   
@@ -62,6 +66,28 @@ export default function Banks({toggleComponent}){
                     //   }
                     // }
                     
+    // const deleteBank = async(id) => {
+    //   debugger;
+    //   const response = await deleteBankAPI(id);
+    //   if(response.status == 200){
+    //     // if(response.data == "EXPIRED" || response.data == "INVALID"){
+    //       //   navigate("/login");
+    //       // toast.warning("Session Time Expired");
+    //       // }
+    //       // else{
+    //         toast.success("Bank Delete Successfully");
+    //         // }
+    //       }else{
+    //         toast.error('Error while calling get banks api')
+    //       }
+    //     }
+
+
+    const updateBank = async(id) => {
+      debugger;
+      toggleComponent("UpdateBank", id);
+    }
+                  
                     
                     
     // const renderOption = () => {
@@ -80,6 +106,19 @@ export default function Banks({toggleComponent}){
           {Object.keys(headerMapping).map(label => (
             <td style={{textAlign:'center'}} key={label}>{bank[headerMapping[label]]}</td>
           ))}
+          <td style={{textAlign:'center'}}>
+            <button className="btn btn-primary" 
+                    style={{marginRight:'1rem'}}
+                    onClick={() => updateBank(bank.bankId)}
+            >
+              Update
+            </button>
+            {/* <button className="btn btn-danger"
+                    onClick={() => deleteBank(bank.bankId)}
+            >
+              Delete
+            </button> */}
+          </td>
         </tr>
       ));
       
@@ -91,6 +130,7 @@ export default function Banks({toggleComponent}){
             {Object.keys(headerMapping).map(label => (
               <th style={{textAlign:'center'}} key={label}>{label}</th>
             ))}
+            <th style={{textAlign:'center'}}>Action</th>
         </tr>
         </thead>
       );

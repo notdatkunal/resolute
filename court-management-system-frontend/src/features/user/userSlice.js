@@ -19,7 +19,7 @@ export const userSlice = createSlice({
       state.isLoggedIn = true;
       console.log('USER PAYLOAD:', state);
     },
-    logout: (state, action) => {
+    logout: (state) => {
       state.userId = 0;
       state.userName = "";
       state.token = "";

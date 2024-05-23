@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify'
 import AboutUs from './components/about'
 import Faq from './components/faq'
 import { useSelector } from 'react-redux'
+import UnauthorizedPage from './components/unauthorized'
 
 const App = createBrowserRouter([
   {
@@ -24,6 +25,11 @@ const App = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: '/about',
+    element: <AboutUs></AboutUs>,
+    errorElement: <ErrorPage />,
+  },
+  {
     path: '/login',
     element: <Login></Login>,
     errorElement: <ErrorPage />,
@@ -33,6 +39,11 @@ const App = createBrowserRouter([
     element: <PrivateRoute>
       <SearchCase />
     </PrivateRoute>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/unauthorized',
+    element: <UnauthorizedPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -53,8 +64,9 @@ const App = createBrowserRouter([
 
 // Private Route component for authenticated users
 function PrivateRoute({ children }) {
+  debugger;
   // const { isLoggedIn } = useAuth(); // Assuming isLoggedIn state from AuthContext
-  const isLoggedIn = useSelector((state)=> state.user);
+  const isLoggedIn = useSelector((state)=> state.user.user.isLoggedIn);
 
   if (!isLoggedIn) {
     return <Navigate to="/login" replace />;
