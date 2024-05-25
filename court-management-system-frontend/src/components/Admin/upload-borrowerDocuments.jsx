@@ -6,9 +6,12 @@ import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI 
 
 
 
-export default function UploadBankDocument(){
 
 
+
+
+
+export default function UploadBorrowerDocument(){
 
     const [showMultipleModal, setShowMultipleModal] = useState(false);
     const [showSingleModal, setShowSingleModal] = useState(false);
@@ -181,7 +184,7 @@ export default function UploadBankDocument(){
 
     return(<>
     <div className="container1">
-        <h1>Upload Bank Documents</h1>
+        <h1>Upload Borrower Documents</h1>
     </div>
     <div>
         <div style={{display:'flex', 
@@ -191,12 +194,12 @@ export default function UploadBankDocument(){
                     gap:"3rem",
                     marginTop:"6rem"}}>
             <button className="btn btn-primary"
-                    onClick={() => {toggleSingleModal("Bank Document")}}>
-                Single Bank Document Uplaod
+                    onClick={() => {toggleSingleModal("Borrower Document")}}>
+                Single Borrower Document Uplaod
             </button>
             <button className="btn btn-primary"
-                    onClick={() => {toggleMultipleModal("Bank Document")}}>
-                Multiple Bank Document Uplaod
+                    onClick={() => {toggleMultipleModal("Borrower Document")}}>
+                Multiple Borrower Document Uplaod
             </button>
         </div>
     </div>

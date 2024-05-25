@@ -44,6 +44,18 @@ export default function CaseHistory(){
         }
       }
     
+    const formatDate = (dateString) => {
+        const options = {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            // hour: "numeric",
+            // minute: "numeric",
+        };
+        return new Date(dateString).toLocaleString(undefined, options);
+    };
+
+
   
 
     useEffect(()=>{
@@ -80,25 +92,21 @@ export default function CaseHistory(){
                                 <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.caseType}</td>
                             </tr>
                             <tr>
-                                <th scope="row" style={{textAlign:"center"}}>Filling Number</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.fillingNumber}</td>
+                                <th scope="row" style={{textAlign:"center"}}>Case Number</th>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.caseNumber}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Filling Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.fillingDate}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row" style={{textAlign:"center"}}>Registration Number</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.registrationNumber}</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{formatDate(caseDetails.fillingDate)}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Registration Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.registrationDate}</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{formatDate(caseDetails.registrationDate)}</td>
                             </tr>
-                            <tr>
+                            {/* <tr>
                                 <th scope="row" style={{textAlign:"center"}}>CNR Number</th>
                                 <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.CNRNumber}</td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                         <thead className="table-active table-dark">
                             <th colSpan={2} style={{textAlign:"center"}}>Case Status</th>
@@ -106,19 +114,19 @@ export default function CaseHistory(){
                         <tbody>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>First Hearing Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.firstHearingDate}</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{formatDate(caseStatus.firstHearingDate)}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Next Hearing Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.nextHearingDate}</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{formatDate(caseStatus.nextHearingDate)}</td>
                             </tr>
                             <tr>
-                                <th scope="row" style={{textAlign:"center"}}>Case Stage</th>
+                                <th scope="row" style={{textAlign:"center"}}>Case Status</th>
                                 <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.caseStage}</td>
                             </tr>
                             <tr>
-                                <th scope="row" style={{textAlign:"center"}}>Court Number And Judge</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.courtAndJudgeNumber}</td>
+                                <th scope="row" style={{textAlign:"center"}}>Arbitrator</th>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.arbitratorName}</td>
                             </tr>
                         </tbody>
                     </table>

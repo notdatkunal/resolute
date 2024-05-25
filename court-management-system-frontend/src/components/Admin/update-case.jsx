@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import "../../assets/css/components/Admin/add-case.css"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { addCase, getAllArbitratorsAPI, getAllBanksAPI } from "../../services/adminServices";
+import { addCase, getAllArbitratorsAPI, getAllBanksAPI, getCaseAPI, updateCaseAPI } from "../../services/adminServices";
 import { toast } from "react-toastify";
 
 
 
-export default function AddCase({toggleComponent}){
+export default function UpdateCase({id, toggleComponent}){
 
     const [caseData, setCaseData] = useState({
-        state: "Maharashtra",
-        zone: "East",
+        state: "",
+        zone: "",
         branchName: "",
         customerId: "",
         accountNumber: "",
@@ -32,8 +32,8 @@ export default function AddCase({toggleComponent}){
         stagesOfLastHearingDate: "",
         nextHearingDate: null,
         stagesOfNextHearingDate: "",
-        caseStatus: "LRN Sent",
-        flagForContested:"contested",
+        caseStatus: "",
+        flagForContested:"",
         detailsRemark: "",
         awardDate: null,
         awardAmount: "",
@@ -171,17 +171,37 @@ export default function AddCase({toggleComponent}){
             // else{
               const bankData = response.data;
               setBanks(bankData)
-              if (bankData.length > 0) {
-                setCaseData(prevState => ({
-                    ...prevState,
-                    bankId: bankData[0].bankId
-                }));
-                }              
+            //   if (bankData.length > 0 && caseData.bankId == 0) {
+            //     setCaseData(prevState => ({
+            //         ...prevState,
+            //         bankId: bankData[0].bankId
+            //     }));
+            //     }              
               // }
         }else{
             toast.error('Error while calling get banks api')
         }
         }   
+
+
+        const getCase = async(id) => {
+            debugger;
+            const response = await getCaseAPI(id);
+            if(response.status == 200){
+                // if(response.data == "EXPIRED" || response.data == "INVALID"){
+                //   navigate("/login");
+                // toast.warning("Session Time Expired");
+                // }
+                // else{
+                    setCaseData(response.data);
+                    // }
+                }else{
+                    toast.error('Error while calling get bank api')
+                }
+        }
+    
+    
+
 
 
 
@@ -198,12 +218,12 @@ export default function AddCase({toggleComponent}){
           // else{
             const arbitratorsData = response.data;
             setArbitrators(arbitratorsData);
-            if (arbitratorsData.length > 0) {
-                setCaseData(prevState => ({
-                    ...prevState,
-                    arbitratorId: arbitratorsData[0].arbitratorId
-            }));
-        }
+            // if (arbitratorsData.length > 0 && caseData.arbitratorId == 0) {
+            //     setCaseData(prevState => ({
+            //         ...prevState,
+            //         arbitratorId: arbitratorsData[0].arbitratorId
+            // }));
+        // }
           // }
         }else{
           toast.error('Error while calling get arbitrators api')
@@ -217,7 +237,7 @@ export default function AddCase({toggleComponent}){
         event.preventDefault();
       //   var role_name = selectedFilter;
       //   var data = authState;
-        const response = await addCase(caseData);
+        const response = await updateCaseAPI(caseData, id);
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
           //   navigate("/login");
@@ -226,15 +246,16 @@ export default function AddCase({toggleComponent}){
           // else{
             debugger;
             toggleComponent("Cases");
-            toast.success("Case Added Successfully");
+            toast.success("Case Updated Successfully");
           // }  
         }else{
-          toast.error("Failed To Add Case");
+          toast.error("Failed To Update Case");
         }
       }  
 
 
     useEffect(() =>{
+        getCase(id);
         getBanks();
         getAllArbitrators();
     }, [])  
@@ -273,6 +294,7 @@ export default function AddCase({toggleComponent}){
             className="form-control mt-1"
             placeholder="e.g Sangli"
             onChange={onTextChange}
+            value={caseData.branchName}
             />
         </div>
         </div>        
@@ -285,6 +307,7 @@ export default function AddCase({toggleComponent}){
             className="form-control mt-1"
             placeholder="e.g 9923130244"
             onChange={onTextChange}
+            value={caseData.customerId}            
             required
             />
         </div>
@@ -322,6 +345,7 @@ export default function AddCase({toggleComponent}){
             className="form-control mt-1"
             placeholder="Customer Name"
             onChange={onTextChange}
+            value={caseData.customerName}
             required
             />
         </div>
@@ -333,6 +357,7 @@ export default function AddCase({toggleComponent}){
             className="form-control mt-1"
             placeholder="Actual Product"
             onChange={onTextChange}
+            value={caseData.actualProduct}
             />
         </div>
         <div className="form-group mt-1 col">
@@ -343,6 +368,7 @@ export default function AddCase({toggleComponent}){
             className="form-control mt-1"
             placeholder="Flag-Product Group CO"
             onChange={onTextChange}
+            value={caseData.flagProductGroup}
             />
         </div>
         </div>
@@ -355,6 +381,7 @@ export default function AddCase({toggleComponent}){
             className="form-control mt-1"
             placeholder="Nature of Legal Action"
             onChange={onTextChange}
+            value={caseData.natureOfLegalAction}
             />
         </div>
         <div className="form-group mt-1 col">
@@ -364,6 +391,7 @@ export default function AddCase({toggleComponent}){
             name="totalTos"
             className="form-control mt-1"
             placeholder="Total Tos On Initiation Co"
+            value={caseData.totalTos}
             onChange={onTextChange}
             />
         </div>
@@ -374,6 +402,7 @@ export default function AddCase({toggleComponent}){
             name="totalTosInCr"
             className="form-control mt-1"
             placeholder="Total Tos On Initiation Co In Cr."
+            value={caseData.totalTosInCr}
             onChange={onTextChange}
             />
         </div>
@@ -409,6 +438,7 @@ export default function AddCase({toggleComponent}){
             className="form-control mt-1"
             placeholder="Case No"
             onChange={onTextChange}
+            value={caseData.caseNo}
             required
             />
         </div>
@@ -433,6 +463,7 @@ export default function AddCase({toggleComponent}){
             className="form-control mt-1"
             placeholder="Claim Amount in Soc"
             onChange={onTextChange}
+            value={caseData.claimAmountInSOC}
             />
         </div>
         <div className="form-group mt-1 col">
@@ -466,6 +497,7 @@ export default function AddCase({toggleComponent}){
             name="stagesOfLastHearingDate"
             className="form-control mt-1"
             placeholder="Stages of Last Hearing Date"
+            value={caseData.stagesOfLastHearingDate}
             onChange={onTextChange}
             />
         </div>
@@ -489,6 +521,7 @@ export default function AddCase({toggleComponent}){
             name="stagesOfNextHearingDate"
             className="form-control mt-1"
             placeholder="Stages for Next Hearing"
+            value={caseData.stagesOfNextHearingDate}
             onChange={onTextChange}
             />
         </div>
@@ -496,7 +529,7 @@ export default function AddCase({toggleComponent}){
             <label>Case Status</label>
             <select className="form-control mt-1"
                     name="caseStatus"
-                    defaultValue={"LRN Sent"}
+                    value={caseData.caseStatus}
                     onChange={handleFilterChange}>
                 <option value="LRN Sent">LRN Sent</option>
                 <option value="Award Passed">Award Passed</option>
@@ -508,7 +541,7 @@ export default function AddCase({toggleComponent}){
             <label>Flag For Contested/Uncontested</label>
             <select className="form-control mt-1"
                     name="flagForContested"
-                    defaultValue={"Contested"}
+                    value={caseData.flagForContested}
                     onChange={handleFilterChange}>
                 <option value="contested">Contested</option>
                 <option value="uncontested">Uncontested</option>
@@ -523,6 +556,7 @@ export default function AddCase({toggleComponent}){
             name="detailsRemark"
             className="form-control mt-1"
             placeholder="Details Remark"
+            value={caseData.detailsRemark}
             onChange={onTextChange}
             />
         </div>
@@ -544,6 +578,7 @@ export default function AddCase({toggleComponent}){
             name="awardAmount"
             className="form-control mt-1"
             placeholder="Award Amount"
+            value={caseData.awardAmount}
             onChange={onTextChange}
             />
         </div>
@@ -578,6 +613,7 @@ export default function AddCase({toggleComponent}){
             name="sec17AppStatus"
             className="form-control mt-1"
             placeholder="Sec.17 - Status"
+            value={caseData.sec17AppStatus}
             onChange={onTextChange}
             />
         </div>
@@ -590,6 +626,7 @@ export default function AddCase({toggleComponent}){
             name="courtName"
             className="form-control mt-1"
             placeholder="Court Name"
+            value={caseData.courtName}
             onChange={onTextChange}
             />
         </div>
@@ -600,6 +637,7 @@ export default function AddCase({toggleComponent}){
             name="place"
             className="form-control mt-1"
             placeholder="Place (Location of court)"
+            value={caseData.place}
             onChange={onTextChange}
             />
         </div>
@@ -610,6 +648,7 @@ export default function AddCase({toggleComponent}){
             name="lawyerName"
             className="form-control mt-1"
             placeholder="Lawyer Name"
+            value={caseData.lawyerName}
             onChange={onTextChange}
             />
         </div>
@@ -631,6 +670,7 @@ export default function AddCase({toggleComponent}){
             name="lmName"
             className="form-control mt-1"
             placeholder="LM Name"
+            value={caseData.lmName}
             onChange={onTextChange}
             />
         </div>

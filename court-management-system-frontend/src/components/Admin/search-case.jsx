@@ -4,8 +4,8 @@ import DatePicker from "react-datepicker";
 import { toast } from "react-toastify";
 import { getAllCasesAPI, getSearchedCaseAPI } from "../../services/adminServices";
 import { useEffect, useState } from "react";
-import axios from "axios";
-
+import { Navigate, useNavigate } from "react-router-dom";
+// import { format } from 'date-fns';
 
 
 const AdminSearchCase = ({toggleComponent}) => {
@@ -16,19 +16,31 @@ const AdminSearchCase = ({toggleComponent}) => {
     var [selectedDate, setSelectedDate] = useState("");
     var [searchQuery, setSearchQuery] = useState(""); // State to hold search query
     // const [date, setDate] = useState("");
-
+    const navigate = useNavigate();
     
 
     const headerMapping = {
-        "Serial No.":"serialNo",
+        "Case Id":"id",
         "Case No.":"caseNo",
         "Case Type":"caseType",
         "Filling Date":"fillingDate",
-        "Registration Number":"registrationNumber",
         "Registration Date":"registrationDate",
     };
   
 
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedCase, setSelectedCase] = useState(null);
+
+    const handleIconClick = (caseData) => {
+        setSelectedCase(caseData);
+        setModalVisible(true);
+    };
+
+    const closeModal = () => {
+        setModalVisible(false);
+        setSelectedCase(null);
+    };
     
 
 
@@ -41,7 +53,15 @@ const AdminSearchCase = ({toggleComponent}) => {
             // toast.warning("Session Time Expired");
             // }
             // else{
-              setCases(response.data);
+              const formattedCases = response.data.map(caseData => ({
+                ...caseData,
+                fillingDate: formatDate(caseData.fillingDate),
+                // fillingDate: format(caseData.fillingDate, "MM DD YYYY"),
+                registrationDate: formatDate(caseData.registrationDate),
+              }));
+
+              setCases(formattedCases);
+
               // }
             }else{
               toast.error('Error while calling get banks api')
@@ -55,14 +75,107 @@ const AdminSearchCase = ({toggleComponent}) => {
     }
 
 
+    const updateCase = async(id) => {
+      debugger;
+      toggleComponent("UpdateCase", id);
+    }
+
+    const openCase = async(id) => {
+      debugger;
+      navigate(`/case/${id}`);
+    }
+  
+    const formatDate = (dateString) => {
+      const options = {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+      };
+      return new Date(dateString).toLocaleString(undefined, options);
+  };
+
+
+
+  const ActionModal = ({ caseData, closeModal }) => (
+      <div className="modal-overlay">
+          <div className="modal-content">
+              <div className="modal-header">
+                  <h1 style={{textAlign:'center'}}>Actions</h1>
+                  <button onClick={closeModal} style={{padding:"10px"}}>
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+              </div>
+              <div className="modal-body">
+                  <button className="btn btn-primary" 
+                          style={{marginBottom:'5px'}}
+                          onClick={() => updateCase(caseData.id)}
+                          >
+                      Update
+                  </button>
+                  <button className="btn btn-primary" 
+                          style={{marginBottom:'5px'}}
+                          onClick={() => openCase(caseData.id)}
+                          >
+                      Open
+                  </button>
+                  <button className="btn btn-primary"
+                          style={{marginBottom:'5px'}}
+                          onClick={() => addHearingDate(caseData.id)}
+                          >
+                      Add Hearing Date
+                  </button>
+              </div>
+          </div>
+      </div>
+  );
+
 
     
     const renderCases = () =>
-        cases.map(caseData => (
-          <tr key={caseData.caseDataId}>
+        cases.map((caseData, index) => (
+          <tr key={caseData.caseId}>
+            <td style={{textAlign:'center'}}>{index + 1}</td>
             {Object.keys(headerMapping).map(label => (
               <td style={{textAlign:'center'}} key={label}>{caseData[headerMapping[label]]}</td>
             ))}
+          {/* <td style={{display:"flex", flexDirection:"column", justifyContent:'center', alignItems:'center'}}>
+            <div className="row" style={{gap:"1rem"}}> 
+              <button className="btn btn-primary" 
+                      style={{marginBottom:'5px'}}
+                      onClick={() => updateCase(caseData.id)}
+                      >
+                Update
+              </button>
+              <button className="btn btn-primary" 
+                      style={{marginBottom:'5px'}}
+                      onClick={() => openCase(caseData.id)}
+                      >
+                Open
+              </button>
+            </div>
+            <div>
+             <button className="btn btn-danger"
+                    onClick={() => deleteBank(bank.bankId)}
+                    >
+                    Delete
+                  </button> 
+              <button className="btn btn-primary"
+                      style={{margin:'0px', padding:'5px'}}
+                      onClick={() => addHearingDate(caseData.id)}
+                      >
+              Add Hearing Date
+              </button>
+            </div>
+          </td> */}
+          <td style={{textAlign:'center'}}>
+              <i 
+                  className="fa-solid fa-up-right-from-square" 
+                  onClick={() => handleIconClick(caseData)}
+                  style={{ cursor: 'pointer' }}
+              ></i>
+          </td>          
           </tr>
         ));
         
@@ -71,9 +184,11 @@ const AdminSearchCase = ({toggleComponent}) => {
       return (
         <thead className="table-active table-dark">
           <tr>
+            <th style={{textAlign:'center'}}>Serial No.</th>
               {Object.keys(headerMapping).map(label => (
                 <th style={{textAlign:'center'}} key={label}>{label}</th>
               ))}
+            <th style={{textAlign:'center'}}>Action</th>
           </tr>
         </thead>
         );
@@ -96,8 +211,13 @@ const AdminSearchCase = ({toggleComponent}) => {
             'date':selectedDate
           }
       // console.log(searchQuery);
-      const response = await getSearchedCaseAPI(searchRequest); // Send Axios request with search query
-      setCases(response.data); // Update cases state with response data
+      const response = await getSearchedCaseAPI(searchRequest);  // Send Axios request with search query
+      const formattedCases = response.data.map(caseData => ({
+        ...caseData,
+        fillingDate: formatDate(caseData.fillingDate),
+        registrationDate: formatDate(caseData.registrationDate),
+      }));
+      setCases(formattedCases); // Update cases state with response data
     } catch (error) {
       console.error("Error searching cases:", error);
       // Handle error, show toast message, etc.
@@ -115,7 +235,12 @@ const AdminSearchCase = ({toggleComponent}) => {
           }
       // console.log(searchQuery);
       const response = await getSearchedCaseAPI(searchRequest); // Send Axios request with search query
-      setCases(response.data); // Update cases state with response data
+      const formattedCases = response.data.map(caseData => ({
+        ...caseData,
+        fillingDate: formatDate(caseData.fillingDate),
+        registrationDate: formatDate(caseData.registrationDate),
+      }));
+      setCases(formattedCases); // Update cases state with response data
     } catch (error) {
       console.error("Error searching cases:", error);
       // Handle error, show toast message, etc.
@@ -215,6 +340,7 @@ const AdminSearchCase = ({toggleComponent}) => {
         </table>
     </div>
     </main>
+    {modalVisible && <ActionModal caseData={selectedCase} closeModal={closeModal} />}
     </>);
 }
 

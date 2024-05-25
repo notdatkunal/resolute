@@ -17,7 +17,6 @@ export default function Banks({toggleComponent}){
   
   
     const headerMapping = {
-      'Serial No.': 'serialNo',
       'Bank Id': 'bankId',
       'Bank Name': 'bankName',
       'Username': 'username',
@@ -101,8 +100,9 @@ export default function Banks({toggleComponent}){
     
     
     const renderBanks = () =>
-      banks.map(bank => (
+      banks.map((bank, index) => (
         <tr key={bank.bankId}>
+          <td style={{textAlign:'center'}}>{index + 1}</td>
           {Object.keys(headerMapping).map(label => (
             <td style={{textAlign:'center'}} key={label}>{bank[headerMapping[label]]}</td>
           ))}
@@ -127,6 +127,7 @@ export default function Banks({toggleComponent}){
         return (
           <thead className="table-active table-dark">
         <tr>
+            <th style={{textAlign:'center'}}>Serial No.</th>
             {Object.keys(headerMapping).map(label => (
               <th style={{textAlign:'center'}} key={label}>{label}</th>
             ))}

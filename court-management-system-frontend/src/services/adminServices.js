@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createUrl } from "../utils/utils";
 import { toast } from "react-toastify";
-
+import { format } from 'date-fns';
 
 export async function addArbitrator(data){
     try{
@@ -191,6 +191,37 @@ export async function getAllCasesAPI(){
 
 
 
+export async function getCaseAPI(id){
+    try{
+        debugger;
+        let url = createUrl(`/admin/case/${id}`);
+        const response = await axios.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+
+export async function updateCaseAPI(data, id){
+    try{
+        debugger;
+        let url = createUrl(`/admin/case/${id}`);
+        const response = await axios.put(url, data);
+        return response;  
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+
+
 export async function getAllBorrowersAPI(){
     try{
         debugger;
@@ -207,9 +238,18 @@ export async function getAllBorrowersAPI(){
 
 export async function getSearchedCaseAPI(data){
     try{
+        let url = ""
         debugger;
-        let url = createUrl(`/admin/search/case`);
-        const response = await axios.post(url, data);
+        if (data.date){
+            data.date = format(data.date, "yyyy/MM/dd")
+            // url = createUrl(`/admin/search/case?parameter=${data.searchParameter}&date=${data.date}`);
+            url = createUrl(`/admin/search/case?date=${data.date}`);
+            
+        } else{
+            url = createUrl(`/admin/search/case?parameter=${data.searchParameter}`);
+        }
+            
+            const response = await axios.get(url);
         return response;
     }catch(ex){
         // console.log(ex);
@@ -260,3 +300,46 @@ export async function uploadSingleFile(data) {
         return null;
     }
   };
+
+
+  
+export async function getMainTypesAPI(){
+    try{
+        debugger;
+        let url = createUrl(`/list/mainTypes`);
+        const response = await axios.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+export async function getHearingDatesAPI(){
+    try{
+        debugger;
+        let url = createUrl(`/list/hearingDates`);
+        const response = await axios.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+export async function getSubTypesAPI(){
+    try{
+        debugger;
+        let url = createUrl(`/list/subTypes`);
+        const response = await axios.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}

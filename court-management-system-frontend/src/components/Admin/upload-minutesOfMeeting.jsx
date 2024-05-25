@@ -175,7 +175,7 @@ export default function UploadMeetingRecordings(){
 
     return(<>
     <div className="container">
-        <h1>Upload Meeting Recordings</h1>
+        <h1>Upload Minutes  Of Meeting</h1>
     </div>
     <div>
         <div style={{display:'flex', 

@@ -81,24 +81,26 @@ const Submit = async (e) =>{
   e.preventDefault();
   debugger;
   const response = await loginAPI(username, password);
-  if(response.status == 200){
-    dispatch(login(response.data))
-    if (response.data != 0) {
-      switch (response.data.role) {
-        case "admin":
-          navigate("/admin");              
-          break;
-        case "bank":
-          navigate("/search-case");              
-          break;
-        case "arbitrator":
-          navigate("/search-case");              
-          break;
-        default:
-          break;
+  if (response){
+    if(response.status == 200){
+      dispatch(login(response.data))
+        if (response.data != 0) {
+          switch (response.data.role) {
+            case "admin":
+              navigate("/admin");              
+              break;
+            case "bank":
+              navigate("/search-case");              
+              break;
+            case "arbitrator":
+              navigate("/search-case");              
+              break;
+            default:
+              break;
+          }
+        toast.success(`Welcome ${response.data.username}!`);
       }
-      toast.success(`Welcome ${response.data.username}!`);
-    }
+  }
   }else{
     toast.error("Failed To Login, Please Try Again");
   }

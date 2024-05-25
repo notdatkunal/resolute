@@ -34,6 +34,21 @@ const Sidebar = ({toggleComponent}) => {
   const toggleDocumentUpload = () => {
     toggleComponent("DocumentUpload");
   };
+  const toggleBankDocumentUpload = () => {
+    toggleComponent("BankDocumentUpload");
+  };
+  const toggleBorrowerDocumentUpload = () => {
+    toggleComponent("BorrowerDocumentUpload");
+  };
+  const toggleMeetingRecordingUpload = () => {
+    toggleComponent("MeetingRecordingUpload");
+  };
+  const toggleMinutesOfMeetingUpload = () => {
+    toggleComponent("MinutesOfMeetingUpload");
+  };
+  const toggleScreenshotUpload = () => {
+    toggleComponent("ScreenshotUpload");
+  };
 
 
 
@@ -128,7 +143,7 @@ const Sidebar = ({toggleComponent}) => {
                    Arbitrators
                 </a>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a className="nav-link" 
                    onClick={() => toggleBorrowers()} 
                    data-toggle="collapse" 
@@ -138,7 +153,7 @@ const Sidebar = ({toggleComponent}) => {
                     <i className="fa-solid fa-users-line"></i>
                     Borrowers
                 </a>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <a className="nav-link" 
                   //  onClick={() => toggleUpload()}
@@ -161,30 +176,40 @@ const Sidebar = ({toggleComponent}) => {
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" 
-                         aria-expanded="false">
+                         aria-expanded="false"
+                         onClick={() => toggleBankDocumentUpload()}
+                         >
+
                          <i className="fa-solid fa-file-arrow-up"></i>                          
                           Bank Documents</a>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" 
-                         aria-expanded="false">
+                         aria-expanded="false"
+                         onClick={() => toggleBorrowerDocumentUpload()}                         
+                         >
                          <i className="fa-solid fa-file-arrow-up"></i>                          
                           Borrower Documents</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="dashboard-finance.html">
+                      <a className="nav-link" 
+                         onClick={() => toggleMeetingRecordingUpload()}
+                      >                        
                       <i className="fa-solid fa-video"></i>
                         Meeting Recordings</a>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="dashboard-sales.html">
+                      <a className="nav-link" 
+                       onClick={() => toggleMinutesOfMeetingUpload()}
+                      >
                       <i className="fa-solid fa-file-video"></i>
                         Minutes of Meeting</a>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" 
-                         href="#" 
-                         aria-expanded="false">
+                         aria-expanded="false"
+                         onClick={() => toggleScreenshotUpload()}
+                         >
                           <i className="fa-solid fa-file-image"></i>
                           Screenshot</a>
                     </li>

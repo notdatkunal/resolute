@@ -10,7 +10,6 @@ export default function Arbitrators({toggleComponent}) {
 
 
   const headerMapping = {
-    'Serial No.': 'serialNo',
     'Arbitrator Id': 'arbitratorId',
     'Arbitrator Name': 'arbitratorName',
     'Location': 'location',
@@ -83,13 +82,13 @@ export default function Arbitrators({toggleComponent}) {
 
 
 
-  const renderOption = () => {
-    return cities.map(city => (
-      <option key={city} value={city}>
-        {city}
-      </option>
-    ));
-  }
+  // const renderOption = () => {
+  //   return cities.map(city => (
+  //     <option key={city} value={city}>
+  //       {city}
+  //     </option>
+  //   ));
+  // }
 
 
   // const deleteArbitrator = async(id) => {
@@ -118,15 +117,16 @@ export default function Arbitrators({toggleComponent}) {
 
 
   const renderArbitrators = () =>
-    arbitrators.map(arbitrator => (
-      <tr key={arbitrator.arbitrator_id}>
+    arbitrators.map((arbitrator,index) => (
+      <tr key={arbitrator.arbitratorId}>
+        <td style={{textAlign:'center'}}>{index + 1}</td>
         {Object.keys(headerMapping).map(label => (
             <td style={{textAlign:'center'}} key={label}>{arbitrator[headerMapping[label]]}</td>
         ))}
           <td style={{textAlign:'center'}}>
             <button className="btn btn-primary" 
                     style={{marginRight:'1rem'}}
-                    onClick={() => updateArbitrator(arbitrator.arbitrator_id)}
+                    onClick={() => updateArbitrator(arbitrator.arbitratorId)}
             >
               Update
             </button>
@@ -144,6 +144,7 @@ export default function Arbitrators({toggleComponent}) {
     return (
       <thead className="table-active table-dark">
       <tr>
+          <th style={{textAlign:'center'}}>Serial No.</th>
           {Object.keys(headerMapping).map(label => (
               <th style={{textAlign:'center'}} key={label}>{label}</th>
             ))}

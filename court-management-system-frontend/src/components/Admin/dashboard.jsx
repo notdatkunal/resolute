@@ -11,6 +11,12 @@ import AddBank from "./add-bank";
 import AddArbitrator from "./add-arbitrator";
 import UpdateBank from "./update-bank";
 import UpdateArbitrator from "./update-arbitrator";
+import UpdateCase from "./update-case";
+import UploadBankDocument from "./upload-bankDocuments";
+import UploadBorrowerDocument from "./upload-borrowerDocuments";
+import UploadMeetingRecordings from "./upload-meetingRecordings";
+import UploadMinutesOfMeeting from "./upload-minutesOfMeeting";
+import UploadScreenshot from "./upload-screenshot";
 
 export default function AdminDashboard(){
 
@@ -38,11 +44,17 @@ export default function AdminDashboard(){
         Arbitrators:<Arbitrators toggleComponent={toggleComponent}/> ,
         Borrowers: <Borrowers/>,
         DocumentUpload: <UploadDocuments/>,
+        BankDocumentUpload: <UploadBankDocument/>,
+        BorrowerDocumentUpload: <UploadBorrowerDocument/>,
+        MeetingRecordingUpload: <UploadMeetingRecordings/>,
+        MinutesOfMeetingUpload: <UploadMinutesOfMeeting/>,
+        ScreenshotUpload: <UploadScreenshot/>,
         AddCase: <AddCase toggleComponent={toggleComponent}/>,
         AddBank: <AddBank toggleComponent={toggleComponent}/>,
         UpdateBank: <UpdateBank id={id} toggleComponent={toggleComponent}/>,
         AddArbitrator: <AddArbitrator toggleComponent={toggleComponent}/>,
         UpdateArbitrator: <UpdateArbitrator id={id} toggleComponent={toggleComponent}/>,
+        UpdateCase: <UpdateCase id={id} toggleComponent={toggleComponent}/>,
     };
 
 
