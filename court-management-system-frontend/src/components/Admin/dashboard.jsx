@@ -17,6 +17,8 @@ import UploadBorrowerDocument from "./upload-borrowerDocuments";
 import UploadMeetingRecordings from "./upload-meetingRecordings";
 import UploadMinutesOfMeeting from "./upload-minutesOfMeeting";
 import UploadScreenshot from "./upload-screenshot";
+import AddHearingDate from "./add-hearingDate";
+import HearingDates from "./hearingDates";
 
 export default function AdminDashboard(){
 
@@ -55,6 +57,8 @@ export default function AdminDashboard(){
         AddArbitrator: <AddArbitrator toggleComponent={toggleComponent}/>,
         UpdateArbitrator: <UpdateArbitrator id={id} toggleComponent={toggleComponent}/>,
         UpdateCase: <UpdateCase id={id} toggleComponent={toggleComponent}/>,
+        AddHearingDate: <AddHearingDate id={id} toggleComponent={toggleComponent}/>,
+        HearingDates: <HearingDates id={id} toggleComponent={toggleComponent}/>,
     };
 
 

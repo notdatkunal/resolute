@@ -343,3 +343,22 @@ export async function getSubTypesAPI(){
         return null;
     }
 }
+
+
+export async function addHearingDateAPI(data, id){
+    try{
+        debugger;
+        let url = createUrl(`/case/hearing/${id}`);
+        const response = await axios.put(url, data);
+            // headers: {
+            //     'date': data.hearingDate,
+            //     // 'date': "2024/05/27",
+            // },
+
+        return response;  
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}

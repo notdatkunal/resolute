@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { getAllCasesAPI, getSearchedCaseAPI } from "../../services/adminServices";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-// import { format } from 'date-fns';
+import { format } from 'date-fns';
 
 
 const AdminSearchCase = ({toggleComponent}) => {
@@ -55,8 +55,8 @@ const AdminSearchCase = ({toggleComponent}) => {
             // else{
               const formattedCases = response.data.map(caseData => ({
                 ...caseData,
-                fillingDate: formatDate(caseData.fillingDate),
-                // fillingDate: format(caseData.fillingDate, "MM DD YYYY"),
+                // fillingDate: formatDate(caseData.fillingDate),
+                fillingDate: format(caseData.fillingDate, "MMM dd, yyyy"),
                 registrationDate: formatDate(caseData.registrationDate),
               }));
 
@@ -83,6 +83,11 @@ const AdminSearchCase = ({toggleComponent}) => {
     const openCase = async(id) => {
       debugger;
       navigate(`/case/${id}`);
+    }
+
+    const hearingDates = async(id) => {
+      debugger;
+      toggleComponent("HearingDates", id);
     }
   
     const formatDate = (dateString) => {
@@ -122,9 +127,9 @@ const AdminSearchCase = ({toggleComponent}) => {
                   </button>
                   <button className="btn btn-primary"
                           style={{marginBottom:'5px'}}
-                          onClick={() => addHearingDate(caseData.id)}
+                          onClick={() => hearingDates(caseData.id)}
                           >
-                      Add Hearing Date
+                      Hearing Dates
                   </button>
               </div>
           </div>
@@ -214,7 +219,8 @@ const AdminSearchCase = ({toggleComponent}) => {
       const response = await getSearchedCaseAPI(searchRequest);  // Send Axios request with search query
       const formattedCases = response.data.map(caseData => ({
         ...caseData,
-        fillingDate: formatDate(caseData.fillingDate),
+        // fillingDate: formatDate(caseData.fillingDate),
+        fillingDate: format(caseData.fillingDate, "MMM dd, yyyy"),
         registrationDate: formatDate(caseData.registrationDate),
       }));
       setCases(formattedCases); // Update cases state with response data
@@ -237,7 +243,8 @@ const AdminSearchCase = ({toggleComponent}) => {
       const response = await getSearchedCaseAPI(searchRequest); // Send Axios request with search query
       const formattedCases = response.data.map(caseData => ({
         ...caseData,
-        fillingDate: formatDate(caseData.fillingDate),
+        // fillingDate: formatDate(caseData.fillingDate),
+        fillingDate: format(caseData.fillingDate, "MMM dd, yyyy"),
         registrationDate: formatDate(caseData.registrationDate),
       }));
       setCases(formattedCases); // Update cases state with response data

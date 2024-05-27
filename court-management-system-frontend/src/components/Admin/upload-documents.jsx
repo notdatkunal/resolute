@@ -9,7 +9,7 @@ export default function UploadDocuments(){
     const [showMultipleModal, setShowMultipleModal] = useState(false);
     const [showSingleModal, setShowSingleModal] = useState(false);
     const [selectedField, setSelectedField] = useState("");
-    const [singleCaseDocument, setSingleCaseDocument] = useState("");
+    const [singleCaseDocument, setSingleCaseDocument] = useState([]);
     const [mainTypes, setMainTypes] = useState([]);
     const [subTypes, setSubTypes] = useState([]);
 
@@ -38,18 +38,30 @@ export default function UploadDocuments(){
 
     const renderMainTypes = () => {
         return mainTypes.map(mainType => (
-            <option key={mainType} value={mainType}>
+           (mainType != "borrowerDocument" && mainType != "bankDocument" && mainType != "communication")
+           ?<option key={mainType} value={mainType}>
             {mainType}
             </option>
+            :null
         ));
     }
     
     const renderSubTypes = () => {
         debugger;
         return subTypes.map(subType => (
-            <option value={subType}>
+            ((singleCaseDocument.mainType == "intentLetter" || singleCaseDocument.mainType == "contentLetter" 
+            || singleCaseDocument.mainType == "referenceLetter" || singleCaseDocument.mainType == "intimationLetter"  
+            || singleCaseDocument.mainType == "loanRecallNotice"  || singleCaseDocument.mainType == "award")
+            && (subType == "notice" || subType == "RPAD" ||subType == "tracking"))  
+            ?<option value={subType}>
             {subType}
             </option>
+            :((singleCaseDocument.mainType == "document")
+             &&(subType == "statementOfClaim" || subType == "roznama" || subType == "affidavit"))
+             ?<option value={subType}>
+             {subType}
+             </option>
+            :null
         ));
     }
 
@@ -59,6 +71,7 @@ export default function UploadDocuments(){
         debugger;
         const response = await getMainTypesAPI();
         if(response.status == 200){
+            debugger;
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
             //   navigate("/login");
             // toast.warning("Session Time Expired");
@@ -66,12 +79,12 @@ export default function UploadDocuments(){
             // else{
               const mainTypeData = response.data;
               setMainTypes(mainTypeData)
-            //   if (mainTypeData.length > 0) {
-            //     setCaseData(prevState => ({
-            //         ...prevState,
-            //         bankId: bankData[0].bankId
-            //     }));
-            //     }              
+              if (mainTypeData.length > 0) {
+                setSingleCaseDocument(prevState => ({
+                    ...prevState,
+                    mainType: mainTypeData[0]
+                }));
+            }              
               // }
         }else{
             toast.error('Error while calling get mainTypes api')
@@ -90,12 +103,12 @@ export default function UploadDocuments(){
             // else{
               const subTypeData = response.data;
               setSubTypes(subTypeData)
-            //   if (mainTypeData.length > 0) {
-            //     setCaseData(prevState => ({
-            //         ...prevState,
-            //         bankId: bankData[0].bankId
-            //     }));
-            //     }              
+              if (subTypeData.length > 0) {
+                setSingleCaseDocument(prevState => ({
+                    ...prevState,
+                    subTypeData: subTypeData[0].subType
+                }));
+                }              
               // }
         }else{
             toast.error('Error while calling get subTypes api')
