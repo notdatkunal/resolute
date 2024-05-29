@@ -16,10 +16,26 @@ export async function getCaseHistoryAPI(caseId = 1){
 
 
 
-export async function getCaseDocumentsAPI(caseId){
+export async function getCaseDocumentsListAPI(caseId){
     try{
         debugger;
         let url = createUrl(`/case/document/${caseId}`);
+        const response = await axios.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+export async function getDocumentsAPI(filename){
+    try{
+        debugger;
+        let url = createUrl(`/media/${filename}`);
+        // let url = createUrl(`/media/Recording 2024-04-17 032742.mp4`);
+        // let url = createUrl(`/media/resoluteServerCredentials.pdf`);
         const response = await axios.get(url);
         return response;
     }catch(ex){
@@ -34,7 +50,38 @@ export async function getCaseDocumentsAPI(caseId){
 export async function getCaseProceedingDetailsAPI(caseId){
     try{
         debugger;
-        let url = createUrl(`/case/proceeding/${caseId}`);
+        let url = createUrl(`/case/hearings/${caseId}`);
+        const response = await axios.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+export async function getMeetingRecordingsAPI(filename){
+    try{
+        debugger;
+        let url = createUrl(`/media/${filename}`);
+        // let url = createUrl(`/media/Recording 2024-04-17 032742.mp4`);
+        // let url = createUrl(`/media/resoluteServerCredentials.pdf`);
+        const response = await axios.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+export async function getMinutesOfMeetingAPI(filename){
+    try{
+        debugger;
+        let url = createUrl(`/media/${filename}`);
+        // let url = createUrl(`/media/Recording 2024-04-17 032742.mp4`);
+        // let url = createUrl(`/media/resoluteServerCredentials.pdf`);
         const response = await axios.get(url);
         return response;
     }catch(ex){

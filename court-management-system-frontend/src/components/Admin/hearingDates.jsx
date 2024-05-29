@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import '../../assets/css/components/Admin/upload-documents.css';
 import { toast } from "react-toastify";
-import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI } from "../../services/adminServices";
+import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI, deleteHearingDatesAPI } from "../../services/adminServices";
 import DatePicker from "../datepicker";
 
 
@@ -28,9 +28,16 @@ export default function HearingDates({id, toggleComponent}){
 
 
     const headerMapping = {
-        'Hearing Id': 'id',
+        'Hearing Id': 'hearingId',
         'Hearing Date': 'hearingDate',
     };
+
+
+
+    const deleteHearingDate = (hearingId) =>{
+      debugger;
+        deleteHearingDates(hearingId)
+    }
 
 
 
@@ -56,7 +63,7 @@ export default function HearingDates({id, toggleComponent}){
 
     const renderHearingDates = () =>
         hearingDates.map((hearingDate, index) => (
-          <tr key={hearingDate.id}>
+          <tr key={hearingDate.hearingId}>
             <td style={{textAlign:'center'}}>{index + 1}</td>
             {Object.keys(headerMapping).map(label => (
               <td style={{textAlign:'center'}} key={label}>{hearingDate[headerMapping[label]]}</td>
@@ -64,12 +71,12 @@ export default function HearingDates({id, toggleComponent}){
             <td style={{textAlign:'center'}}>
               <button className="btn btn-primary" 
                       style={{marginRight:'1rem'}}
-                      onClick={() => updateBank(hearingDate.id)}
+                      onClick={() => updateHearingDate(hearingDate.hearingId)}
               >
                 Update
               </button>
               <button className="btn btn-danger"
-                      onClick={() => deleteBank(bank.bankId)}
+                      onClick={() => deleteHearingDate(hearingDate.hearingId)}
               >
                 Delete
               </button>
@@ -83,7 +90,7 @@ export default function HearingDates({id, toggleComponent}){
 
     const getHearingDates = async() => {
         debugger;
-        const response = await getHearingDatesAPI();
+        const response = await getHearingDatesAPI(id);
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
             //   navigate("/login");
@@ -101,6 +108,22 @@ export default function HearingDates({id, toggleComponent}){
               // }
         }else{
             toast.error('Error while calling get hearingDates api')
+        }
+    }   
+
+
+    const deleteHearingDates = async(hearingId) => {
+        debugger;
+        const response = await deleteHearingDatesAPI(hearingId);
+        if(response.status == 200){
+          // if(response.data == "EXPIRED" || response.data == "INVALID"){
+            //   navigate("/login");
+            // toast.warning("Session Time Expired");
+            // }
+            // else{
+              toast.success("Hearing Date Deleted Successfully")
+        }else{
+            toast.error('Error while calling delete hearingDates')
         }
     }   
 

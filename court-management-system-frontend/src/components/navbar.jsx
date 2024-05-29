@@ -63,7 +63,7 @@ export default function NavBar(){
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <div className="collapse navbar-collapse" id="navbarSupportedContent" style={{marginLeft:'50px'}}>
                     <ul className="navbar-nav mr-auto" style={{display:"flex", gap:"6rem", justifyContent:"center", alignItems:"center"}}>
                     {isLoggedIn?<li className="nav-item active">
                             <a className="nav-link" onClick={dashboard}>Dashboard</a>
@@ -102,13 +102,13 @@ export default function NavBar(){
                         {/* <li className="nav-item">
                             <a className="nav-link" href="contact.html">Contact Us</a>
                         </li> */}
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <form className="form-inline my-2 my-lg-0">
                                 <div className="search_icon">
                                     <img src={searchIcon}/>
                                 </div>
                             </form>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
                 <div>

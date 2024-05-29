@@ -27,10 +27,10 @@ export default function Dashboard(){
   
     const componentMapping = {
       CaseHistory: <CaseHistory/>,
-      Documents: <Documents />,
-      Proceedings: <Proceedings />,
-      Order: <Order />,
-      Communication:<Communication/>
+      Documents: <Documents id={id}/>,
+      Proceedings: <Proceedings id={id}/>,
+      Order: <Order id={id}/>,
+      Communication:<Communication id={id}/>
     };
 
 

@@ -32,24 +32,23 @@ export default function Home(){
                            <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
                            <li data-target="#myCarousel" data-slide-to="1"></li>
                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                           <li data-target="#myCarousel" data-slide-to="3"></li>
-                           <li data-target="#myCarousel" data-slide-to="4"></li>
                         </ol>
                         {/* <!-- Wrapper for slides --> */}
                         <div className="carousel-inner">
                            <div className="carousel-item active">
                               <div className="container">
                                  <div className="banner_main">
-                                    <h1 className="banner_title">Business Agency Profit Your Marketing</h1>
-                                    <p className="banner_text">It is a long established fact that a reader will be distracted by the readable content of a page when</p>
+                                    <h1 className="banner_title">Compromise is not a sign of defeat</h1>
+                                    <p className="banner_text">It is a judicious decision that strikes a balance between the stress of prolonged litigation and the invaluable peace of mind.
+                                    </p>
                                     <div className="btn_main">
-                                       <div className="contact_bt active "><a href="">Contact Us</a></div>
-                                       <div className="readmore_bt"><a href="#">Read More</a></div>
+                                       {/* <div className="contact_bt active "><a href="">Contact Us</a></div>
+                                       <div className="readmore_bt"><a href="#">Read More</a></div> */}
                                     </div>
                                  </div>
                               </div>
                            </div>
-                           <div className="carousel-item">
+                           {/* <div className="carousel-item">
                               <div className="container">
                                  <div className="banner_main">
                                     <h1 className="banner_title">Business Agency Profit Your Marketing</h1>
@@ -72,31 +71,7 @@ export default function Home(){
                                     </div>
                                  </div>
                               </div>
-                           </div>
-                           <div className="carousel-item">
-                              <div className="container">
-                                 <div className="banner_main">
-                                    <h1 className="banner_title">Business Agency Profit Your Marketing</h1>
-                                    <p className="banner_text">It is a long established fact that a reader will be distracted by the readable content of a page when</p>
-                                    <div className="btn_main">
-                                       <div className="contact_bt active "><a href="#">Contact Us</a></div>
-                                       <div className="readmore_bt"><a href="#">Read More</a></div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div className="carousel-item">
-                              <div className="container">
-                                 <div className="banner_main">
-                                    <h1 className="banner_title">Business Agency Profit Your Marketing</h1>
-                                    <p className="banner_text">It is a long established fact that a reader will be distracted by the readable content of a page when</p>
-                                    <div className="btn_main">
-                                       <div className="contact_bt active "><a href="#">Contact Us</a></div>
-                                       <div className="readmore_bt"><a href="#">Read More</a></div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
+                           </div> */}
                         </div>
                      </div>
                   </div>
@@ -235,7 +210,7 @@ export default function Home(){
       </div>
       {/* <!-- contact section end --> */}
       {/* <!-- testimonial section start --> */}
-      <div className="testimonial_section layout_padding">
+      {/* <div className="testimonial_section layout_padding">
          <div id="my_carousel" className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
                <li data-target="#my_carousel" data-slide-to="0" className="active"></li>
@@ -246,7 +221,6 @@ export default function Home(){
                <div className="carousel-item active">
                   <div className="container">
                      <h1 className="testimonial_title">Testimonial</h1>
-                     {/* <p className="testimonial_text">majority have suffered alteration in some form, by injected humour, or </p> */}
                      <div className="testimonial_section_2">
                         <div className="row">
                            <div className="col-md-6">
@@ -276,7 +250,6 @@ export default function Home(){
                <div className="carousel-item">
                   <div className="container">
                      <h1 className="testimonial_title">Testimonial</h1>
-                     {/* <p className="testimonial_text">majority have suffered alteration in some form, by injected humour, or </p> */}
                      <div className="testimonial_section_2">
                         <div className="row">
                            <div className="col-md-6">
@@ -306,7 +279,6 @@ export default function Home(){
                <div className="carousel-item">
                   <div className="container">
                      <h1 className="testimonial_title">Testimonial</h1>
-                     {/* <p className="testimonial_text">majority have suffered alteration in some form, by injected humour, or </p> */}
                      <div className="testimonial_section_2">
                         <div className="row">
                            <div className="col-md-6">
@@ -335,7 +307,7 @@ export default function Home(){
                </div>
             </div>
          </div>
-      </div>
+      </div> */}
       {/* <!-- testimonial section end --> */}
       <Footer/>
     </>)

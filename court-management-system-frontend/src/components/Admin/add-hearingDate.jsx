@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import '../../assets/css/components/Admin/upload-documents.css';
 import { toast } from "react-toastify";
 import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI, addHearingDateAPI } from "../../services/adminServices";
-import DatePicker from "../datepicker";
-import ReactDatePicker from "react-datepicker";
 import { format } from 'date-fns';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -31,16 +31,6 @@ export default function AddHearingDate({id, toggleComponent}){
     };
 
 
-    const onTextChange = (args) =>{
-        var copy = {...singleCaseDocument};
-        copy[args.target.name] = args.target.value;
-        setSingleCaseDocument(copy);
-    }    
-
-    const handleFilterChange = (event) => {
-        const { name, value } = event.target;
-        setSingleCaseDocument({ ...singleCaseDocument, [name]: value });
-    };
 
 
 
@@ -62,7 +52,7 @@ export default function AddHearingDate({id, toggleComponent}){
           // }
           // else{
             debugger;
-            // toggleComponent("Cases");
+            toggleComponent("HearingDates", id);
             toast.success("Hearing Date Added Successfully");
             setShowSingleModal(false);
           // }  
@@ -101,10 +91,10 @@ export default function AddHearingDate({id, toggleComponent}){
             <div className="modal-body">
                 <div className="form-group mt-1 col">
                     <label>Hearing Date</label>
-                    <ReactDatePicker
+                    <DatePicker
                         selected={singleCaseDocument.hearingDate}
-                        name="date"
-                        onChange={(date) => handleDateChange(date, "date")}                
+                        name="hearingDate"
+                        onChange={(date) => handleDateChange(date, "hearingDate")}                
                         className="form-control mt-1"
                         // placeholderText=""
                         />        

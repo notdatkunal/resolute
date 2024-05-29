@@ -32,8 +32,8 @@ export default function UploadMeetingRecordings(){
 
     const renderHearingDates = () => {
         return hearingDates.map(hearingDate => (
-            <option value={hearingDate}>
-            {hearingDate}
+            <option key={hearingDate.hearingId} value={hearingDate.hearingDate}>
+            {hearingDate.hearingDate}
             </option>
         ));
     }
@@ -41,26 +41,30 @@ export default function UploadMeetingRecordings(){
 
     const renderMainTypes = () => {
         return mainTypes.map(mainType => (
-            <option value={mainType}>
+            mainType == "recording"
+            ?<option value={mainType}>
             {mainType}
             </option>
+            :null
         ));
     }
     
     const renderSubTypes = () => {
-        debugger;
         return subTypes.map(subType => (
-            <option value={subType}>
+            (singleCaseDocument.mainType == "recording" 
+            && subType == "hearing")  
+            ?<option value={subType}>
             {subType}
             </option>
+            :null
         ));
     }
 
 
 
-    const getHearingDates = async() => {
+    const getHearingDates = async(id) => {
         debugger;
-        const response = await getHearingDatesAPI();
+        const response = await getHearingDatesAPI(id);
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
             //   navigate("/login");
@@ -69,10 +73,10 @@ export default function UploadMeetingRecordings(){
             // else{
               const hearingDateData = response.data;
               setHearingDates(hearingDateData)
-              if (mainTypeData.length > 0) {
-                setCaseData(prevState => ({
+              if (hearingDateData.length > 0) {
+                setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    bankId: bankData[0].bankId
+                    hearingDate: hearingDateData[0].hearingDate
                 }));
                 }              
               // }
@@ -94,9 +98,9 @@ export default function UploadMeetingRecordings(){
               const mainTypeData = response.data;
               setMainTypes(mainTypeData)
               if (mainTypeData.length > 0) {
-                setCaseData(prevState => ({
+                setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    bankId: bankData[0].bankId
+                    mainType: "recording"
                 }));
                 }              
               // }
@@ -116,11 +120,11 @@ export default function UploadMeetingRecordings(){
             // }
             // else{
               const subTypeData = response.data;
-              setSubTypes(subTypeData)
-              if (mainTypeData.length > 0) {
-                setCaseData(prevState => ({
+              setSubTypes(subTypeData);
+              if (subTypeData.length > 0) {
+                setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    bankId: bankData[0].bankId
+                    subType: "hearing"
                 }));
                 }              
               // }
@@ -135,9 +139,9 @@ export default function UploadMeetingRecordings(){
         event.preventDefault();
       //   var role_name = selectedFilter;
       //   var data = authState;
-        var formData = new FormData(event.target);          
+        // var formData = new FormData(event.target);          
 
-        const response = await uploadSingleFile(formData);
+        const response = await uploadSingleFile(singleCaseDocument);
 
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
@@ -159,9 +163,12 @@ export default function UploadMeetingRecordings(){
 
     useEffect(()=>{
         getMainTypes();
-        getHearingDates();
         getSubTypes();
     }, [])
+
+    useEffect(()=>{
+        getHearingDates(singleCaseDocument.caseId);
+    }, [singleCaseDocument.caseId])
 
 
     
@@ -234,6 +241,7 @@ export default function UploadMeetingRecordings(){
                 <div className="form-group mt-1 col">
                     <label style={{marginRight:"20px"}}>Upload File</label>
                     <input type='file' name='files'
+                            value={singleCaseDocument.files}
                         required/> 
                 </div>
             </div>

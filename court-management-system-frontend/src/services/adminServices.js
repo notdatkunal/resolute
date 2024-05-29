@@ -317,10 +317,10 @@ export async function getMainTypesAPI(){
 }
 
 
-export async function getHearingDatesAPI(){
+export async function getHearingDatesAPI(id){
     try{
         debugger;
-        let url = createUrl(`/list/hearingDates`);
+        let url = createUrl(`/admin/hearings/${id}`);
         const response = await axios.get(url);
         return response;
     }catch(ex){
@@ -329,6 +329,39 @@ export async function getHearingDatesAPI(){
         return null;
     }
 }
+
+
+
+
+export async function updateHearingDatesAPI(data, id){
+    try{
+        debugger;
+        let url = createUrl(`/admin/hearing/${id}`);
+        const response = await axios.put(url, data);
+        return response;  
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+export async function deleteHearingDatesAPI(id){
+    try{
+        debugger;
+        let url = createUrl(`/admin/hearing/${id}`);
+        const response = await axios.delete(url);
+        return response;  
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+
 
 
 export async function getSubTypesAPI(){
@@ -348,12 +381,8 @@ export async function getSubTypesAPI(){
 export async function addHearingDateAPI(data, id){
     try{
         debugger;
-        let url = createUrl(`/case/hearing/${id}`);
-        const response = await axios.put(url, data);
-            // headers: {
-            //     'date': data.hearingDate,
-            //     // 'date': "2024/05/27",
-            // },
+        let url = createUrl(`/admin/hearing/${id}`);
+        const response = await axios.post(url, data);
 
         return response;  
     }catch(ex){

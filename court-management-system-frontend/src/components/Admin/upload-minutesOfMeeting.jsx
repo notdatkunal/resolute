@@ -9,13 +9,12 @@ import DatePicker from "../datepicker";
 
 
 
-export default function UploadMeetingRecordings(){
-
+export default function UploadMinutesOfMeeting(){
 
     const [hearingDates, setHearingDates] = useState([]);
     const [singleCaseDocument, setSingleCaseDocument] = useState("");
-    // const [mainTypes, setMainTypes] = useState([]);
-    // const [subTypes, setSubTypes] = useState([]);
+    const [mainTypes, setMainTypes] = useState([]);
+    const [subTypes, setSubTypes] = useState([]);
 
 
     const onTextChange = (args) =>{
@@ -32,35 +31,39 @@ export default function UploadMeetingRecordings(){
 
     const renderHearingDates = () => {
         return hearingDates.map(hearingDate => (
-            <option value={hearingDate}>
-            {hearingDate}
+            <option key={hearingDate.hearingId} value={hearingDate.hearingDate}>
+            {hearingDate.hearingDate}
             </option>
         ));
     }
 
 
-    // const renderMainTypes = () => {
-    //     return mainTypes.map(mainType => (
-    //         <option value={mainType}>
-    //         {mainType}
-    //         </option>
-    //     ));
-    // }
+    const renderMainTypes = () => {
+        return mainTypes.map(mainType => (
+            mainType == "recording"
+            ?<option value={mainType}>
+            {mainType}
+            </option>
+            :null
+        ));
+    }
     
-    // const renderSubTypes = () => {
-    //     debugger;
-    //     return subTypes.map(subType => (
-    //         <option value={subType}>
-    //         {subType}
-    //         </option>
-    //     ));
-    // }
+    const renderSubTypes = () => {
+        return subTypes.map(subType => (
+            (singleCaseDocument.mainType == "recording" 
+            && subType == "hearing")  
+            ?<option value={subType}>
+            {subType}
+            </option>
+            :null
+        ));
+    }
 
 
 
-    const getHearingDates = async() => {
+    const getHearingDates = async(id) => {
         debugger;
-        const response = await getHearingDatesAPI();
+        const response = await getHearingDatesAPI(id);
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
             //   navigate("/login");
@@ -69,12 +72,12 @@ export default function UploadMeetingRecordings(){
             // else{
               const hearingDateData = response.data;
               setHearingDates(hearingDateData)
-            //   if (mainTypeData.length > 0) {
-            //     setCaseData(prevState => ({
-            //         ...prevState,
-            //         bankId: bankData[0].bankId
-            //     }));
-            //     }              
+              if (hearingDateData.length > 0) {
+                setSingleCaseDocument(prevState => ({
+                    ...prevState,
+                    hearingDate: hearingDateData[0].hearingDate
+                }));
+                }              
               // }
         }else{
             toast.error('Error while calling get hearingDates api')
@@ -82,54 +85,57 @@ export default function UploadMeetingRecordings(){
     }   
 
 
-    // const getMainTypes = async() => {
-    //     debugger;
-    //     const response = await getMainTypesAPI();
-    //     if(response.status == 200){
-    //       // if(response.data == "EXPIRED" || response.data == "INVALID"){
-    //         //   navigate("/login");
-    //         // toast.warning("Session Time Expired");
-    //         // }
-    //         // else{
-    //           const mainTypeData = response.data;
-    //           setMainTypes(mainTypeData)
-    //         //   if (mainTypeData.length > 0) {
-    //         //     setCaseData(prevState => ({
-    //         //         ...prevState,
-    //         //         bankId: bankData[0].bankId
-    //         //     }));
-    //         //     }              
-    //           // }
-    //     }else{
-    //         toast.error('Error while calling get mainTypes api')
-    //     }
-    // }   
+    const getMainTypes = async() => {
+        debugger;
+        const response = await getMainTypesAPI();
+        if(response.status == 200){
+          // if(response.data == "EXPIRED" || response.data == "INVALID"){
+            //   navigate("/login");
+            // toast.warning("Session Time Expired");
+            // }
+            // else{
+              const mainTypeData = response.data;
+              setMainTypes(mainTypeData)
+              if (mainTypeData.length > 0) {
+                setSingleCaseDocument(prevState => ({
+                    ...prevState,
+                    mainType: "recording"
+                }));
+                }              
+              // }
+        }else{
+            toast.error('Error while calling get mainTypes api')
+        }
+    }   
 
 
-    // const getSubTypes = async() => {
-    //     debugger;
-    //     const response = await getSubTypesAPI();
-    //     if(response.status == 200){
-    //       // if(response.data == "EXPIRED" || response.data == "INVALID"){
-    //         //   navigate("/login");
-    //         // toast.warning("Session Time Expired");
-    //         // }
-    //         // else{
-    //           const subTypeData = response.data;
-    //           setSubTypes(subTypeData)
-    //         //   if (mainTypeData.length > 0) {
-    //         //     setCaseData(prevState => ({
-    //         //         ...prevState,
-    //         //         bankId: bankData[0].bankId
-    //         //     }));
-    //         //     }              
-    //           // }
-    //     }else{
-    //         toast.error('Error while calling get subTypes api')
-    //     }
-    // }   
+    const getSubTypes = async() => {
+        debugger;
+        const response = await getSubTypesAPI();
+        if(response.status == 200){
+          // if(response.data == "EXPIRED" || response.data == "INVALID"){
+            //   navigate("/login");
+            // toast.warning("Session Time Expired");
+            // }
+            // else{
+              const subTypeData = response.data;
+              setSubTypes(subTypeData);
+              if (subTypeData.length > 0) {
+                setSingleCaseDocument(prevState => ({
+                    ...prevState,
+                    subType: "hearing"
+                }));
+                }              
+              // }
+        }else{
+            toast.error('Error while calling get subTypes api')
+        }
+    }   
 
     
+
+
+
     const handleSingleFileSubmit = async(event) => {
         debugger;
         event.preventDefault();
@@ -158,10 +164,14 @@ export default function UploadMeetingRecordings(){
 
 
     useEffect(()=>{
-        // getMainTypes();
-        getHearingDates();
-        // getSubTypes();
+        getMainTypes();
+        getSubTypes();
     }, [])
+ 
+ 
+    useEffect(()=>{
+        getHearingDates(singleCaseDocument.caseId);
+    }, [singleCaseDocument.caseId])
 
 
     
@@ -175,7 +185,7 @@ export default function UploadMeetingRecordings(){
 
     return(<>
     <div className="container">
-        <h1>Upload Minutes  Of Meeting</h1>
+        <h1>Upload Minutes Of Meeting</h1>
     </div>
     <div>
         <div style={{display:'flex', 
@@ -213,7 +223,7 @@ export default function UploadMeetingRecordings(){
                     {renderHearingDates()}
                     </select>
                 </div>
-                {/* <div className="form-group mt-1 col">
+                <div className="form-group mt-1 col">
                     <label>Main Type</label>
                     <select className="form-control mt-1"
                             name="mainType"
@@ -230,7 +240,7 @@ export default function UploadMeetingRecordings(){
                             onChange={handleFilterChange}>
                     {renderSubTypes()}
                     </select>
-                </div> */}
+                </div>
                 <div className="form-group mt-1 col">
                     <label style={{marginRight:"20px"}}>Upload File</label>
                     <input type='file' name='files'

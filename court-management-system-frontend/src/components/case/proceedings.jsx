@@ -1,20 +1,22 @@
-import { useState } from "react";
-import { getCaseProceedingDetailsAPI } from "../../services/caseServices";
-
-export default function Proceedings(){
-
-    const [hearings, setHearings] = useState({
-        "firstHearingDate":"",
-        "nextHearingDate":"",
-        "dates":[],
-    })
+import { useEffect, useState } from "react";
+import { getCaseProceedingDetailsAPI, getMeetingRecordingsAPI, getMinutesOfMeetingAPI } from "../../services/caseServices";
+import { dataURItoBlob } from "../../utils/utils";
+import "../../assets/css/components/documents.css";
 
 
-    const getCaseHistory = async () =>{
+
+export default function Proceedings({id}){
+
+    const [hearings, setHearings] = useState([])
+    const [url, setURL] = useState("")
+    const [showIframe, setShowIframe] = useState(false);
+
+
+    const getProceedingDetails = async (id) =>{
         debugger;
       //   var role_name = selectedFilter;
       //   var data = authState;
-        const response = await getCaseProceedingDetailsAPI();
+        const response = await getCaseProceedingDetailsAPI(id);
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
           //   navigate("/login");
@@ -30,20 +32,28 @@ export default function Proceedings(){
       }
 
 
-      const getMeetingRecordings = async(date) => {
+      const getMeetingRecordings = async(filename) => {
         debugger;
       //   var role_name = selectedFilter;
       //   var data = authState;
-        const response = await getMeetingRecordingsAPI(date);
-        if(response.status == 200){
+      const response = await getMeetingRecordingsAPI(filename);
+      if(response.status == 200){
+          debugger;
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
           //   navigate("/login");
           //   toast.warning("Session Time Expired");
           // }
           // else{
-            debugger;
-            setCaseDetails(response.data.caseDetails);
-            setCaseStatus(response.data.caseStatus);
+            var reader = new FileReader();
+            // const blob = dataURItoBlob(response.data);
+            // const blobUrl = URL.createObjectURL(blob);
+            // const blobUrl = URL.createObjectURL(blob);
+            setURL(response.data);
+            setShowIframe(true);
+            // reader.readAsText(response.data);            
+            // reader.readAsDataURL(response.data); 
+            // window.open(blobUrl, '_blank');
+            // window.location = reader.readAsDataURL(blob) 
           // }  
         }else{
           toast.error("Didn't Fetch Data");
@@ -52,34 +62,40 @@ export default function Proceedings(){
 
 
 
+      const getMinutesOfMeeting = async(filename) => {
+        debugger;
+      //   var role_name = selectedFilter;
+      //   var data = authState;
+        const response = await getMinutesOfMeetingAPI(filename);
+        if(response.status == 200){
+          // if(response.data == "EXPIRED" || response.data == "INVALID"){
+          //   navigate("/login");
+          //   toast.warning("Session Time Expired");
+          // }
+          // else{
+            debugger;
+            setURL(response.data);
+            setShowIframe(true);
+
+          // }  
+        }else{
+          toast.error("Didn't Fetch Data");
+        }
+      }
+
+      useEffect(()=>{
+        getProceedingDetails(id);
+      }, [])
+
+
+    const closeIframe = () => {
+        setShowIframe(false);
+    }
+
+
 
     return(<>
     {/* <h1 style={{textAlign:"center"}}>Proceedings</h1> */}
-    <table className="table table-bordered">
-        <thead className="table-active table-dark">
-            <tr>
-                <th colSpan={2} style={{textAlign:"center"}}>First Hearing Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th colSpan={2} style={{textAlign:"center"}}>11/05/2024</th>
-            </tr>
-        </tbody>
-    </table>
-
-    <table className="table table-bordered">
-        <thead className="table-active table-dark">
-            <tr>
-                <th colSpan={2} style={{textAlign:"center"}}>Next Hearing Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th colSpan={2} style={{textAlign:"center"}}>20/05/2024</th>
-            </tr>
-        </tbody>
-    </table>
     <table className="table table-bordered">
         <thead className="table-active table-dark">
             <tr>
@@ -89,20 +105,29 @@ export default function Proceedings(){
             </tr>
         </thead>
         <tbody>
-        {hearings.dates.map((date, index) => (
+        {hearings.map((hearing, index) => (
             <tr key={index}>
-                <th scope="row" style={{textAlign:"center"}}>{date}</th>
+                <th scope="row" style={{textAlign:"center"}}>{hearing.hearingDate}</th>
                 <td style={{textAlign:"center"}}>
                     {/* Add an onClick handler to trigger fetching of meeting recordings */}
-                    <a onClick={() => getMeetingRecordings(date)}>View</a>
+                    <a onClick={() => getMeetingRecordings(hearing.meetingRecordings)}>View</a>
                 </td>
                 <td style={{textAlign:"center"}}>
                     {/* You can add a similar onClick handler for minutes of meetings */}
-                    <a>View</a>
+                    <a onClick={() => getMinutesOfMeeting(hearing.minutesOfMeeting)}>View</a>
                 </td>
             </tr>
         ))}        
         </tbody>
     </table>
+    {showIframe && (
+        <div className="iframe-container">
+            <div className="close-button" onClick={closeIframe}><i class="fa-solid fa-xmark"></i></div>
+            <iframe src={url} 
+                    className="centered-iframe" 
+                    title="Meeting Recordings"
+                    style={{ width: "60vw", height: "90vh" }} />
+        </div>
+    )}    
     </>);
 }
