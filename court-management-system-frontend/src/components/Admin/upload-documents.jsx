@@ -445,7 +445,7 @@ export default function UploadDocuments(){
                 </div>
                 <div className="form-group mt-1 col">
                     <label style={{marginRight:"20px"}}>Upload File</label>
-                    <input type='file' name='files'/> 
+                    <input type='file' name='file'/> 
                 </div>
             </div>
             <div className="modal-footer">

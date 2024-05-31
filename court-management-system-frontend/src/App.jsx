@@ -12,6 +12,9 @@ import AboutUs from './components/about'
 import Faq from './components/faq'
 import { useSelector } from 'react-redux'
 import UnauthorizedPage from './components/unauthorized'
+import ARB from './components/arb'
+import Medi from './components/medi'
+import Conciliation from './components/conciliation'
 
 const App = createBrowserRouter([
   {
@@ -27,6 +30,21 @@ const App = createBrowserRouter([
   {
     path: '/about',
     element: <AboutUs></AboutUs>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/arb',
+    element: <ARB></ARB>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/mediation',
+    element: <Medi></Medi>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/conciliation',
+    element: <Conciliation></Conciliation>,
     errorElement: <ErrorPage />,
   },
   {

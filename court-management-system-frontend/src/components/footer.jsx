@@ -1,7 +1,23 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Footer(){
 
-   const ARB = () =>{
+   const navigate = useNavigate();
 
+   const ARB = () =>{
+      navigate("/arb");
+   }
+   
+   const Medi = () =>{
+      navigate("/mediation");
+   }
+
+   const Concili = () =>{
+      navigate("/conciliation");
+   }
+
+   const home = () =>{
+      navigate("/");
    }
 
     return(<>
@@ -25,13 +41,13 @@ export default function Footer(){
                         <a className="" onClick={ARB}>ARB</a>
                      </div>
                      <div>
-                        <a className="" onClick={ARB}>Medi</a>
+                        <a className="" onClick={Medi}>Medi</a>
                      </div>
                      <div>
-                        <a className="" onClick={ARB}>Concili</a>
+                        <a className="" onClick={Concili}>Concili</a>
                      </div>
                      <div>
-                        <a className="" onClick={ARB}>Free Legal Aid</a>
+                        <a className="" onClick={home}>Free Legal Aid</a>
                      </div>
                   </div>
                   <div class="col-lg-4">

@@ -40,7 +40,7 @@ export default function UploadMinutesOfMeeting(){
 
     const renderMainTypes = () => {
         return mainTypes.map(mainType => (
-            mainType == "recording"
+            mainType == "minutesOfMeeting"
             ?<option value={mainType}>
             {mainType}
             </option>
@@ -50,7 +50,7 @@ export default function UploadMinutesOfMeeting(){
     
     const renderSubTypes = () => {
         return subTypes.map(subType => (
-            (singleCaseDocument.mainType == "recording" 
+            (singleCaseDocument.mainType == "minutesOfMeeting" 
             && subType == "hearing")  
             ?<option value={subType}>
             {subType}
@@ -99,7 +99,7 @@ export default function UploadMinutesOfMeeting(){
               if (mainTypeData.length > 0) {
                 setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    mainType: "recording"
+                    mainType: "minutesOfMeeting"
                 }));
                 }              
               // }

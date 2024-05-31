@@ -106,35 +106,37 @@ export default function Home(){
       <div className="services_section layout_padding" id="services_section">
          <div className="container">
             <h1 className="services_title">What We Do</h1>
-            <p className="about_text">It is a long established fact that a reader will be distracted by the readable content of a page when</p>
+            {/* <p className="about_text">It is a long established fact that a reader will be distracted by the readable content of a page when</p> */}
             <div className="services_section_2">
                <div className="row">
-                  <div className="col-lg-6">
+                  <div className="col">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-1.png"/></div>
                      </div>
                      <h4 className="selection_text">Arbitration</h4>
-                     <p className="" style={{textAlign:"justify"}}>Arbitration is a method of resolving disputes outside of the court system. In arbitration, parties present their case to a neutral third party, known as an arbitrator, who then renders a decision that is binding on both parties. This process is often chosen for its efficiency, confidentiality, and flexibility in selecting the arbitrator and procedural rules.</p>
+                     <p className="row" style={{textAlign:"center", marginRight:'100px'}}>Arbitration is a method of resolving disputes outside of the court system.</p>
                   </div>
-                  <div className="col-lg-5">
+                  <div className="col">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-4.png"/></div>
                      </div>
                      <h4 className="selection_text">Mediation</h4>
-                     <p className="" style={{textAlign:"justify"}}>Mediation involves a neutral third party, the mediator, who facilitates communication and negotiation between disputing parties to help them reach a voluntary agreement. Unlike arbitration, the mediator does not impose a decision but rather assists the parties in finding common ground and crafting mutually acceptable solutions. Mediation is prized for its informality, cost-effectiveness, and ability to preserve relationships.</p>
+                     <p className="row" style={{textAlign:"center", marginRight:'80px'}}>Mediation involves a neutral third party, the mediator, who facilitates communication and negotiation between disputing parties to help them reach a voluntary agreement.</p>
                   </div>
-                  <div className="col-lg-6">
+                  <div className="col">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-2.png"/></div>
                      </div>
                      <h4 className="selection_text">Conciliation</h4>
-                     <p className="" style={{textAlign:"justify"}}>Conciliation shares similarities with mediation but typically involves a more active role for the conciliator in proposing solutions and encouraging compromise. Similar to mediation, conciliation aims to resolve disputes amicably and without resorting to litigation. It often proves beneficial in cases where emotions are high, and parties may need additional guidance to find resolution</p>
+                     <p className="row" style={{textAlign:"justify", marginRight:'40px'}}>Conciliation shares similarities with mediation but typically involves a more active role for the conciliator in proposing solutions and encouraging compromise.</p>
                   </div>
-                     {/* <div className="icon_box">
+                  <div className="col">
+                     <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-5.png"/></div>
                      </div>
-                     <h4 className="selection_text">Advisory Activities</h4>
-                     <p className="ipsum_text">There are many variations of passages of Lorem Ipsum available, but the form, by injected humour, or randomised</p> */}
+                     <h4 className="selection_text">Free Legal Aid</h4>
+                     {/* <p className="ipsum_text"></p> */}
+                  </div>
                   {/* <div className="col-lg-4">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-3.png"/></div>

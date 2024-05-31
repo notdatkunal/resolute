@@ -3,7 +3,7 @@ import Sidebar from "./sidebar";
 import "../../assets/css/components/case.css"
 import { useEffect, useState } from "react";
 import { getCaseHistoryAPI } from "../../services/caseServices";
-
+import { format } from 'date-fns'
 
 
 export default function CaseHistory(){
@@ -97,11 +97,11 @@ export default function CaseHistory(){
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Filling Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{formatDate(caseDetails.fillingDate)}</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.fillingDate?format(caseDetails.fillingDate, "MMM dd, yyyy"):null}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Registration Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{formatDate(caseDetails.registrationDate)}</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseDetails.registrationDate?format(caseDetails.registrationDate, "MMM dd, yyyy"):null}</td>
                             </tr>
                             {/* <tr>
                                 <th scope="row" style={{textAlign:"center"}}>CNR Number</th>
@@ -114,11 +114,11 @@ export default function CaseHistory(){
                         <tbody>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>First Hearing Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{formatDate(caseStatus.firstHearingDate)}</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.firstHearingDate?format(caseStatus.firstHearingDate, "MMM dd, yyyy"):null}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Next Hearing Date</th>
-                                <td colSpan={2} style={{textAlign:"center"}}>{formatDate(caseStatus.nextHearingDate)}</td>
+                                <td colSpan={2} style={{textAlign:"center"}}>{caseStatus.nextHearingDate?format(caseStatus.nextHearingDate, "MMM dd, yyyy"):null}</td>
                             </tr>
                             <tr>
                                 <th scope="row" style={{textAlign:"center"}}>Case Status</th>

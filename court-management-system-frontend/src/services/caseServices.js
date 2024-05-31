@@ -1,11 +1,11 @@
-import axios from "axios";
+import axiosInstance from "../axiosconfig";
 import { createUrl } from "../utils/utils";
 
 export async function getCaseHistoryAPI(caseId = 1){
     try{
         debugger;
         let url = createUrl(`/case/history/${caseId}`);
-        const response = await axios.get(url);
+        const response = await axiosInstance.get(url);
         return response;
     }catch(ex){
         // console.log(ex);
@@ -19,8 +19,8 @@ export async function getCaseHistoryAPI(caseId = 1){
 export async function getCaseDocumentsListAPI(caseId){
     try{
         debugger;
-        let url = createUrl(`/case/document/${caseId}`);
-        const response = await axios.get(url);
+        let url = createUrl(`/docs/${caseId}`);
+        const response = await axiosInstance.get(url);
         return response;
     }catch(ex){
         // console.log(ex);
@@ -36,7 +36,7 @@ export async function getDocumentsAPI(filename){
         let url = createUrl(`/media/${filename}`);
         // let url = createUrl(`/media/Recording 2024-04-17 032742.mp4`);
         // let url = createUrl(`/media/resoluteServerCredentials.pdf`);
-        const response = await axios.get(url);
+        const response = await axiosInstance.get(url);
         return response;
     }catch(ex){
         // console.log(ex);
@@ -51,7 +51,7 @@ export async function getCaseProceedingDetailsAPI(caseId){
     try{
         debugger;
         let url = createUrl(`/case/hearings/${caseId}`);
-        const response = await axios.get(url);
+        const response = await axiosInstance.get(url);
         return response;
     }catch(ex){
         // console.log(ex);
@@ -66,7 +66,7 @@ export async function getMeetingRecordingsAPI(filename){
         let url = createUrl(`/media/${filename}`);
         // let url = createUrl(`/media/Recording 2024-04-17 032742.mp4`);
         // let url = createUrl(`/media/resoluteServerCredentials.pdf`);
-        const response = await axios.get(url);
+        const response = await axiosInstance.get(url);
         return response;
     }catch(ex){
         // console.log(ex);
@@ -82,7 +82,7 @@ export async function getMinutesOfMeetingAPI(filename){
         let url = createUrl(`/media/${filename}`);
         // let url = createUrl(`/media/Recording 2024-04-17 032742.mp4`);
         // let url = createUrl(`/media/resoluteServerCredentials.pdf`);
-        const response = await axios.get(url);
+        const response = await axiosInstance.get(url);
         return response;
     }catch(ex){
         // console.log(ex);
@@ -96,7 +96,7 @@ export async function getCaseOrderDetailsAPI(caseId){
     try{
         debugger;
         let url = createUrl(`/case/order/${caseId}`);
-        const response = await axios.get(url);
+        const response = await axiosInstance.get(url);
         return response;
     }catch(ex){
         // console.log(ex);
@@ -111,7 +111,7 @@ export async function getCaseCommunicationDetailsAPI(caseId){
     try{
         debugger;
         let url = createUrl(`/case/communication/${caseId}`);
-        const response = await axios.get(url);
+        const response = await axiosInstance.get(url);
         return response;
     }catch(ex){
         // console.log(ex);

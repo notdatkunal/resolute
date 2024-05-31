@@ -32,15 +32,15 @@ export default function NavBar(){
     }
 
     const ARB  = () =>{
-        navigate('/')
+        navigate('/arb')
     }
     
     const medi  = () =>{
-        navigate('/')
+        navigate('/mediation')
     }
 
     const concili  = () =>{
-        navigate('/')
+        navigate('/conciliation')
     }
 
     const freeLegalAid  = () =>{

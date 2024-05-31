@@ -25,8 +25,16 @@ export default function UploadMeetingRecordings(){
     }    
 
     const handleFilterChange = (event) => {
+        debugger;
         const { name, value } = event.target;
-        setSingleCaseDocument({ ...singleCaseDocument, [name]: value });
+        const selectedHearingDate = hearingDates.find((hearingDate) => hearingDate.hearingDate === value);
+
+        // Update the singleCaseDocument state with the selected hearing date and hearingId
+        setSingleCaseDocument({
+          ...singleCaseDocument,
+          [name]: value,
+          hearingId: selectedHearingDate ? selectedHearingDate.hearingId : '',
+        });    
     };
 
 
@@ -52,7 +60,7 @@ export default function UploadMeetingRecordings(){
     const renderSubTypes = () => {
         return subTypes.map(subType => (
             (singleCaseDocument.mainType == "recording" 
-            && subType == "hearing")  
+            && subType == "other")  
             ?<option value={subType}>
             {subType}
             </option>
@@ -76,7 +84,8 @@ export default function UploadMeetingRecordings(){
               if (hearingDateData.length > 0) {
                 setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    hearingDate: hearingDateData[0].hearingDate
+                    hearingDate: hearingDateData[0].hearingDate,
+                    hearingId: hearingDateData[0].hearingId
                 }));
                 }              
               // }
@@ -124,7 +133,7 @@ export default function UploadMeetingRecordings(){
               if (subTypeData.length > 0) {
                 setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    subType: "hearing"
+                    subType: "other"
                 }));
                 }              
               // }
@@ -139,9 +148,14 @@ export default function UploadMeetingRecordings(){
         event.preventDefault();
       //   var role_name = selectedFilter;
       //   var data = authState;
-        // var formData = new FormData(event.target);          
+        var formData = new FormData(event.target);
 
-        const response = await uploadSingleFile(singleCaseDocument);
+        for (const [key, value] of formData.entries()) {
+            console.log(`Key: ${key}, Value: ${value}`);
+          }
+        // const response = await uploadSingleFile(singleCaseDocument);
+        const response = await uploadSingleFile(formData);
+
 
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
@@ -151,7 +165,7 @@ export default function UploadMeetingRecordings(){
           // else{
             debugger;
             // toggleComponent("Cases");
-            toast.success("Document Added Successfully");
+            toast.success(response.message);
             setShowSingleModal(false);
           // }  
         }else{
@@ -221,6 +235,14 @@ export default function UploadMeetingRecordings(){
                     </select>
                 </div>
                 <div className="form-group mt-1 col">
+                    {/* <label style={{marginRight:"20px"}}>Hearing Id.</label> */}
+                    <input type='hidden' 
+                           name='hearingId'
+                           value={singleCaseDocument.hearingId}
+                        //    disabled
+                           /> 
+                </div>
+                <div className="form-group mt-1 col">
                     <label>Main Type</label>
                     <select className="form-control mt-1"
                             name="mainType"
@@ -240,8 +262,8 @@ export default function UploadMeetingRecordings(){
                 </div>
                 <div className="form-group mt-1 col">
                     <label style={{marginRight:"20px"}}>Upload File</label>
-                    <input type='file' name='files'
-                            value={singleCaseDocument.files}
+                    <input type='file' name='file'
+                            value={singleCaseDocument.file}
                         required/> 
                 </div>
             </div>

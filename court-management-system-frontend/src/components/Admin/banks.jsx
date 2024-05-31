@@ -9,8 +9,7 @@ import { toast } from "react-toastify";
 export default function Banks({toggleComponent}){
 
 
-    var [banks, setBanks] = useState([
-    ]);
+    var [banks, setBanks] = useState([]);
     const navigate = useNavigate();
     var [selectedFilter, setSelectedFilter] = useState("");
     // var [cities, setCities] = useState([]);
@@ -100,7 +99,7 @@ export default function Banks({toggleComponent}){
     
     
     const renderBanks = () =>
-      banks.map((bank, index) => (
+      banks?.map((bank, index) => (
         <tr key={bank.bankId}>
           <td style={{textAlign:'center'}}>{index + 1}</td>
           {Object.keys(headerMapping).map(label => (

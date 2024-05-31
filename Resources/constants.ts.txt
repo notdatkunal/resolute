@@ -1,0 +1,183 @@
+import { Component, OnInit } from '@angular/core';
+declare var jquery: any;
+declare var $: any;
+
+export class Constants {
+
+    constructor() {
+
+    }
+//    public static UI_URL: string = "http://13.232.101.83:4200/";
+    //    public static UI_URL: string = "http://localhost:8080/";
+    public static UI_URL: string = "http://103.39.132.238:8080/";
+    // commenting it 
+    // public static UI_URL: string = "https://ah.mahabms.com/";
+    // public static UI_URL: string = "https://ah.mahabms.com/";
+    // public static UI_URL: string = "https://localhost/";
+    //    public static UI_URL: string = "http://192.168.148.56:8080/";
+    //    public static UI_URL: string = "http://192.168.148.136:8080/";
+    
+    // public static HOME_URL: string = "http://mahabmsapi.anshuagrawal.in:8080/mahabms/";
+    // public static HOME_URL: string = "http://13.232.101.83:8080/mahabms/";
+    // public static HOME_URL: string = "http://15.207.18.171:8080/bms/";
+
+        // public static UI_URL: string = "http://192.168.0.103:4200/";
+    //  public static HOME_URL: string = "https://demo.mahabms.com/";
+    //  public static HOME_URL: string = "https://test.mahabms.com/"; 
+    // public static HOME_URL: string = "http://65.1.208.182:8080/bms/";
+    //   public static HOME_URL: string = "http://jalna.mahabms.com/";
+    // public static HOME_URL: string = "http://ah.mahabms.com:8080/mahabms/";
+    // public static HOME_URL: string = "https://ah.mahabms.com/";
+    // public static HOME_URL: string = "https://localhost/";
+    public static HOME_URL: string = "http://103.39.132.238:8080/";
+    // http://ah.mahabms.com/web/menu-view-settings
+    //public static HOME_URL: string = "https://t1.mahabms.com/";
+    public static ERROR_TXT: string = "कोणतीही विनंती स्वीकारण्यात अयशस्वी , पुन्हा प्रयत्न करा  .";
+    public static IMG_EXTNS = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG'];
+    public static FILE_EXTNS = ['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'pdf', 'docx'];
+    public static IMG_EXTN = 'jpg, JPG, jpeg, JPEG, png, PNG';
+    public static FILE_EXTN = 'jpg, JPG, jpeg, JPEG, png, PNG, pdf, docx';
+    public static FILE_SIZE = 100;
+    public static PHOTO_SIZE = 80;
+    public static SIGN_SIZE = 40;
+    public static VERSION = 1.0;
+
+    /**
+     * Check image extensions. 
+     * Return true if valid or false if invalid.
+     * 
+     * @param imgName 
+     */
+    public static checkImageExtension(imgName) {
+        if (this.IMG_EXTNS.indexOf(imgName) > -1)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check file extensions. 
+     * Return true if valid or false if invalid.
+     * 
+     * @param fileName 
+     */
+    public static checkFileExtension(fileName) {
+        if (this.IMG_EXTNS.indexOf(fileName) > -1)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Check image(photot) size. 
+     * Return true if valid or false if invalid.
+     * 
+     * @param photo 
+     */
+    public static checkPhotoSize(photo) {
+        if (Math.round((photo.size / 1024)) > this.PHOTO_SIZE)
+            return false;
+        else
+            return true;
+    }
+
+    /**
+     * Check signature size. 
+     * Return true if valid or false if invalid.
+     * 
+     * @param sign 
+     */
+    public static checkSignSize(sign) {
+        if (Math.round((sign.size / 1024)) > this.SIGN_SIZE)
+            return false;
+        else
+            return true;
+    }
+
+    /**
+     * Check document size. 
+     * Return true if valid or false if invalid.
+     * 
+     * @param doc 
+     */
+    public static checkDocSize(doc) {
+        if (Math.round((doc.size / 1024)) > this.FILE_SIZE)
+            return false;
+        else
+            return true;
+    }
+
+    /**
+     * Success Message Method
+     */
+    public static successMsg(message) {
+        // Hide error snackbar if it's open
+        var erEl = document.getElementById("error-snackbar");
+        erEl.className = erEl.className.replace("show", "");
+
+        var x = document.getElementById("success-snackbar");
+        x.innerHTML = '<i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;&nbsp;' + message;
+        x.className = "show";
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 4000);
+    }
+
+    /**
+     * Error Message Method
+     */
+    public static errorMsg(message) {
+        var x = document.getElementById("error-snackbar");
+        document.getElementById("error-msg-disp").innerHTML = message;
+        x.className = "show";
+        //setTimeout(function () { x.className = x.className.replace("show", ""); }, 4000);
+    }
+
+    /**
+     * Close error message toast
+     */
+    public static closeErrorMessage(){
+        var x = document.getElementById("error-snackbar");
+        document.getElementById("error-msg-disp").innerHTML = '';
+        x.className = x.className.replace("show", "");
+    }
+
+    /** 
+     * Get token from session storage and generate authorization header
+    */
+    public static authHeader() {
+        if (sessionStorage.getItem('currentUser')) {
+            var user = JSON.parse(sessionStorage.getItem('currentUser'));
+            return "Bearer " + btoa(user.token.userNo + ":" + user.token.sessionToken);
+        } else {
+            return "";
+        }
+    }
+
+    /**     * Print any HTML element unsing Id     *
+    *  @param divid      
+    */
+    public static print(id) {
+        var innerContents = document.getElementById(id).innerHTML;
+        var popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+        popupWinindow.document.open();
+        popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" /><style>@media print {.pagebreak { page-break-after: always;}}</style></head><body onload="window.print()">' + innerContents + '</html>');
+        // popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css"/><style>@page{html { margin: 20%; transform: scale(50%);  font-size: 10pt;  page-break-after: never; break-after: never; }}</style></head><body onload="window.print()">' + innerContents + '</html>');
+        popupWinindow.document.close();
+    }
+
+    public static checkIfNumber(event: any) {
+        const pattern = /[0-9\+\-\ ]/;
+        let inputChar = String.fromCharCode(event.charCode);
+        if (event.keyCode != 8 && !pattern.test(inputChar)) {
+            return false;
+        }
+    }
+
+    public static getBase64(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+		    reader.readAsDataURL(file);
+		    reader.onload = () => resolve(reader.result);
+		    reader.onerror = error => reject(error);
+		});
+	}
+}

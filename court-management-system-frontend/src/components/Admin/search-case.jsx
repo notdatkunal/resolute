@@ -53,15 +53,16 @@ const AdminSearchCase = ({toggleComponent}) => {
             // toast.warning("Session Time Expired");
             // }
             // else{
+              
               const formattedCases = response.data.map(caseData => ({
                 ...caseData,
-                // fillingDate: formatDate(caseData.fillingDate),
-                fillingDate: format(caseData.fillingDate, "MMM dd, yyyy"),
-                registrationDate: formatDate(caseData.registrationDate),
-              }));
+                  // fillingDate: formatDate(caseData.fillingDate),
+                  fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
+                  registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
+                  // registrationDate: formatDate(caseData.registrationDate),
+                }));
 
               setCases(formattedCases);
-
               // }
             }else{
               toast.error('Error while calling get banks api')
@@ -220,8 +221,9 @@ const AdminSearchCase = ({toggleComponent}) => {
       const formattedCases = response.data.map(caseData => ({
         ...caseData,
         // fillingDate: formatDate(caseData.fillingDate),
-        fillingDate: format(caseData.fillingDate, "MMM dd, yyyy"),
-        registrationDate: formatDate(caseData.registrationDate),
+        fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
+        registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
+        // registrationDate: formatDate(caseData.registrationDate),
       }));
       setCases(formattedCases); // Update cases state with response data
     } catch (error) {
@@ -244,8 +246,9 @@ const AdminSearchCase = ({toggleComponent}) => {
       const formattedCases = response.data.map(caseData => ({
         ...caseData,
         // fillingDate: formatDate(caseData.fillingDate),
-        fillingDate: format(caseData.fillingDate, "MMM dd, yyyy"),
-        registrationDate: formatDate(caseData.registrationDate),
+        fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
+        registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
+        // registrationDate: formatDate(caseData.registrationDate),
       }));
       setCases(formattedCases); // Update cases state with response data
     } catch (error) {

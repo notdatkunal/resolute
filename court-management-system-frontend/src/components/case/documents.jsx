@@ -69,15 +69,24 @@ export default function Documents({id}){
           <tbody>
               <tr>
                   <th style={{textAlign:"center"}}>Notice</th>
-                  <td style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
           </tbody>
           <thead className="table-active table-dark">
@@ -86,15 +95,24 @@ export default function Documents({id}){
           <tbody>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
           </tbody>
           <thead className="table-active table-dark">
@@ -103,15 +121,24 @@ export default function Documents({id}){
           <tbody>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
           </tbody>
           <thead className="table-active table-dark">
@@ -120,20 +147,30 @@ export default function Documents({id}){
           <tbody>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
           </tbody>
           <thead className="table table-primary">
               <th style={{textAlign:"center"}}>Statement of Claim</th>
-              <th style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></th>
+              <th style={{textAlign:"center"}}>
+                <a onClick={() => {getDocuments()}}>View</a></th>
           </thead>
           <thead className="table-active table-dark">
               <th colSpan={2} style={{textAlign:"center"}}>Intimation Letter</th>
@@ -141,20 +178,32 @@ export default function Documents({id}){
           <tbody>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr> 
           </tbody>
           <thead className="table table-primary">
               <th style={{textAlign:"center"}}>Affidavit</th>
-              <th style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></th>
+              <th style={{textAlign:"center"}}>
+                <a onClick={() => {getDocuments()}}
+                   style={{cursor:'pointer'}}
+                >View</a></th>
           </thead>
           <thead className="table-active table-dark">
               <th colSpan={2} style={{textAlign:"center"}}>Award</th>
@@ -162,24 +211,39 @@ export default function Documents({id}){
           <tbody>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
-                  <td colSpan={2} style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></td>
+                  <td colSpan={2} style={{textAlign:"center"}}>
+                    <a onClick={() => {getDocuments()}}
+                       style={{cursor:'pointer'}}
+                    >View</a></td>
               </tr> 
           </tbody>
           <thead className="table table-primary">
               <th style={{textAlign:"center"}}>Roznama</th>
-              <th style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></th>
+              <th style={{textAlign:"center"}}>
+                <a onClick={() => {getDocuments()}}
+                   style={{cursor:'pointer'}}
+                >View</a></th>
           </thead>
           <thead className="table table-primary">
               <th style={{textAlign:"center"}}>Bank Document</th>
-              <th style={{textAlign:"center"}}><a onClick={() => {getDocuments()}}>View</a></th>
+              <th style={{textAlign:"center"}}>
+                <a onClick={() => {getDocuments()}}
+                   style={{cursor:'pointer'}}
+                >View</a></th>
           </thead>
       </table>     
       {showIframe && (
