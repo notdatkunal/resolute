@@ -3,6 +3,7 @@ import '../../assets/css/components/Admin/upload-documents.css';
 import { toast } from "react-toastify";
 import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI } from "../../services/adminServices";
 import DatePicker from "../datepicker";
+import { format } from "date-fns";
 
 
 
@@ -51,7 +52,7 @@ export default function UploadMinutesOfMeeting(){
     const renderSubTypes = () => {
         return subTypes.map(subType => (
             (singleCaseDocument.mainType == "minutesOfMeeting" 
-            && subType == "hearing")  
+            && subType == "other")  
             ?<option value={subType}>
             {subType}
             </option>
@@ -70,12 +71,16 @@ export default function UploadMinutesOfMeeting(){
             // toast.warning("Session Time Expired");
             // }
             // else{
-              const hearingDateData = response.data;
-              setHearingDates(hearingDateData)
-              if (hearingDateData.length > 0) {
+              const formattedhearingDates = response.data.map(hearingDateData => ({
+                ...hearingDateData,
+                  hearingDate: hearingDateData.hearingDate?format(hearingDateData.hearingDate, "MMM dd, yyyy"):null,
+                }));
+
+              setHearingDates(formattedhearingDates)
+              if (formattedhearingDates.length > 0) {
                 setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    hearingDate: hearingDateData[0].hearingDate
+                    hearingDate: formattedhearingDates[0].hearingDate
                 }));
                 }              
               // }
@@ -123,7 +128,7 @@ export default function UploadMinutesOfMeeting(){
               if (subTypeData.length > 0) {
                 setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    subType: "hearing"
+                    subType: "other"
                 }));
                 }              
               // }

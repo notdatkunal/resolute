@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { deleteBankAPI, getAllBanksAPI } from "../../services/adminServices";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { format } from "date-fns";
 
 
 
@@ -40,7 +41,11 @@ export default function Banks({toggleComponent}){
             // toast.warning("Session Time Expired");
             // }
             // else{
-              setBanks(response.data);
+              const formattedBanks = response.data.map(bankData => ({
+                ...bankData,
+                  registrationDate: bankData.registrationDate?format(bankData.registrationDate, "MMM dd, yyyy"):null,
+                }));
+              setBanks(formattedBanks);
               // }
             }else{
               toast.error('Error while calling get banks api')

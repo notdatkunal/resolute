@@ -445,7 +445,10 @@ export default function UploadDocuments(){
                 </div>
                 <div className="form-group mt-1 col">
                     <label style={{marginRight:"20px"}}>Upload File</label>
-                    <input type='file' name='file'/> 
+                    <input  type='file' 
+                            name='file'
+                            accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"
+                    /> 
                 </div>
             </div>
             <div className="modal-footer">

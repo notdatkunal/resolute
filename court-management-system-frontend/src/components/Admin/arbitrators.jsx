@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getAllArbitratorsAPI } from "../../services/adminServices";
+import { format } from "date-fns";
 
 export default function Arbitrators({toggleComponent}) {
 
@@ -57,7 +58,12 @@ export default function Arbitrators({toggleComponent}) {
       //   toast.warning("Session Time Expired");
       // }
       // else{
-        setArbitrators(response.data);
+        const formattedArbitrators = response.data.map(arbitratorData => ({
+          ...arbitratorData,
+            registrationDate: arbitratorData.registrationDate?format(arbitratorData.registrationDate, "MMM dd, yyyy"):null,
+          }));
+
+        setArbitrators(formattedArbitrators);
       // }
     }else{
       toast.error('Error while calling get arbitrators api')

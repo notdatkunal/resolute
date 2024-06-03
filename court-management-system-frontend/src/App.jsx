@@ -65,14 +65,14 @@ const App = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: '/case/:id',
+    path: '/casePanel/:id',
     element: <PrivateRoute>
       <Dashboard />
     </PrivateRoute>,
     errorElement: <ErrorPage />,
   },
   {
-    path: '/admin',
+    path: '/adminPanel',
     element: <AdminPrivateRoute>
       <AdminDashboard />
     </AdminPrivateRoute>,

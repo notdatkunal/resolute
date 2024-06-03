@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCaseProceedingDetailsAPI, getMeetingRecordingsAPI, getMinutesOfMeetingAPI } from "../../services/caseServices";
-import { dataURItoBlob } from "../../utils/utils";
 import "../../assets/css/components/documents.css";
+import { format } from "date-fns";
 
 
 
@@ -24,7 +24,11 @@ export default function Proceedings({id}){
           // }
           // else{
             debugger;
-            setHearings(response.data);
+            const formattedProceedings = response.data.map(proceedingData => ({
+              ...proceedingData,
+                hearingDate: proceedingData.hearingDate?format(proceedingData.hearingDate, "MMM dd, yyyy"):null,
+              }));    
+            setHearings(formattedProceedings);
           // }  
         }else{
           toast.error("Didn't Fetch Data");

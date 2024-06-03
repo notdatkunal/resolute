@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import '../../assets/css/components/Admin/upload-documents.css';
 import { toast } from "react-toastify";
 import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI } from "../../services/adminServices";
-import DatePicker from "../datepicker";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -15,6 +16,13 @@ export default function UploadScreenShot(){
     const [singleCaseDocument, setSingleCaseDocument] = useState("");
     const [mainTypes, setMainTypes] = useState([]);
     const [subTypes, setSubTypes] = useState([]);
+
+
+
+
+    const handleDateChange = (date, fieldName) => {
+        setSingleCaseDocument({ ...singleCaseDocument, [fieldName]: date });
+    };
 
 
     const onTextChange = (args) =>{
@@ -40,7 +48,7 @@ export default function UploadScreenShot(){
 
     const renderMainTypes = () => {
         return mainTypes.map(mainType => (
-            mainType == "minutesOfMeeting"
+            mainType == "communication"
             ?<option value={mainType}>
             {mainType}
             </option>
@@ -50,8 +58,8 @@ export default function UploadScreenShot(){
     
     const renderSubTypes = () => {
         return subTypes.map(subType => (
-            (singleCaseDocument.mainType == "minutesOfMeeting" 
-            && subType == "hearing")  
+            (singleCaseDocument.mainType == "communication" 
+            && subType == "other")  
             ?<option value={subType}>
             {subType}
             </option>
@@ -99,7 +107,7 @@ export default function UploadScreenShot(){
               if (mainTypeData.length > 0) {
                 setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    mainType: "minutesOfMeeting"
+                    mainType: "communication"
                 }));
                 }              
               // }
@@ -123,7 +131,7 @@ export default function UploadScreenShot(){
               if (subTypeData.length > 0) {
                 setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    subType: "hearing"
+                    subType: "other"
                 }));
                 }              
               // }
@@ -214,14 +222,15 @@ export default function UploadScreenShot(){
                            /> 
                 </div>
                 <div className="form-group mt-1 col">
-                    <label>Date</label>
-                    <select className="form-control mt-1"
-                            name="hearingDate"
-                            value={singleCaseDocument.hearingDate}
-                            onChange={handleFilterChange}
-                            required>
-                    {renderHearingDates()}
-                    </select>
+                    <label>Communication Date</label>
+                    <div className="col">
+                    <DatePicker
+                        selected={singleCaseDocument.communicationDate}
+                        onChange={(date) => handleDateChange(date, "communicationDate")}                
+                        className="form-control mt-1"
+                        placeholderText="Communication Date"
+                        />        
+                    </div>
                 </div>
                 <div className="form-group mt-1 col">
                     <label>Main Type</label>
@@ -243,7 +252,7 @@ export default function UploadScreenShot(){
                 </div>
                 <div className="form-group mt-1 col">
                     <label style={{marginRight:"20px"}}>Upload File</label>
-                    <input type='file' name='files'
+                    <input type='file' name='file'
                         required/> 
                 </div>
             </div>

@@ -9,6 +9,7 @@ import { persistor, store } from './store.js'
 import { ToastContainer } from 'react-toastify'
 
 
+
 const storePersistor = persistor;
 
 ReactDOM.createRoot(document.getElementById('root')).render(

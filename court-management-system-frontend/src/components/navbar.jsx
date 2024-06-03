@@ -75,10 +75,10 @@ export default function NavBar(){
                             <a className="nav-link" href="services.html">Services</a>
                         </li> */}
                     <li className="nav-item dropdown"> {/* Add 'dropdown' class to create a dropdown menu */}
-                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Services
                         </a>
-                        <div className="dropdown-menu" aria-labelledby="navbarDropdown" style={{marginTop: "-0.4rem"}}> {/* Dropdown menu content */}
+                        <div className="dropdown-menu dropdown-content" aria-labelledby="navbarDropdown" style={{marginTop: "-0.4rem"}}> {/* Dropdown menu content */}
                             <a className="dropdown-item" onClick={ARB}>ARB</a>
                             <a className="dropdown-item" onClick={medi}>Medi</a>
                             <a className="dropdown-item" onClick={concili}>Concili</a>

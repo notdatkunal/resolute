@@ -3,8 +3,7 @@ import '../../assets/css/components/Admin/upload-documents.css';
 import { toast } from "react-toastify";
 import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI } from "../../services/adminServices";
 import DatePicker from "../datepicker";
-
-
+import { format } from "date-fns";
 
 
 
@@ -16,6 +15,7 @@ export default function UploadMeetingRecordings(){
     const [singleCaseDocument, setSingleCaseDocument] = useState("");
     const [mainTypes, setMainTypes] = useState([]);
     const [subTypes, setSubTypes] = useState([]);
+    const [isLoading, setIsLoading] = useState(false); // Add loading state
 
 
     const onTextChange = (args) =>{
@@ -79,16 +79,20 @@ export default function UploadMeetingRecordings(){
             // toast.warning("Session Time Expired");
             // }
             // else{
-              const hearingDateData = response.data;
-              setHearingDates(hearingDateData)
-              if (hearingDateData.length > 0) {
-                setSingleCaseDocument(prevState => ({
-                    ...prevState,
-                    hearingDate: hearingDateData[0].hearingDate,
-                    hearingId: hearingDateData[0].hearingId
+            const formattedhearingDates = response.data.map(hearingDateData => ({
+                ...hearingDateData,
+                    hearingDate: hearingDateData.hearingDate?format(hearingDateData.hearingDate, "MMM dd, yyyy"):null,
                 }));
-                }              
-              // }
+
+            setHearingDates(formattedhearingDates)
+            if (formattedhearingDates.length > 0) {
+            setSingleCaseDocument(prevState => ({
+                ...prevState,
+                hearingDate: formattedhearingDates[0].hearingDate,
+                hearingId: formattedhearingDates[0].hearingId
+            }));
+            }              
+                  // }
         }else{
             toast.error('Error while calling get hearingDates api')
         }
@@ -146,6 +150,7 @@ export default function UploadMeetingRecordings(){
     const handleSingleFileSubmit = async(event) => {
         debugger;
         event.preventDefault();
+        setIsLoading(true);
       //   var role_name = selectedFilter;
       //   var data = authState;
         var formData = new FormData(event.target);
@@ -156,20 +161,14 @@ export default function UploadMeetingRecordings(){
         // const response = await uploadSingleFile(singleCaseDocument);
         const response = await uploadSingleFile(formData);
 
-
         if(response.status == 200){
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-          //   navigate("/login");
-          //   toast.warning("Session Time Expired");
-          // }
-          // else{
             debugger;
-            // toggleComponent("Cases");
-            toast.success(response.message);
-            setShowSingleModal(false);
+            setIsLoading(false);
+            toast.success("Recording Added Successfully");
           // }  
         }else{
-          toast.error("Failed To Add Document");
+            setIsLoading(false);
+            toast.error("Failed To Add Recording");
         }
 
     }
@@ -263,6 +262,7 @@ export default function UploadMeetingRecordings(){
                 <div className="form-group mt-1 col">
                     <label style={{marginRight:"20px"}}>Upload File</label>
                     <input type='file' name='file'
+                            accept="video/mp4,video/x-m4v,video/*"
                             value={singleCaseDocument.file}
                         required/> 
                 </div>
@@ -271,10 +271,14 @@ export default function UploadMeetingRecordings(){
                 <button 
                         type="submit" 
                         className="btn btn-primary"
+                        disabled={isLoading}
                     >Submit</button>
+                {isLoading &&
+                    <div className="spinner" />
+                } {/* Show spinner when loading */}
             </div>
            </form>            
         </div>
     </div>
-        </>);
+    </>);
 }

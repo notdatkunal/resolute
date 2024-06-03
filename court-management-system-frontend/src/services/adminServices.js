@@ -294,10 +294,11 @@ export async function uploadSingleFile(data) {
         });
         
         return response; // Assuming your server returns JSON data
-    } catch (error) {
+    } catch (ex) {
+        debugger;
         //   console.error('Error uploading file:', error);
         //   throw error; // Throw the error for handling in the component
-        return null;
+        return ex.response;
     }
   };
 
@@ -326,14 +327,28 @@ export async function getHearingDatesAPI(id){
     }catch(ex){
         // console.log(ex);
         // toast.error(ex.message);
-        return null;
+        return ex.data;
+    }
+}
+
+
+export async function getHearingDateAPI(id){
+    try{
+        debugger;
+        let url = createUrl(`/admin/hearing/${id}`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return ex.data;
     }
 }
 
 
 
 
-export async function updateHearingDatesAPI(data, id){
+export async function updateHearingDateAPI(data, id){
     try{
         debugger;
         let url = createUrl(`/admin/hearing/${id}`);
@@ -391,3 +406,42 @@ export async function addHearingDateAPI(data, id){
         return null;
     }
 }
+
+
+
+
+export async function uploadOrder(data) {
+    try {
+        debugger;
+        let caseId = data.get('caseId');
+        let date = data.get('date');
+        let url = createUrl(`/admin/order/${caseId}`);
+        const response = await axiosInstance.post(url, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                // You can include any additional headers here if needed
+            },
+        });
+        
+        return response; // Assuming your server returns JSON data
+    } catch (error) {
+        //   console.error('Error uploading file:', error);
+        //   throw error; // Throw the error for handling in the component
+        return null;
+    }
+  };
+
+
+  export async function getOrderDetailsAPI(caseId){
+    try{
+        debugger;
+        let url = createUrl(`/admin/orders/${caseId}`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+

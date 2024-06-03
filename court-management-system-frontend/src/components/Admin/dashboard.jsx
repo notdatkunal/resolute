@@ -19,6 +19,8 @@ import UploadMinutesOfMeeting from "./upload-minutesOfMeeting";
 import UploadScreenshot from "./upload-screenshot";
 import AddHearingDate from "./add-hearingDate";
 import HearingDates from "./hearingDates";
+import UploadOrder from "./upload-order";
+import UpdateHearingDate from "./update-hearingDate";
 
 export default function AdminDashboard(){
 
@@ -51,6 +53,7 @@ export default function AdminDashboard(){
         MeetingRecordingUpload: <UploadMeetingRecordings/>,
         MinutesOfMeetingUpload: <UploadMinutesOfMeeting/>,
         ScreenshotUpload: <UploadScreenshot/>,
+        OrderUpload: <UploadOrder/>,
         AddCase: <AddCase toggleComponent={toggleComponent}/>,
         AddBank: <AddBank toggleComponent={toggleComponent}/>,
         UpdateBank: <UpdateBank id={id} toggleComponent={toggleComponent}/>,
@@ -59,6 +62,7 @@ export default function AdminDashboard(){
         UpdateCase: <UpdateCase id={id} toggleComponent={toggleComponent}/>,
         AddHearingDate: <AddHearingDate id={id} toggleComponent={toggleComponent}/>,
         HearingDates: <HearingDates id={id} toggleComponent={toggleComponent}/>,
+        UpdateHearingDate: <UpdateHearingDate id={id} toggleComponent={toggleComponent}/>,
     };
 
 

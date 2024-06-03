@@ -42,18 +42,23 @@ export default function UploadBankDocument(){
 
     const renderMainTypes = () => {
         return mainTypes.map(mainType => (
-            <option value={mainType}>
+            mainType == "bankDocument"
+            ?<option value={mainType}>
             {mainType}
             </option>
+            :null
         ));
     }
     
     const renderSubTypes = () => {
         debugger;
         return subTypes.map(subType => (
-            <option value={subType}>
+            (singleCaseDocument.mainType == "bankDocument" 
+            && subType == "other")  
+            ?<option value={subType}>
             {subType}
             </option>
+            :null
         ));
     }
 
@@ -70,12 +75,12 @@ export default function UploadBankDocument(){
             // else{
               const mainTypeData = response.data;
               setMainTypes(mainTypeData)
-            //   if (mainTypeData.length > 0) {
-            //     setCaseData(prevState => ({
-            //         ...prevState,
-            //         bankId: bankData[0].bankId
-            //     }));
-            //     }              
+              if (mainTypeData.length > 0) {
+                setSingleCaseDocument(prevState => ({
+                    ...prevState,
+                    mainType: "bankDocument"
+                }));
+                }              
               // }
         }else{
             toast.error('Error while calling get mainTypes api')
@@ -94,12 +99,12 @@ export default function UploadBankDocument(){
             // else{
               const subTypeData = response.data;
               setSubTypes(subTypeData)
-            //   if (mainTypeData.length > 0) {
-            //     setCaseData(prevState => ({
-            //         ...prevState,
-            //         bankId: bankData[0].bankId
-            //     }));
-            //     }              
+              if (subTypeData.length > 0) {
+                setSingleCaseDocument(prevState => ({
+                    ...prevState,
+                    subType: "other"
+                }));
+                }              
               // }
         }else{
             toast.error('Error while calling get subTypes api')

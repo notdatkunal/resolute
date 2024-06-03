@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import '../../assets/css/components/Admin/upload-documents.css';
 import { toast } from "react-toastify";
-import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI, deleteHearingDatesAPI } from "../../services/adminServices";
+import {  getHearingDatesAPI, deleteHearingDatesAPI } from "../../services/adminServices";
 import DatePicker from "../datepicker";
+import { format } from "date-fns";
 
 
 
@@ -31,6 +32,13 @@ export default function HearingDates({id, toggleComponent}){
         'Hearing Id': 'hearingId',
         'Hearing Date': 'hearingDate',
     };
+
+
+    
+    const updateHearingDate = (hearingId) =>{
+      debugger;
+      toggleComponent("UpdateHearingDate", hearingId)
+    }
 
 
 
@@ -97,8 +105,11 @@ export default function HearingDates({id, toggleComponent}){
             // toast.warning("Session Time Expired");
             // }
             // else{
-              const hearingDateData = response.data;
-              setHearingDates(hearingDateData)
+              const hearingDates = response.data.map(hearingDateData => ({
+                ...hearingDateData,
+                  hearingDate: hearingDateData.hearingDate?format(hearingDateData.hearingDate, "MMM dd, yyyy"):null,
+                }));              
+              setHearingDates(hearingDates)
             //   if (mainTypeData.length > 0) {
             //     setCaseData(prevState => ({
             //         ...prevState,

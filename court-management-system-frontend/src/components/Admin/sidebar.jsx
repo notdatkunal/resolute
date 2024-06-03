@@ -49,6 +49,9 @@ const Sidebar = ({toggleComponent}) => {
   const toggleScreenshotUpload = () => {
     toggleComponent("ScreenshotUpload");
   };
+  const toggleOrderUpload = () => {
+    toggleComponent("OrderUpload");
+  };
 
 
 
@@ -212,6 +215,14 @@ const Sidebar = ({toggleComponent}) => {
                          >
                           <i className="fa-solid fa-file-image"></i>
                           Screenshot</a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" 
+                         aria-expanded="false"
+                         onClick={() => toggleOrderUpload()}
+                         >
+                          <i className="fa-solid fa-file-image"></i>
+                          Order</a>
                     </li>
                   </ul>
                 </div>

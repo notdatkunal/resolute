@@ -53,6 +53,7 @@ export default function AddCase({toggleComponent}){
     // var [roles, setRoles] = useState([]);
     var [states, setStates] = useState(["Maharashtra"]);
     var [zones, setZones] = useState(["East", "West", "South1", "South2", "North"]);
+    var [caseTypes, setCaseTypes] = useState([]);
     var [banks, setBanks] = useState([]);
     var [arbitrators, setArbitrators] = useState([]);
     const [creditNumber, setCreditNumber] = useState("");
@@ -100,6 +101,14 @@ export default function AddCase({toggleComponent}){
         return banks.map(bank => (
             <option key={bank.bankId} value={bank.bankId}>
             {bank.bankName}
+            </option>
+        ));
+    }
+
+    const renderCaseTypes = () => {
+        return caseTypes.map(caseType => (
+            <option key={caseType.caseTypeId} value={caseType.caseTypeId}>
+            {caseType.caseTypeName}
             </option>
         ));
     }
@@ -287,7 +296,7 @@ export default function AddCase({toggleComponent}){
             onChange={onTextChange}
             required
             />
-        </div>
+        </div>        
         <div className="form-group mt-1 col">
             <label>Account Number</label>
             <input
@@ -402,6 +411,17 @@ export default function AddCase({toggleComponent}){
             </div>
         </div>
         <div className="form-group mt-1 col">
+            <label>Case Type</label>
+            <select className="form-control mt-1"
+                    name="arbitratorId"
+                    value={caseData.caseType}
+                    onChange={handleFilterChange}>
+            {renderCaseTypes()}
+            </select>
+        </div>
+        </div>
+        <div className="row">
+        <div className="form-group mt-1 col">
             <label>Case No</label>
             <input
             type="text"
@@ -412,8 +432,6 @@ export default function AddCase({toggleComponent}){
             required
             />
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>SOC Filing Date</label>
             <div className="col">
@@ -435,6 +453,8 @@ export default function AddCase({toggleComponent}){
             onChange={onTextChange}
             />
         </div>
+        </div>
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Date of 1st Hearing</label>
             <div className="col">
@@ -446,8 +466,6 @@ export default function AddCase({toggleComponent}){
                 />        
             </div>
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Last Date of Hearing</label>
             <div className="col">
@@ -469,6 +487,8 @@ export default function AddCase({toggleComponent}){
             onChange={onTextChange}
             />
         </div>
+        </div>
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Next Date of Hearing</label>
             <div className="col">
@@ -480,8 +500,6 @@ export default function AddCase({toggleComponent}){
                 />        
             </div>
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Stages for Next Hearing</label>
             <input
@@ -504,6 +522,8 @@ export default function AddCase({toggleComponent}){
                 <option value="Filing Claim Statement">Filing Claim Statement</option>
             </select>
         </div>
+        </div>
+        <div className="row">        
         <div className="form-group mt-1 col">
             <label>Flag For Contested/Uncontested</label>
             <select className="form-control mt-1"
@@ -514,8 +534,6 @@ export default function AddCase({toggleComponent}){
                 <option value="uncontested">Uncontested</option>
             </select>
         </div>
-        </div>
-        <div className="row">        
         <div className="form-group mt-1 col">
             <label>Details Remark</label>
             <input
@@ -537,6 +555,8 @@ export default function AddCase({toggleComponent}){
                 />        
             </div>
         </div>
+        </div>        
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Award Amount</label>
             <input
@@ -547,8 +567,6 @@ export default function AddCase({toggleComponent}){
             onChange={onTextChange}
             />
         </div>
-        </div>        
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Sec.17 - Application Filing Date Co</label>
             <div className="col">
@@ -571,6 +589,8 @@ export default function AddCase({toggleComponent}){
                 />        
             </div>
         </div>
+        </div>
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Sec.17 - Status</label>
             <input
@@ -581,8 +601,6 @@ export default function AddCase({toggleComponent}){
             onChange={onTextChange}
             />
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Court Name</label>
             <input
@@ -603,6 +621,8 @@ export default function AddCase({toggleComponent}){
             onChange={onTextChange}
             />
         </div>
+        </div>
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Lawyer Name</label>
             <input
@@ -613,8 +633,6 @@ export default function AddCase({toggleComponent}){
             onChange={onTextChange}
             />
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Arbitrator / Judge Name</label>
             <select className="form-control mt-1"
