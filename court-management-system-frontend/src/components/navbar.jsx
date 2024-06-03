@@ -24,7 +24,7 @@ export default function NavBar(){
     }
 
     const dashboard = () =>{
-        navigate('/admin');
+        navigate('/adminPanel');
     }
 
     const home  = () =>{
@@ -74,19 +74,26 @@ export default function NavBar(){
                         {/* <li className="nav-item">
                             <a className="nav-link" href="services.html">Services</a>
                         </li> */}
-                    <li className="nav-item dropdown"> {/* Add 'dropdown' class to create a dropdown menu */}
+                    <li className="nav-item dropdown"> 
                         <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Services
                         </a>
-                        <div className="dropdown-menu dropdown-content" aria-labelledby="navbarDropdown" style={{marginTop: "-0.4rem"}}> {/* Dropdown menu content */}
+                        <div className="dropdown-menu dropdown-content" aria-labelledby="navbarDropdown" style={{marginTop: "-0.4rem"}}>
                             <a className="dropdown-item" onClick={ARB}>ARB</a>
                             <a className="dropdown-item" onClick={medi}>Medi</a>
                             <a className="dropdown-item" onClick={concili}>Concili</a>
                             <a className="dropdown-item" onClick={freeLegalAid}>Free Legal Aid</a>
-                            {/* <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#">More Services</a> */}
                         </div>
                     </li>                
+                    {/* <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#">Services</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">ARB</a></li>
+                            <li><a class="dropdown-item" href="#">Medi</a></li>
+                            <li><a class="dropdown-item" href="#">Concili</a></li>
+                            <li><a class="dropdown-item" href="#">Free Legal Aid</a></li>
+                        </ul>
+                    </li>                     */}
                         {/* <li className="nav-item">
                             <a className="nav-link" href="blog.html">Blog</a>
                         </li> */}

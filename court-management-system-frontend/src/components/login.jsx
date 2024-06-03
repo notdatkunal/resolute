@@ -87,7 +87,7 @@ const Submit = async (e) =>{
         if (response.data != 0) {
           switch (response.data.role) {
             case "admin":
-              navigate("/admin");              
+              navigate("/adminPanel");              
               break;
             case "bank":
               navigate("/search-case");              

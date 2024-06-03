@@ -83,7 +83,7 @@ const AdminSearchCase = ({toggleComponent}) => {
 
     const openCase = async(id) => {
       debugger;
-      navigate(`/case/${id}`);
+      navigate(`/casePanel/${id}`);
     }
 
     const hearingDates = async(id) => {
