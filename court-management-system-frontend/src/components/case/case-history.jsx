@@ -6,7 +6,7 @@ import { getCaseHistoryAPI } from "../../services/caseServices";
 import { format } from 'date-fns'
 
 
-export default function CaseHistory(){
+export default function CaseHistory({id}){
 
     const [caseDetails, setCaseDetails] = useState({
             "caseType" :"",
@@ -24,11 +24,11 @@ export default function CaseHistory(){
     });
 
 
-    const getCaseHistory = async () =>{
+    const getCaseHistory = async (id) =>{
         debugger;
       //   var role_name = selectedFilter;
       //   var data = authState;
-        const response = await getCaseHistoryAPI();
+        const response = await getCaseHistoryAPI(id);
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
           //   navigate("/login");
@@ -59,7 +59,7 @@ export default function CaseHistory(){
   
 
     useEffect(()=>{
-        getCaseHistory();
+        getCaseHistory(id);
     }, [])
 
 

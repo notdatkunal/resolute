@@ -23,3 +23,15 @@
     margin-right: 50px;
     color: white;
 }
+
+
+
+.iframe-scrollbar {
+    width: 20px; /* Adjust width as needed */
+    background-color: #ddd; /* Adjust color */
+    position: absolute;
+    right: 10; /* Position the scrollbar on the right */
+    top: 0;
+    /* Add additional styles for hover effect, etc. */
+  }
+  

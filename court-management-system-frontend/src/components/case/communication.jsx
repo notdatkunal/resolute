@@ -1,66 +1,124 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../../assets/css/components/communication.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { getDocumentsAPI, getScreenshotDetailsAPI } from "../../services/caseServices";
+import { format } from "date-fns";
 
-export default function Communication() {
+export default function Communication({id}) {
 
-  const [descriptionVisible, setDescriptionVisible] = useState(Array(3).fill(false));
+  const [screenshots, setScreenShots] = useState([]);
+  const [url, setURL] = useState("");
+  const [showIframe, setShowIframe] = useState(false);
+  const iframeRef = useRef(null);
 
-  const hideDescriptionToggle = (index) => {
-    const updatedVisible = [...descriptionVisible];
-    updatedVisible[index] = !updatedVisible[index];
-    setDescriptionVisible(updatedVisible);
+
+
+
+
+
+  const getDocuments = async(filename) => {
+    debugger;
+    screenshots.map((screenshot)=>{
+      if(screenshot.fileName.includes(filename)){
+        filename = screenshot.fileName
+      }
+    })
+    const response = await getDocumentsAPI(filename);
+    if(response.status == 200){
+        debugger;
+          var reader = new FileReader();
+          setURL(response.data  + "#toolbar=0");
+          setShowIframe(true);
+      }else if(response.status == 403){
+        toast.error("Document is not uploaded yet. Please Try Again.");
+      }else{
+        toast.error("Didn't Fetch Data");
+      }
+  }
+
+
+
+
+
+
+  const closeIframe = () =>{
+    setShowIframe(false);
+  }
+
+
+  const preventDefaultContextMenu = (event) => {
+    event.preventDefault();
   };
 
-  const dates = ["12/05/2024", "13/05/2024", "14/05/2024"];
 
-  const descriptions = [
-    [
-      { imageUrl: "/src/assets/images/banner-bg-1.png", fileName: "1234343.jpg" },
-      { imageUrl: "/src/assets/images/banner-bg-1.png", fileName: "1234343.jpg" },
-      { imageUrl: "/src/assets/images/banner-bg-1.png", fileName: "1234343.jpg" }
-    ],
-    [
-      { imageUrl: "/src/assets/images/banner-bg-1.png", fileName: "1234343.jpg" },
-      { imageUrl: "/src/assets/images/banner-bg-1.png", fileName: "1234343.jpg" },
-      { imageUrl: "/src/assets/images/banner-bg-1.png", fileName: "1234343.jpg" }
-    ],
-    [
-      { imageUrl: "/src/assets/images/banner-bg-1.png", fileName: "1234343.jpg" },
-      { imageUrl: "/src/assets/images/banner-bg-1.png", fileName: "1234343.jpg" },
-      { imageUrl: "/src/assets/images/banner-bg-1.png", fileName: "1234343.jpg" }
-    ]
-  ];
+
+  const renderScreenshot = () =>
+    screenshots?.map((screenshot, index) => (
+      <tr key={index}>
+        <td style={{textAlign:'center'}}>{screenshot.date}</td>
+        <td style={{textAlign:'center'}}>
+            <a onClick={() => getDocuments(screenshot.fileName)}
+               style={{cursor:'pointer'}}>{screenshot.fileName}</a>
+        </td>
+      </tr>
+    ));
+    
+
+
+  const getScreenShot = async(id) => {
+    debugger;
+    const response = await getScreenshotDetailsAPI(id);
+    if(response.status == 200){
+                    
+        const formattedScreenshots = response.data.map(screenshotData => ({
+          ...screenshotData,
+            date: screenshotData.date?format(screenshotData.date, "MMM dd, yyyy"):null,
+          }));
+          setScreenShots(formattedScreenshots);
+
+      }else{
+        toast.error('Error while calling get banks api')
+    }
+  }  
+    
+    
+  useEffect(()=>{
+    getScreenShot(id);
+  },[])    
+
 
   return (
     <>
-      <div>
-        {dates.map((date, index) => (
-          <div key={index}>
-            <div className="product-filters" style={{ backgroundColor: "black", color: "white", marginBottom: "20px" }}>
-              <h4 style={{ color: "white", marginTop: "10px" }}>{date}</h4>
-              <FontAwesomeIcon
-                icon={descriptionVisible[index] ? faPlus : faMinus}
-                onClick={() => {
-                  hideDescriptionToggle(index);
-                }}
-                style={{ cursor: "pointer", margin: 0, padding: 0 }}
-                className="fas"
-              />
-              <hr></hr>
-            </div>
-            <div className={`${descriptionVisible[index] ? "hide" : "show"}`} style={{}}>
-              {descriptions[index].map((item, i) => (
-                <div key={i}>
-                  <img src={item.imageUrl} style={{ width: "150px", height: "150px", marginRight: "20rem" }} />
-                  <a>{item.fileName}</a>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+    <div>
+      <h1>Communication</h1>
+    </div>
+    <table className="table table-bordered">
+      <thead className="table-active table-dark">
+        <th colSpan={2} style={{textAlign:'center'}}>
+          Screenshot
+        </th>
+      </thead>
+      <tbody>
+        {renderScreenshot()}
+      </tbody>
+    </table>
+    {showIframe && (
+          <div className="iframe-container" onload="disableContextMenu();">
+          <div className="close-button" onClick={closeIframe}><i className="fa-solid fa-xmark"></i></div>
+          <div
+              className="iframe-overlay"
+              onContextMenu={preventDefaultContextMenu}
+              style={{ width: "90vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 1 }}
+          ></div>
+          <iframe src={url}
+              className="centered-iframe"
+              title="Meeting Recordings"
+              style={{ width: "60vw", height: "90vh", position: "relative", zIndex: 0 }}
+              ref={iframeRef}
+          />
+          </div>        
+      )}    
     </>
   );
 }

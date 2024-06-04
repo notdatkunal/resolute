@@ -1,7 +1,7 @@
 import axiosInstance from "../axiosconfig";
 import { createUrl } from "../utils/utils";
 
-export async function getCaseHistoryAPI(caseId = 1){
+export async function getCaseHistoryAPI(caseId){
     try{
         debugger;
         let url = createUrl(`/case/history/${caseId}`);
@@ -135,5 +135,20 @@ export async function getOrderAPI(filename){
         // console.log(ex);
         // toast.error(ex.message);
         return ex.response;
+    }
+}
+
+
+export async function getScreenshotDetailsAPI(caseId){
+    try{
+        debugger;
+        let url = createUrl(`/case/communication/${caseId}`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        debugger;
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
     }
 }

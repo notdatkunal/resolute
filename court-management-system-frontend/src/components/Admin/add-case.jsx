@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../../assets/css/components/Admin/add-case.css"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { addCase, getAllArbitratorsAPI, getAllBanksAPI } from "../../services/adminServices";
+import { addCase, getAllArbitratorsAPI, getAllBanksAPI, getCaseTypesAPI } from "../../services/adminServices";
 import { toast } from "react-toastify";
 
 
@@ -107,8 +107,8 @@ export default function AddCase({toggleComponent}){
 
     const renderCaseTypes = () => {
         return caseTypes.map(caseType => (
-            <option key={caseType.caseTypeId} value={caseType.caseTypeId}>
-            {caseType.caseTypeName}
+            <option key={caseType} value={caseType}>
+            {caseType}
             </option>
         ));
     }
@@ -154,30 +154,13 @@ export default function AddCase({toggleComponent}){
         setCaseData({ ...caseData, accountNumber: value });
     };
 
-    //   const getRoles = async () => {
-    //     var response = await getRolesAPI(authState);
-    //     if(response.status == 200){
-    //       if(response.data == "EXPIRED" || response.data == "INVALID"){
-    //         navigate("/login");
-    //         toast.warning("Session Time Expired");
-    //       }
-    //       else{
-    //         setRoles(response.data);
-    //       }    
-    //     }else{
-    //       toast.error("Failed To Load Roles");
-    //     }
-    //   }
-  
+
+
+
     const getBanks = async() => {
         debugger;
         const response = await getAllBanksAPI();
         if(response.status == 200){
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-            //   navigate("/login");
-            // toast.warning("Session Time Expired");
-            // }
-            // else{
               const bankData = response.data;
               setBanks(bankData)
               if (bankData.length > 0) {
@@ -190,8 +173,27 @@ export default function AddCase({toggleComponent}){
         }else{
             toast.error('Error while calling get banks api')
         }
-        }   
+    }   
 
+
+
+    const getCaseTypes = async() => {
+        debugger;
+        const response = await getCaseTypesAPI();
+        if(response.status == 200){
+              const caseTypeData = response.data;
+              setCaseTypes(caseTypeData)
+              if (caseTypeData.length > 0) {
+                setCaseData(prevState => ({
+                    ...prevState,
+                    caseType: caseTypeData[0]
+                }));
+                }              
+              // }
+        }else{
+            toast.error('Error while calling get banks api')
+        }
+    }   
 
 
 
@@ -246,6 +248,7 @@ export default function AddCase({toggleComponent}){
     useEffect(() =>{
         getBanks();
         getAllArbitrators();
+        getCaseTypes();
     }, [])  
 
 

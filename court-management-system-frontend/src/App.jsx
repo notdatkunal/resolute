@@ -67,7 +67,7 @@ const App = createBrowserRouter([
   {
     path: '/casePanel/:id',
     element: <PrivateRoute>
-      <Dashboard />
+      <Dashboard/>
     </PrivateRoute>,
     errorElement: <ErrorPage />,
   },

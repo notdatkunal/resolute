@@ -54,13 +54,7 @@ export default function Borrowers() {
       debugger;
       const response = await getAllBorrowersAPI();
       if(response.status == 200){
-        // if(response.data == "EXPIRED" || response.data == "INVALID"){
-          //   navigate("/login");
-          // toast.warning("Session Time Expired");
-          // }
-          // else{
           setBorrowers(response.data);
-            // }
       }else{
         toast.error('Error while calling get banks api')
       }

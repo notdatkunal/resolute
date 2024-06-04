@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { getCaseDocumentsListAPI, getDocumentsAPI } from "../../services/caseServices";
 import { toast } from "react-toastify";
+import "../../assets/css/components/documents.css"
+
 
 export default function Documents({id}){
 
@@ -277,17 +279,21 @@ export default function Documents({id}){
         //     />
         // </div>
           <div className="iframe-container" onload="disableContextMenu();">
-          <div className="close-button" onClick={closeIframe}><i className="fa-solid fa-xmark"></i></div>
+          <div className="close-button" 
+               onClick={closeIframe}><i className="fa-solid fa-xmark"></i></div>
           <div
               className="iframe-overlay"
               onContextMenu={preventDefaultContextMenu}
-              style={{ width: "90vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 1 }}
+              style={{ width: "86vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 1 }}
           ></div>
           <iframe src={url}
               className="centered-iframe"
-              title="Meeting Recordings"
-              style={{ width: "60vw", height: "90vh", position: "relative", zIndex: 0 }}
+              title="Documents"
+              style={{ width: "60vw", height: "90vh", position: "relative", zIndex: 0, border:  "none" }}
               ref={iframeRef}
+              onLoad={() => {
+                iframeRef.current.contentWindow.document.body.addEventListener('contextmenu', preventDefaultContextMenu);
+            }}              
           />
           </div>        
       )}    

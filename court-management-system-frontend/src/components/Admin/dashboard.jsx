@@ -27,13 +27,22 @@ export default function AdminDashboard(){
 
     const [activeComponent, setActiveComponent] = useState("Cases");
     const [id, setId] = useState("1");
-    
+    const [hearingId, setHearingId] = useState("1");
     
     const toggleComponent = (component, id) => {
       debugger;
       console.log(component);
       setActiveComponent(component);
       setId(id);
+    };
+
+    const toggleHearing = (component, id, hearingId) => {
+      debugger;
+      console.log(component);
+      console.log(id);
+      setActiveComponent(component);
+      setId(id);
+      setHearingId(hearingId);
     };
 
     const updateData = (component) => {
@@ -61,8 +70,8 @@ export default function AdminDashboard(){
         UpdateArbitrator: <UpdateArbitrator id={id} toggleComponent={toggleComponent}/>,
         UpdateCase: <UpdateCase id={id} toggleComponent={toggleComponent}/>,
         AddHearingDate: <AddHearingDate id={id} toggleComponent={toggleComponent}/>,
-        HearingDates: <HearingDates id={id} toggleComponent={toggleComponent}/>,
-        UpdateHearingDate: <UpdateHearingDate id={id} toggleComponent={toggleComponent}/>,
+        HearingDates: <HearingDates id={id} hearingId={hearingId} toggleComponent={toggleHearing}/>,
+        UpdateHearingDate: <UpdateHearingDate id={id} hearingId={hearingId} toggleComponent={toggleHearing}/>,
     };
 
 

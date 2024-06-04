@@ -6,16 +6,16 @@ import Sidebar from "./case/sidebar";
 import { useState } from "react";
 import Order from "./case/order";
 import Communication from "./case/communication";
+import { useParams } from "react-router-dom";
 
 export default function Dashboard(){
 
 
     const [activeComponent, setActiveComponent] = useState("CaseHistory");
-    const [id, setId] = useState("1");
-    
+    const { id } = useParams();    
     
     const toggleComponent = (component) => {
-    //   debugger;
+      debugger;
       console.log(component);
       setActiveComponent(component);
     };
@@ -26,11 +26,11 @@ export default function Dashboard(){
     };
   
     const componentMapping = {
-      CaseHistory: <CaseHistory/>,
-      Documents: <Documents id={id}/>,
-      Proceedings: <Proceedings id={id}/>,
-      Order: <Order id={id}/>,
-      Communication:<Communication id={id}/>
+      CaseHistory: <CaseHistory id={id} toggleComponent={toggleComponent}/>,
+      Documents: <Documents id={id} toggleComponent={toggleComponent}/>,
+      Proceedings: <Proceedings id={id} toggleComponent={toggleComponent}/>,
+      Order: <Order id={id} toggleComponent={toggleComponent}/>,
+      Communication:<Communication id={id} toggleComponent={toggleComponent}/>
     };
 
 

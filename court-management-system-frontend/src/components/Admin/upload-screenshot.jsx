@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import '../../assets/css/components/Admin/upload-documents.css';
 import { toast } from "react-toastify";
-import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI } from "../../services/adminServices";
+import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI, uploadScreenshotAPI } from "../../services/adminServices";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -37,13 +37,11 @@ export default function UploadScreenShot(){
     };
 
 
-    const renderHearingDates = () => {
-        return hearingDates.map(hearingDate => (
-            <option key={hearingDate.hearingId} value={hearingDate.hearingDate}>
-            {hearingDate.hearingDate}
-            </option>
-        ));
-    }
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setSingleCaseDocument({ ...singleCaseDocument, file: file });
+    };
+
 
 
     const renderMainTypes = () => {
@@ -69,28 +67,6 @@ export default function UploadScreenShot(){
 
 
 
-    const getHearingDates = async(id) => {
-        debugger;
-        const response = await getHearingDatesAPI(id);
-        if(response.status == 200){
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-            //   navigate("/login");
-            // toast.warning("Session Time Expired");
-            // }
-            // else{
-              const hearingDateData = response.data;
-              setHearingDates(hearingDateData)
-              if (hearingDateData.length > 0) {
-                setSingleCaseDocument(prevState => ({
-                    ...prevState,
-                    hearingDate: hearingDateData[0].hearingDate
-                }));
-                }              
-              // }
-        }else{
-            toast.error('Error while calling get hearingDates api')
-        }
-    }   
 
 
     const getMainTypes = async() => {
@@ -151,9 +127,9 @@ export default function UploadScreenShot(){
       //   var data = authState;
         var formData = new FormData(event.target);          
 
-        const response = await uploadSingleFile(formData);
+        const response = await uploadScreenshotAPI(formData);
 
-        if(response.status == 200){
+        if(response.status >= 200 && response.status < 300){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
           //   navigate("/login");
           //   toast.warning("Session Time Expired");
@@ -162,7 +138,6 @@ export default function UploadScreenShot(){
             debugger;
             // toggleComponent("Cases");
             toast.success("Document Added Successfully");
-            setShowSingleModal(false);
           // }  
         }else{
           toast.error("Failed To Add Document");
@@ -177,17 +152,6 @@ export default function UploadScreenShot(){
     }, [])
  
  
-    useEffect(()=>{
-        getHearingDates(singleCaseDocument.caseId);
-    }, [singleCaseDocument.caseId])
-
-
-    
-
-
-
-
-
 
 
 
@@ -225,8 +189,9 @@ export default function UploadScreenShot(){
                     <label>Communication Date</label>
                     <div className="col">
                     <DatePicker
-                        selected={singleCaseDocument.communicationDate}
-                        onChange={(date) => handleDateChange(date, "communicationDate")}                
+                        name = "date"
+                        selected={singleCaseDocument.date}
+                        onChange={(date) => handleDateChange(date, "date")}                
                         className="form-control mt-1"
                         placeholderText="Communication Date"
                         />        
@@ -252,7 +217,9 @@ export default function UploadScreenShot(){
                 </div>
                 <div className="form-group mt-1 col">
                     <label style={{marginRight:"20px"}}>Upload File</label>
-                    <input type='file' name='file'
+                    <input type='file' 
+                           name='file'
+                           onChange={handleFileChange}
                         required/> 
                 </div>
             </div>

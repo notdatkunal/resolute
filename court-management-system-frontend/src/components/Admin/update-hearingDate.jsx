@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import '../../assets/css/components/Admin/upload-documents.css';
 import { toast } from "react-toastify";
-import { addHearingDateAPI, updateHearingDateAPI } from "../../services/adminServices";
+import { addHearingDateAPI, getHearingDateAPI, updateHearingDateAPI } from "../../services/adminServices";
 import { format } from 'date-fns';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -16,7 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 
-export default function UpdateHearingDate({id, toggleComponent}){
+export default function UpdateHearingDate({id, hearingId, toggleComponent}){
 
     const [hearingDates, setHearingDates] = useState([]);
     const [singleCaseDocument, setSingleCaseDocument] = useState("");
@@ -40,56 +40,41 @@ export default function UpdateHearingDate({id, toggleComponent}){
     const handleHearingDateSubmit = async(event) => {
         debugger;
         event.preventDefault();
-      //   var role_name = selectedFilter;
-      //   var data = authState;
+        var formData = new FormData(event.target);          
 
-        const response = await updateHearingDateAPI(singleCaseDocument, id);
+        const response = await updateHearingDateAPI(formData, hearingId);
 
         if(response.status == 200){
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-          //   navigate("/login");
-          //   toast.warning("Session Time Expired");
-          // }
-          // else{
             debugger;
-            toggleComponent("HearingDates", id);
-            toast.success("Hearing Date Added Successfully");
-            setShowSingleModal(false);
-          // }  
+            toggleComponent("HearingDates", id, hearingId);
+            toast.success("Hearing Date Updated Successfully");
         }else{
-          toast.error("Failed To Add Hearing Date");
+          toast.error("Failed To Update Hearing Date");
         }
 
     }
 
 
-    const getHearingDate = async(id) => {
-        debugger;
-        const response = await getHearingDateAPI(id);
-        if(response.status == 200){
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-            //   navigate("/login");
-            // toast.warning("Session Time Expired");
-            // }
-            // else{
-              const hearingDateData = response.data;
-              setSingleCaseDocument(hearingDateData)
-            //   if (bankData.length > 0 && caseData.bankId == 0) {
-            //     setCaseData(prevState => ({
-            //         ...prevState,
-            //         bankId: bankData[0].bankId
-            //     }));
-            //     }              
-              // }
+    const getHearingDate = async(hearingId) => {
+      debugger;
+      const response = await getHearingDateAPI(hearingId);
+      if(response.status == 200){
+            const hearingDateData = response.data;
+            setSingleCaseDocument(hearingDateData)
         }else{
             toast.error('Error while calling get banks api')
         }
-        }   
+    }   
 
+
+    const handleCancel = () =>{
+        toggleComponent("HearingDates", id, hearingId);
+    }   
 
 
     useEffect(()=>{
-        getHearingDate(id);
+      debugger;
+      getHearingDate(hearingId);
     }, [])
 
 
@@ -120,7 +105,7 @@ export default function UpdateHearingDate({id, toggleComponent}){
                     <DatePicker
                         selected={singleCaseDocument.hearingDate}
                         name="hearingDate"
-                        onChange={(date) => handleDateChange(date, "hearingDate")}                
+                        onChange={(date1) => handleDateChange(date1, "hearingDate")}                
                         className="form-control mt-1"
                         // placeholderText=""
                         />        
@@ -131,6 +116,11 @@ export default function UpdateHearingDate({id, toggleComponent}){
                         type="submit" 
                         className="btn btn-primary"
                     >Submit</button>
+                <button 
+                        type="submit" 
+                        className="btn btn-danger"
+                        onClick={handleCancel}
+                    >Cancel</button>
             </div>
            </form>            
         </div>

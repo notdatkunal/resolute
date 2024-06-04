@@ -1,0 +1,26 @@
+
+input.form-control{
+    height: 40px;
+    padding: 0 10px;
+}
+
+.primarydiv{
+    display: 'flex';
+    flex-direction: row;    
+}
+
+.option#credit input[name="credit-number"] {
+    background: #fff;
+    border: none;
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.3), 1px 1px 0 rgba(0, 0, 0, 0.1);
+    margin: 0 0 4px;
+    padding: 6px 10px 4px;
+    width: 100%;
+}
+
+.option#credit input[name="credit-number"]:disabled {
+    background-color: #f0f0f0;
+    color: #777;
+    cursor: not-allowed;
+}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../../assets/css/components/Admin/add-case.css"
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { addCase, getAllArbitratorsAPI, getAllBanksAPI, getCaseAPI, updateCaseAPI } from "../../services/adminServices";
+import { addCase, getAllArbitratorsAPI, getAllBanksAPI, getCaseAPI, getCaseTypesAPI, updateCaseAPI } from "../../services/adminServices";
 import { toast } from "react-toastify";
 
 
@@ -52,6 +52,7 @@ export default function UpdateCase({id, toggleComponent}){
     // var [selectedFilter, setSelectedFilter] = useState("ADMIN");  
     // var [roles, setRoles] = useState([]);
     var [states, setStates] = useState(["Maharashtra"]);
+    var [caseTypes, setCaseTypes] = useState([]);
     var [zones, setZones] = useState(["East", "West", "South1", "South2", "North"]);
     var [banks, setBanks] = useState([]);
     var [arbitrators, setArbitrators] = useState([]);
@@ -85,6 +86,14 @@ export default function UpdateCase({id, toggleComponent}){
     // }
     
 
+    const renderCaseTypes = () => {
+        debugger;
+        return caseTypes.map(caseType => (
+            <option key={caseType} value={caseType}>
+            {caseType}
+            </option>
+        ));
+    }
 
 
     const renderStates = () => {
@@ -122,6 +131,21 @@ export default function UpdateCase({id, toggleComponent}){
     ));
     }
 
+
+
+    const getCaseTypes = async() => {
+        debugger;
+        const response = await getCaseTypesAPI();
+        if(response.status == 200){
+              const caseTypeData = response.data;
+              setCaseTypes(caseTypeData)
+        }else{
+            toast.error('Error while calling get banks api')
+        }
+    }   
+
+
+
       
     const formatCreditNumber = (input) => {
         let value = input.replace(/\D/g, '');
@@ -145,60 +169,29 @@ export default function UpdateCase({id, toggleComponent}){
         setCaseData({ ...caseData, accountNumber: value });
     };
 
-    //   const getRoles = async () => {
-    //     var response = await getRolesAPI(authState);
-    //     if(response.status == 200){
-    //       if(response.data == "EXPIRED" || response.data == "INVALID"){
-    //         navigate("/login");
-    //         toast.warning("Session Time Expired");
-    //       }
-    //       else{
-    //         setRoles(response.data);
-    //       }    
-    //     }else{
-    //       toast.error("Failed To Load Roles");
-    //     }
-    //   }
   
     const getBanks = async() => {
         debugger;
         const response = await getAllBanksAPI();
         if(response.status == 200){
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-            //   navigate("/login");
-            // toast.warning("Session Time Expired");
-            // }
-            // else{
               const bankData = response.data;
               setBanks(bankData)
-            //   if (bankData.length > 0 && caseData.bankId == 0) {
-            //     setCaseData(prevState => ({
-            //         ...prevState,
-            //         bankId: bankData[0].bankId
-            //     }));
-            //     }              
-              // }
         }else{
             toast.error('Error while calling get banks api')
         }
         }   
 
 
-        const getCase = async(id) => {
-            debugger;
-            const response = await getCaseAPI(id);
-            if(response.status == 200){
-                // if(response.data == "EXPIRED" || response.data == "INVALID"){
-                //   navigate("/login");
-                // toast.warning("Session Time Expired");
+    const getCase = async(id) => {
+        debugger;
+        const response = await getCaseAPI(id);
+        if(response.status == 200){
+                setCaseData(response.data);
                 // }
-                // else{
-                    setCaseData(response.data);
-                    // }
-                }else{
-                    toast.error('Error while calling get bank api')
-                }
-        }
+            }else{
+                toast.error('Error while calling get bank api')
+            }
+    }
     
     
 
@@ -211,20 +204,8 @@ export default function UpdateCase({id, toggleComponent}){
         const response = await getAllArbitratorsAPI();
         if(response && response.status == 200){
           debugger;
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-          //   navigate("/login");
-          //   toast.warning("Session Time Expired");
-          // }
-          // else{
             const arbitratorsData = response.data;
             setArbitrators(arbitratorsData);
-            // if (arbitratorsData.length > 0 && caseData.arbitratorId == 0) {
-            //     setCaseData(prevState => ({
-            //         ...prevState,
-            //         arbitratorId: arbitratorsData[0].arbitratorId
-            // }));
-        // }
-          // }
         }else{
           toast.error('Error while calling get arbitrators api')
         }
@@ -235,15 +216,8 @@ export default function UpdateCase({id, toggleComponent}){
       const Submit = async (event) =>{
         debugger;
         event.preventDefault();
-      //   var role_name = selectedFilter;
-      //   var data = authState;
         const response = await updateCaseAPI(caseData, id);
         if(response.status == 200){
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-          //   navigate("/login");
-          //   toast.warning("Session Time Expired");
-          // }
-          // else{
             debugger;
             toggleComponent("Cases");
             toast.success("Case Updated Successfully");
@@ -258,6 +232,7 @@ export default function UpdateCase({id, toggleComponent}){
         getCase(id);
         getBanks();
         getAllArbitrators();
+        getCaseTypes();
     }, [])  
 
 
@@ -431,6 +406,17 @@ export default function UpdateCase({id, toggleComponent}){
             </div>
         </div>
         <div className="form-group mt-1 col">
+            <label>Case Type</label>
+            <select className="form-control mt-1"
+                    name="arbitratorId"
+                    value={caseData.caseType}
+                    onChange={handleFilterChange}>
+            {renderCaseTypes()}
+            </select>
+        </div>
+        </div>
+        <div className="row">
+        <div className="form-group mt-1 col">
             <label>Case No</label>
             <input
             type="text"
@@ -442,8 +428,6 @@ export default function UpdateCase({id, toggleComponent}){
             required
             />
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>SOC Filing Date</label>
             <div className="col">
@@ -466,6 +450,8 @@ export default function UpdateCase({id, toggleComponent}){
             value={caseData.claimAmountInSOC}
             />
         </div>
+        </div>
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Date of 1st Hearing</label>
             <div className="col">
@@ -477,8 +463,6 @@ export default function UpdateCase({id, toggleComponent}){
                 />        
             </div>
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Last Date of Hearing</label>
             <div className="col">
@@ -501,6 +485,8 @@ export default function UpdateCase({id, toggleComponent}){
             onChange={onTextChange}
             />
         </div>
+        </div>
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Next Date of Hearing</label>
             <div className="col">
@@ -512,8 +498,6 @@ export default function UpdateCase({id, toggleComponent}){
                 />        
             </div>
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Stages for Next Hearing</label>
             <input
@@ -537,6 +521,8 @@ export default function UpdateCase({id, toggleComponent}){
                 <option value="Filing Claim Statement">Filing Claim Statement</option>
             </select>
         </div>
+        </div>
+        <div className="row">        
         <div className="form-group mt-1 col">
             <label>Flag For Contested/Uncontested</label>
             <select className="form-control mt-1"
@@ -547,8 +533,6 @@ export default function UpdateCase({id, toggleComponent}){
                 <option value="uncontested">Uncontested</option>
             </select>
         </div>
-        </div>
-        <div className="row">        
         <div className="form-group mt-1 col">
             <label>Details Remark</label>
             <input
@@ -571,6 +555,8 @@ export default function UpdateCase({id, toggleComponent}){
                 />        
             </div>
         </div>
+        </div>        
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Award Amount</label>
             <input
@@ -582,8 +568,6 @@ export default function UpdateCase({id, toggleComponent}){
             onChange={onTextChange}
             />
         </div>
-        </div>        
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Sec.17 - Application Filing Date Co</label>
             <div className="col">
@@ -606,6 +590,8 @@ export default function UpdateCase({id, toggleComponent}){
                 />        
             </div>
         </div>
+        </div>
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Sec.17 - Status</label>
             <input
@@ -617,8 +603,6 @@ export default function UpdateCase({id, toggleComponent}){
             onChange={onTextChange}
             />
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Court Name</label>
             <input
@@ -641,6 +625,8 @@ export default function UpdateCase({id, toggleComponent}){
             onChange={onTextChange}
             />
         </div>
+        </div>
+        <div className="row">
         <div className="form-group mt-1 col">
             <label>Lawyer Name</label>
             <input
@@ -652,8 +638,6 @@ export default function UpdateCase({id, toggleComponent}){
             onChange={onTextChange}
             />
         </div>
-        </div>
-        <div className="row">
         <div className="form-group mt-1 col">
             <label>Arbitrator / Judge Name</label>
             <select className="form-control mt-1"

@@ -12,12 +12,6 @@ import { format } from "date-fns";
 
 
 
-
-
-
-
-
-
 export default function HearingDates({id, toggleComponent}){
 
 
@@ -35,9 +29,9 @@ export default function HearingDates({id, toggleComponent}){
 
 
     
-    const updateHearingDate = (hearingId) =>{
+    const updateHearingDate = (id, hearingId) =>{
       debugger;
-      toggleComponent("UpdateHearingDate", hearingId)
+      toggleComponent("UpdateHearingDate", id, hearingId)
     }
 
 
@@ -79,7 +73,7 @@ export default function HearingDates({id, toggleComponent}){
             <td style={{textAlign:'center'}}>
               <button className="btn btn-primary" 
                       style={{marginRight:'1rem'}}
-                      onClick={() => updateHearingDate(hearingDate.hearingId)}
+                      onClick={() => updateHearingDate(id, hearingDate.hearingId)}
               >
                 Update
               </button>
