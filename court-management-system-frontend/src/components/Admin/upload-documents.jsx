@@ -13,6 +13,17 @@ export default function UploadDocuments(){
     const [mainTypes, setMainTypes] = useState([]);
     const [subTypes, setSubTypes] = useState([]);
 
+
+    const mainTypeMapping = {
+        "Loan Recall Notice": "loanRecallNotice",
+        "Intent Letter": "intentLetter",
+        "Content Letter":"contentLetter",
+        "Referance Letter": "referenceLetter",
+        "Award": "award",
+        "Document": "document",
+    }
+
+
     const toggleMultipleModal = (name) =>{
         setShowMultipleModal(!showMultipleModal);
         setSelectedField(name);
@@ -37,13 +48,18 @@ export default function UploadDocuments(){
 
 
     const renderMainTypes = () => {
-        return mainTypes.map(mainType => (
-           (mainType != "borrowerDocument" && mainType != "bankDocument" && mainType != "communication")
-           ?<option key={mainType} value={mainType}>
-            {mainType}
-            </option>
-            :null
-        ));
+        // mainTypes.map(mainType => (
+            //    (mainType != "borrowerDocument" && mainType != "bankDocument" && mainType != "communication"
+            //     && mainType != "section17" && mainType != "recording" && mainType != "hearing" 
+            //     && mainType != "order" && mainType != "interim"   
+            //    )
+        return Object.keys(mainTypeMapping).map(label => (
+               <option key={label} value={mainTypeMapping[label]}>
+                    {label}
+                </option>
+            ))
+            // :null
+        // ));
     }
     
     const renderSubTypes = () => {
@@ -82,7 +98,7 @@ export default function UploadDocuments(){
               if (mainTypeData.length > 0) {
                 setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    mainType: mainTypeData[0]
+                    mainType: "loanRecallNotice"
                 }));
             }              
               // }
@@ -106,7 +122,7 @@ export default function UploadDocuments(){
               if (subTypeData.length > 0) {
                 setSingleCaseDocument(prevState => ({
                     ...prevState,
-                    subTypeData: subTypeData[0].subType
+                    subType: "Notice"
                 }));
                 }              
               // }

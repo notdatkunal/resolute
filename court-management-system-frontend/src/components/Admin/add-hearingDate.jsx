@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import '../../assets/css/components/Admin/upload-documents.css';
 import { toast } from "react-toastify";
 import { uploadSingleFile, uploadMultipleFiles, getSubTypesAPI, getMainTypesAPI, getHearingDatesAPI, addHearingDateAPI } from "../../services/adminServices";
-import { format } from 'date-fns';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -24,13 +23,14 @@ export default function AddHearingDate({id, toggleComponent}){
     // const [subTypes, setSubTypes] = useState([]);
 
 
-
     const handleDateChange = (date, fieldName) => {
         // const formattedDate = format(date, "yyyy/MM/dd");
         setSingleCaseDocument({ ...singleCaseDocument, [fieldName]: date });
     };
 
-
+    const backToHearingDates = () =>{
+        toggleComponent("HearingDates", id)
+    }
 
 
 
@@ -105,6 +105,10 @@ export default function AddHearingDate({id, toggleComponent}){
                         type="submit" 
                         className="btn btn-primary"
                     >Submit</button>
+                <button 
+                        onClick={()=>backToHearingDates()} 
+                        className="btn btn-danger"
+                    >Cancel</button>
             </div>
            </form>            
         </div>

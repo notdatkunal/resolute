@@ -137,10 +137,10 @@ export default function UploadScreenShot(){
           // else{
             debugger;
             // toggleComponent("Cases");
-            toast.success("Document Added Successfully");
+            toast.success("Screenshot Added Successfully");
           // }  
         }else{
-          toast.error("Failed To Add Document");
+          toast.error("Failed To Add Screenshot");
         }
 
     }

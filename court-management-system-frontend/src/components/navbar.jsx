@@ -11,10 +11,11 @@ export default function NavBar(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.user.user.isLoggedIn); // Select isLoggedIn state from Redux store
-
+    const role = useSelector(state => state.user.user.role); // Select isLoggedIn state from Redux store
+    
 
     const login = () =>{
-        navigate('/login');
+        navigate('/signin');
     }
 
     const signout = () =>{
@@ -23,8 +24,13 @@ export default function NavBar(){
         navigate('/');
     }
 
-    const dashboard = () =>{
+    const adminDashboard = () =>{
         navigate('/adminPanel');
+    }
+
+
+    const clientDashboard = (id) =>{
+        navigate("/search-case");
     }
 
     const home  = () =>{
@@ -65,8 +71,11 @@ export default function NavBar(){
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent" style={{marginLeft:'50px'}}>
                     <ul className="navbar-nav mr-auto" style={{display:"flex", gap:"6rem", justifyContent:"center", alignItems:"center"}}>
-                    {isLoggedIn?<li className="nav-item active">
-                            <a className="nav-link" onClick={dashboard}>Dashboard</a>
+                    {isLoggedIn && role == "admin"?<li className="nav-item active">
+                            <a className="nav-link" onClick={adminDashboard}>Dashboard</a>
+                        </li>:""}
+                    {isLoggedIn && role == "arbitrator" || isLoggedIn && role == "bank" ?<li className="nav-item active">
+                            <a className="nav-link" onClick={clientDashboard}>Cases</a>
                         </li>:""}
                         <li className="nav-item active">
                             <a className="nav-link" onClick={home}>Home</a>

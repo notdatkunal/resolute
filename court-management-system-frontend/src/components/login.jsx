@@ -114,46 +114,48 @@ const Submit = async (e) =>{
   <div>
     <NavBar></NavBar>
   </div>
+  <div className='container'>
+
 {/*  <div className="Auth-form-container">
       <div className="Auth-form-content mb-5">
-        <h3 className="Auth-form-title">Sign In</h3>
-        <div className="text-center">
-          Not Registered?{" "}
-          <span className="link-primary" onClick={GoToSignUp}>
-            Sign Up
-          </span>
-        </div>
-        <div className="form-group mt-3">
-          <label>Email address</label>
-          <input
-            type="email"
-            name='LoginEmail'
-            className="form-control mt-1"
-            placeholder="Enter email"
-            required
-            onChange={e => setEmail(e.target.value)}/>
-        </div>
-        <div className="form-group mt-3">
-          <label>Password</label>
-          <input
-            type="password"
-            name='LoginPassword'
-            className="form-control mt-1"
-            placeholder="Enter password"
-            required
-            onChange={e => setPassword(e.target.value)}/>
-        </div>
-        <div className="d-grid gap-2 mt-3">
-          <button type="submit" className="btn btn-primary" onClick={sendLoginData}>
-            Submit
-          </button>
+      <h3 className="Auth-form-title">Sign In</h3>
+      <div className="text-center">
+      Not Registered?{" "}
+      <span className="link-primary" onClick={GoToSignUp}>
+      Sign Up
+      </span>
+      </div>
+      <div className="form-group mt-3">
+      <label>Email address</label>
+      <input
+      type="email"
+      name='LoginEmail'
+      className="form-control mt-1"
+      placeholder="Enter email"
+      required
+      onChange={e => setEmail(e.target.value)}/>
+      </div>
+      <div className="form-group mt-3">
+      <label>Password</label>
+      <input
+      type="password"
+      name='LoginPassword'
+      className="form-control mt-1"
+      placeholder="Enter password"
+      required
+      onChange={e => setPassword(e.target.value)}/>
+      </div>
+      <div className="d-grid gap-2 mt-3">
+      <button type="submit" className="btn btn-primary" onClick={sendLoginData}>
+      Submit
+      </button>
         </div>
         <p className="forgot-password text-center mt-2">
         <a onClick={ResetPassword}> Forgot password?</a>
         </p>
-      </div>
-  </div>
-      */}  
+        </div>
+        </div>
+        */}  
     <div className="main">
     <div className="session">
       <div className="left">
@@ -162,18 +164,18 @@ const Submit = async (e) =>{
           version="1.1"
           viewBox="0 0 300 302.5"
           xmlns="http://www.w3.org/2000/svg"
-        >
+          >
           <style type="text/css">
             {`.st01{fill:#fff;}`}
           </style>
           <path
             className="st01"
             d="m126 302.2c-2.3 0.7-5.7 0.2-7.7-1.2l-105-71.6c-2-1.3-3.7-4.4-3.9-6.7l-9.4-126.7c-0.2-2.4 1.1-5.6 2.8-7.2l93.2-86.4c1.7-1.6 5.1-2.6 7.4-2.3l125.6 18.9c2.3 0.4 5.2 2.3 6.4 4.4l63.5 110.1c1.2 2 1.4 5.5 0.6 7.7l-46.4 118.3c-0.9 2.2-3.4 4.6-5.7 5.3l-121.4 37.4zm63.4-102.7c2.3-0.7 4.8-3.1 5.7-5.3l19.9-50.8c0.9-2.2 0.6-5.7-0.6-7.7l-27.3-47.3c-1.2-2-4.1-4-6.4-4.4l-53.9-8c-2.3-0.4-5.7 0.7-7.4 2.3l-40 37.1c-1.7 1.6-3 4.9-2.8 7.2l4.1 54.4c0.2 2.4 1.9 5.4 3.9 6.7l45.1 30.8c2 1.3 5.4 1.9 7.7 1.2l52-16.2z"
-          />
+            />
         </svg>
       </div>
       <form action="" className="log-in, form" autoComplete="off" onSubmit={Submit}>
-        <h4>We are <span>RESOLUTE</span></h4>
+        <h4>We are <span>JMSWIFT</span></h4>
         <p>Welcome back! Log in to your account to view today's clients:</p>
         <div className="floating-label">
           <input 
@@ -190,7 +192,7 @@ const Submit = async (e) =>{
               version="1.1"
               viewBox="0 0 100 100"
               xmlns="http://www.w3.org/2000/svg"
-            >
+              >
               <style type="text/css">
                 {`.st0{fill:none;}`}
               </style>
@@ -216,7 +218,7 @@ const Submit = async (e) =>{
               version="1.1"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
-            >
+              >
               <style type="text/css">
                 {`.st0{fill:none;}.st1{fill:#010101;}`}
               </style>
@@ -230,6 +232,7 @@ const Submit = async (e) =>{
         <button type="submit">Log in</button>
       </form>
     </div>  
-    </div>  
+  </div>  
+  </div>
   </>);
 }

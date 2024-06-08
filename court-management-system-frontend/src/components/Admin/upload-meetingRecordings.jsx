@@ -51,7 +51,8 @@ export default function UploadMeetingRecordings(){
         return mainTypes.map(mainType => (
             mainType == "recording"
             ?<option value={mainType}>
-            {mainType}
+            {/* {mainType} */}
+            Recording
             </option>
             :null
         ));

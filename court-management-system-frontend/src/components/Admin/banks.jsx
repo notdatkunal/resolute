@@ -13,8 +13,6 @@ export default function Banks({toggleComponent}){
     var [banks, setBanks] = useState([]);
     const navigate = useNavigate();
     var [selectedFilter, setSelectedFilter] = useState("");
-    // var [cities, setCities] = useState([]);
-  
   
     const headerMapping = {
       'Bank Id': 'bankId',
@@ -52,23 +50,7 @@ export default function Banks({toggleComponent}){
             }
           }
           
-          
-          
-          // const getCities = async() => {
-            //   const response = await getCitiesAPI(authState);
-            //   if(response.status == 200){
-              //     if(response.data == "EXPIRED" || response.data == "INVALID"){
-                //       navigate("/login");
-                //       toast.warning("Session Time Expired");
-                //     }
-                //     else{
-                  //       setCities(response.data);
-                  //     }
-                  //   }else{
-                    //     toast.error('Error while calling getcities api')
-                    //   }
-                    // }
-                    
+                              
     // const deleteBank = async(id) => {
     //   debugger;
     //   const response = await deleteBankAPI(id);

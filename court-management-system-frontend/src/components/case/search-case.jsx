@@ -6,6 +6,8 @@ import { getAllCasesAPI, getSearchedCaseAPI } from "../../services/adminServices
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { format } from 'date-fns';
+import { getArbitratorCasesAPI, getBankCasesAPI } from "../../services/caseServices";
+import { useSelector } from "react-redux";
 
 
 export default function SearchCase({toggleComponent}) {
@@ -17,10 +19,14 @@ export default function SearchCase({toggleComponent}) {
     var [searchQuery, setSearchQuery] = useState(""); // State to hold search query
     // const [date, setDate] = useState("");
     const navigate = useNavigate();
+    const role = useSelector((state)=> state.user.user.role);
+    const bankId = useSelector((state)=> state.user.user.userId);
+    const arbitratorId = useSelector((state)=> state.user.user.userId);
+
     
 
     const headerMapping = {
-        "Case Id":"id",
+        // "Case Id":"id",
         "Case No.":"caseNo",
         "Case Type":"caseType",
         "Filling Date":"fillingDate",
@@ -46,7 +52,11 @@ export default function SearchCase({toggleComponent}) {
 
     const getCases = async() => {
         // debugger;
-        const response = await getAllCasesAPI();
+        if(role == "arbitrator"){
+          const response = await getArbitratorCasesAPI(arbitratorId);
+        }else if(role == "bank"){
+          const response = await getBankCasesAPI(bankId);
+        }
         if(response.status == 200){
           // if(response.data == "EXPIRED" || response.data == "INVALID"){
             //   navigate("/login");
@@ -88,7 +98,7 @@ export default function SearchCase({toggleComponent}) {
 
     const hearingDates = async(id) => {
       debugger;
-      toggleComponent("HearingDates", id);
+      navigate(`/casePanel/${id}/hearingDates`);
     }
   
     const formatDate = (dateString) => {
@@ -124,7 +134,7 @@ export default function SearchCase({toggleComponent}) {
                           style={{marginBottom:'5px'}}
                           onClick={() => openCase(caseData.id)}
                           >
-                      Open
+                      Case History
                   </button>
                   <button className="btn btn-primary"
                           style={{marginBottom:'5px'}}
@@ -179,7 +189,7 @@ export default function SearchCase({toggleComponent}) {
               <i 
                   className="fa-solid fa-up-right-from-square" 
                   onClick={() => handleIconClick(caseData)}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', color:"blue" }}
               ></i>
           </td>          
           </tr>
@@ -331,9 +341,10 @@ export default function SearchCase({toggleComponent}) {
               >
               Add Case</button>
       </div> */}
-      <div>
+      <div style={{marginLeft:"10%"}}>
       <DatePicker
         selected={selectedDate}
+        name='date'
         onChange={(date) => handleDateChange(date)}                
         className="form-control mt-1"
         placeholderText="Pick A Date"

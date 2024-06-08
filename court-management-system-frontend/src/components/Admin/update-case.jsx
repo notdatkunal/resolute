@@ -408,8 +408,8 @@ export default function UpdateCase({id, toggleComponent}){
         <div className="form-group mt-1 col">
             <label>Case Type</label>
             <select className="form-control mt-1"
-                    name="arbitratorId"
-                    value={caseData.caseType}
+                    name="type"
+                    value={caseData.type}
                     onChange={handleFilterChange}>
             {renderCaseTypes()}
             </select>

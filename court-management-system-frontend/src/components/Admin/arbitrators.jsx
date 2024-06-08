@@ -32,21 +32,21 @@ export default function Arbitrators({toggleComponent}) {
   // },[selectedFilter]);
 
 
-  const getArbitrators = async(selectedFilter) => {
-    debugger;
-    const response = await getArbitratorsAPI(selectedFilter);
-    if(response.status == 200){
-      if(response.data == "EXPIRED" || response.data == "INVALID"){
-        navigate("/login");
-        toast.warning("Session Time Expired");
-      }
-      else{
-        setArbitrators(response.data);
-      }
-    }else{
-      toast.error('Error while calling get arbitrators api')
-    }
-  }
+  // const getArbitrators = async(selectedFilter) => {
+  //   debugger;
+  //   const response = await getArbitratorsAPI(selectedFilter);
+  //   if(response.status == 200){
+  //     if(response.data == "EXPIRED" || response.data == "INVALID"){
+  //       navigate("/login");
+  //       toast.warning("Session Time Expired");
+  //     }
+  //     else{
+  //       setArbitrators(response.data);
+  //     }
+  //   }else{
+  //     toast.error('Error while calling get arbitrators api')
+  //   }
+  // }
 
   const getAllArbitrators = async() => {
     debugger;

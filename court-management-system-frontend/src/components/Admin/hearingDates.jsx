@@ -49,7 +49,7 @@ export default function HearingDates({id, toggleComponent}){
         return (
           <thead className="table-active table-dark">
         <tr>
-            <th style={{textAlign:'center'}}>Serial No.</th>
+            {/* <th style={{textAlign:'center'}}>Serial No.</th> */}
             {Object.keys(headerMapping).map(label => (
               <th style={{textAlign:'center'}} key={label}>{label}</th>
             ))}
@@ -66,7 +66,7 @@ export default function HearingDates({id, toggleComponent}){
     const renderHearingDates = () =>
         hearingDates.map((hearingDate, index) => (
           <tr key={hearingDate.hearingId}>
-            <td style={{textAlign:'center'}}>{index + 1}</td>
+            {/* <td style={{textAlign:'center'}}>{index + 1}</td> */}
             {Object.keys(headerMapping).map(label => (
               <td style={{textAlign:'center'}} key={label}>{hearingDate[headerMapping[label]]}</td>
             ))}
@@ -146,6 +146,10 @@ export default function HearingDates({id, toggleComponent}){
         toggleComponent("AddHearingDate", id);
     }
 
+    const BackToCase = () =>{
+        toggleComponent("Cases");
+    }
+
 
 
 
@@ -162,12 +166,19 @@ export default function HearingDates({id, toggleComponent}){
                      alignItems:"center", 
                      justifyContent:"space-between",
                      marginBottom:"10px"}}> 
-        <div style={{display:'flex', justifyContent:'flex-end', }}>
-        <button className="btn" 
-        style={{backgroundColor:"#F3525A", color:'white'}} 
-        onClick={() => AddHearingDate(id)}
-        >
-        Add Hearing Date</button>
+        <div style={{display:'flex', justifyContent:'space-evenly', }}>
+          <button className="btn" 
+          style={{backgroundColor:"lightgray", color:'black'}} 
+          onClick={() => AddHearingDate(id)}
+          >
+          Add Hearing Date</button>
+        </div>
+        <div>
+          <button className="btn btn-warning" 
+          style={{color:'black'}} 
+          onClick={() => BackToCase()}
+          >
+          Back To Case</button>
         </div>
     </div>    
     <div>

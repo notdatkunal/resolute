@@ -7,6 +7,7 @@ import { useState } from "react";
 import Order from "./case/order";
 import Communication from "./case/communication";
 import { useParams } from "react-router-dom";
+import HearingDates from "./case/heaing-dates";
 
 export default function Dashboard(){
 
@@ -20,6 +21,7 @@ export default function Dashboard(){
       setActiveComponent(component);
     };
 
+
     const updateData = (component) => {
       debugger;
       setId(component);
@@ -30,7 +32,8 @@ export default function Dashboard(){
       Documents: <Documents id={id} toggleComponent={toggleComponent}/>,
       Proceedings: <Proceedings id={id} toggleComponent={toggleComponent}/>,
       Order: <Order id={id} toggleComponent={toggleComponent}/>,
-      Communication:<Communication id={id} toggleComponent={toggleComponent}/>
+      Communication:<Communication id={id} toggleComponent={toggleComponent}/>,
+      HearingDates:<HearingDates id={id} toggleComponent={toggleComponent}/>
     };
 
 

@@ -114,11 +114,15 @@ export default function Proceedings({id}){
                 <th scope="row" style={{textAlign:"center"}}>{hearing.hearingDate}</th>
                 <td style={{textAlign:"center"}}>
                     {/* Add an onClick handler to trigger fetching of meeting recordings */}
-                    <a onClick={() => getMeetingRecordings(hearing.meetingRecordings)}>View</a>
+                    <a onClick={() => getMeetingRecordings(hearing.meetingRecordings)}
+                     style={{cursor:'pointer', color:'blue'}}                      
+                      >View</a>
                 </td>
                 <td style={{textAlign:"center"}}>
                     {/* You can add a similar onClick handler for minutes of meetings */}
-                    <a onClick={() => getMinutesOfMeeting(hearing.minutesOfMeeting)}>View</a>
+                    <a onClick={() => getMinutesOfMeeting(hearing.minutesOfMeeting)}
+                     style={{cursor:'pointer', color:'blue'}}                      
+                      >View</a>
                 </td>
             </tr>
         ))}        

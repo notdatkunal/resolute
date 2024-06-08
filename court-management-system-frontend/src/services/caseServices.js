@@ -152,3 +152,58 @@ export async function getScreenshotDetailsAPI(caseId){
         return null;
     }
 }
+
+
+export async function getBankCasesAPI(bankId){
+    try{
+        debugger;
+        let url = createUrl(`/list/caseByBankId/${bankId}`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+
+export async function getArbitratorCasesAPI(arbitratorId){
+    try{
+        debugger;
+        let url = createUrl(`/list/caseByArbitratorId/${arbitratorId}`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+
+export async function getSearchBankCaseAPI(bankId, data){
+    try{
+        let url = ""
+        debugger;
+        if (data.date){
+            data.date = format(data.date, "yyyy/MM/dd")
+            // url = createUrl(`/admin/search/case?parameter=${data.searchParameter}&date=${data.date}`);
+            url = createUrl(`/bank/search/case?date=${data.date}`);
+            
+        } else{
+            url = createUrl(`/bank/search/case?parameter=${data.searchParameter}`);
+        }
+            
+            const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+    
+    

@@ -47,7 +47,8 @@ export default function UploadBorrowerDocument(){
         return mainTypes.map(mainType => (
             mainType == "borrowerDocument"
             ?<option value={mainType}>
-            {mainType}
+            {/* {mainType} */}
+            Borrower Document
             </option>
             :null
         ));

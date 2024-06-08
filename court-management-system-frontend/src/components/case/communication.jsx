@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { getDocumentsAPI, getScreenshotDetailsAPI } from "../../services/caseServices";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
 
 export default function Communication({id}) {
 
@@ -59,7 +60,7 @@ export default function Communication({id}) {
         <td style={{textAlign:'center'}}>{screenshot.date}</td>
         <td style={{textAlign:'center'}}>
             <a onClick={() => getDocuments(screenshot.fileName)}
-               style={{cursor:'pointer'}}>{screenshot.fileName}</a>
+               style={{cursor:'pointer', color:"blue"}}>{screenshot.fileName}</a>
         </td>
       </tr>
     ));
@@ -109,11 +110,11 @@ export default function Communication({id}) {
           <div
               className="iframe-overlay"
               onContextMenu={preventDefaultContextMenu}
-              style={{ width: "90vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 1 }}
+              style={{ width: "85vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 1 }}
           ></div>
           <iframe src={url}
               className="centered-iframe"
-              title="Meeting Recordings"
+              title="Screenshot"
               style={{ width: "60vw", height: "90vh", position: "relative", zIndex: 0 }}
               ref={iframeRef}
           />

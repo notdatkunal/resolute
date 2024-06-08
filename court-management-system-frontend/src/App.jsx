@@ -15,6 +15,7 @@ import UnauthorizedPage from './components/unauthorized'
 import ARB from './components/arb'
 import Medi from './components/medi'
 import Conciliation from './components/conciliation'
+import HearingDates from './components/case/heaing-dates'
 
 const App = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const App = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: '/login',
+    path: '/signin',
     element: <Login></Login>,
     errorElement: <ErrorPage />,
   },
@@ -72,6 +73,13 @@ const App = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
+    path: '/casePanel/:id/hearingDates',
+    element: <PrivateRoute>
+      <HearingDates/>
+    </PrivateRoute>,
+    errorElement: <ErrorPage />,
+  },
+  {
     path: '/adminPanel',
     element: <AdminPrivateRoute>
       <AdminDashboard />
@@ -87,7 +95,7 @@ function PrivateRoute({ children }) {
   const isLoggedIn = useSelector((state)=> state.user.user.isLoggedIn);
 
   if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/signin" replace />;
   }
 
   return children;
@@ -103,7 +111,7 @@ function AdminPrivateRoute({ children }) {
   if (!isLoggedIn && isAdmin != "admin") {
     return <Navigate to="/unauthorized" replace />; // Redirect to unauthorized page
   } else if(!isLoggedIn){
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/signin" replace />;
   }
 
   return <PrivateRoute>{children}</PrivateRoute>; // Nested PrivateRoute for combined protection

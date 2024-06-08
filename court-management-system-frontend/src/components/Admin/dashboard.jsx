@@ -21,6 +21,7 @@ import AddHearingDate from "./add-hearingDate";
 import HearingDates from "./hearingDates";
 import UploadOrder from "./upload-order";
 import UpdateHearingDate from "./update-hearingDate";
+import Communication from "./communication";
 
 export default function AdminDashboard(){
 
@@ -72,6 +73,7 @@ export default function AdminDashboard(){
         AddHearingDate: <AddHearingDate id={id} toggleComponent={toggleComponent}/>,
         HearingDates: <HearingDates id={id} hearingId={hearingId} toggleComponent={toggleHearing}/>,
         UpdateHearingDate: <UpdateHearingDate id={id} hearingId={hearingId} toggleComponent={toggleHearing}/>,
+        Communication: <Communication toggleComponent={toggleComponent}/>,
     };
 
 

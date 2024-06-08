@@ -43,7 +43,8 @@ export default function UploadMinutesOfMeeting(){
         return mainTypes.map(mainType => (
             mainType == "minutesOfMeeting"
             ?<option value={mainType}>
-            {mainType}
+            {/* {mainType} */}
+            Minutes Of Meeting
             </option>
             :null
         ));

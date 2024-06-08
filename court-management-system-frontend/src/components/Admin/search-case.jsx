@@ -116,21 +116,21 @@ const AdminSearchCase = ({toggleComponent}) => {
               <div className="modal-body">
                   <button className="btn btn-primary" 
                           style={{marginBottom:'5px'}}
-                          onClick={() => updateCase(caseData.id)}
-                          >
-                      Update
-                  </button>
-                  <button className="btn btn-primary" 
-                          style={{marginBottom:'5px'}}
                           onClick={() => openCase(caseData.id)}
                           >
-                      Open
+                      Case History
                   </button>
                   <button className="btn btn-primary"
                           style={{marginBottom:'5px'}}
                           onClick={() => hearingDates(caseData.id)}
                           >
                       Hearing Dates
+                  </button>
+                  <button className="btn btn-primary" 
+                          style={{marginBottom:'5px'}}
+                          onClick={() => updateCase(caseData.id)}
+                          >
+                      Update Case
                   </button>
               </div>
           </div>
@@ -142,7 +142,7 @@ const AdminSearchCase = ({toggleComponent}) => {
     const renderCases = () =>
         cases.map((caseData, index) => (
           <tr key={caseData.caseId}>
-            <td style={{textAlign:'center'}}>{index + 1}</td>
+            {/* <td style={{textAlign:'center'}}>{index + 1}</td> */}
             {Object.keys(headerMapping).map(label => (
               <td style={{textAlign:'center'}} key={label}>{caseData[headerMapping[label]]}</td>
             ))}
@@ -177,9 +177,9 @@ const AdminSearchCase = ({toggleComponent}) => {
           </td> */}
           <td style={{textAlign:'center'}}>
               <i 
-                  className="fa-solid fa-up-right-from-square" 
+                  className="fa-solid fa-up-right-from-square"
                   onClick={() => handleIconClick(caseData)}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', color:"blue" }}
               ></i>
           </td>          
           </tr>
@@ -190,7 +190,7 @@ const AdminSearchCase = ({toggleComponent}) => {
       return (
         <thead className="table-active table-dark">
           <tr>
-            <th style={{textAlign:'center'}}>Serial No.</th>
+            {/* <th style={{textAlign:'center'}}>Serial No.</th> */}
               {Object.keys(headerMapping).map(label => (
                 <th style={{textAlign:'center'}} key={label}>{label}</th>
               ))}

@@ -34,25 +34,34 @@ const Sidebar = ({toggleComponent}) => {
   const toggleDocumentUpload = () => {
     toggleComponent("DocumentUpload");
   };
+
   const toggleBankDocumentUpload = () => {
     toggleComponent("BankDocumentUpload");
   };
+
   const toggleBorrowerDocumentUpload = () => {
     toggleComponent("BorrowerDocumentUpload");
   };
+
   const toggleMeetingRecordingUpload = () => {
     toggleComponent("MeetingRecordingUpload");
   };
+
   const toggleMinutesOfMeetingUpload = () => {
     toggleComponent("MinutesOfMeetingUpload");
   };
+
   const toggleScreenshotUpload = () => {
     toggleComponent("ScreenshotUpload");
   };
+
   const toggleOrderUpload = () => {
     toggleComponent("OrderUpload");
   };
 
+  const toggleCommunication = () => {
+    toggleComponent("Communication");
+  }
 
 
   return (
@@ -226,6 +235,17 @@ const Sidebar = ({toggleComponent}) => {
                     </li>
                   </ul>
                 </div>
+                <li className="nav-item">
+                  <a className="nav-link" 
+                     onClick={() => toggleCommunication()}
+                    data-toggle="collapse" 
+                    aria-expanded="false" 
+                    data-target="#submenu-6" 
+                    aria-controls="submenu-6">
+                      <i class="fa-brands fa-whatsapp"></i>
+                      Communication
+                  </a>
+                </li>
               </li>
             </ul>
           </div>

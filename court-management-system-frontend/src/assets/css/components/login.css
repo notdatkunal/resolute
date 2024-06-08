@@ -277,4 +277,21 @@
   }
   
 
-   
+  @media only screen and (min-width: 280px) and (max-width: 599px) {
+    .container {
+      flex-direction: row;
+    }
+  
+    .main {
+      flex-direction: row;
+      max-width: 600px;
+    }
+  
+    .left {
+      width: 40%;
+    }
+  
+    form {
+      width: 40%;
+    }
+  }

@@ -532,3 +532,26 @@ export async function uploadScreenshotAPI(data) {
         return null;
     }
 }
+
+
+
+export async function singleWhatsAppMessageApi(data) {
+    try {
+        debugger;
+        let url = "";
+        const response = await axiosInstance.post(url, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                // You can include any additional headers here if needed
+            },
+        });
+        
+        return response; // Assuming your server returns JSON data
+    } catch (ex) {
+        debugger;
+        //   console.error('Error uploading file:', error);
+        //   throw error; // Throw the error for handling in the component
+        return ex.response;
+    }
+  };
+

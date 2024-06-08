@@ -93,21 +93,21 @@ export default function Documents({id}){
                   <th style={{textAlign:"center"}}>Notice</th>
                   <td style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("LRNNOT")}}
-                       style={{cursor:'pointer'}}
+                       style={{cursor:'pointer', color:'blue'}}
                     >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("LRNRPA")}}
-                       style={{cursor:'pointer'}}
+                       style={{cursor:'pointer', color:'blue'}}
                     >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("LRNTRA")}}
-                       style={{cursor:'pointer'}}
+                       style={{cursor:'pointer', color:'blue'}}
                     >View</a></td>
               </tr>
           </tbody>
@@ -119,22 +119,22 @@ export default function Documents({id}){
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("ITLNOT")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("ITLRPA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("ITLTRA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
           </tbody>
           <thead className="table-active table-dark">
@@ -145,22 +145,22 @@ export default function Documents({id}){
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("RFLNOT")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("RFLRPA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("RFLTRA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
           </tbody>
           <thead className="table-active table-dark">
@@ -171,28 +171,28 @@ export default function Documents({id}){
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("CNLNOT")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("CNLRPA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("CNLTRA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
           </tbody>
           <thead className="table table-primary">
               <th style={{textAlign:"center"}}>Statement of Claim</th>
               <th style={{textAlign:"center"}}>
-                <a onClick={() => {getDocuments("DOCSOC")}}>View</a></th>
+                <a onClick={() => {getDocuments("DOCSOC")}} style={{cursor:"pointer", color:"blue"}}>View</a></th>
           </thead>
           <thead className="table-active table-dark">
               <th colSpan={2} style={{textAlign:"center"}}>Intimation Letter</th>
@@ -202,30 +202,30 @@ export default function Documents({id}){
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("IMLNOT")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("IMLRPA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("IMLTRA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr> 
           </tbody>
           <thead className="table table-primary">
               <th style={{textAlign:"center"}}>Affidavit</th>
               <th style={{textAlign:"center"}}>
                 <a onClick={() => {getDocuments("DOCAFD")}}
-                   style={{cursor:'pointer'}}
-                >View</a></th>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></th>
           </thead>
           <thead className="table-active table-dark">
               <th colSpan={2} style={{textAlign:"center"}}>Award</th>
@@ -235,30 +235,30 @@ export default function Documents({id}){
                   <th scope="row" style={{textAlign:"center"}}>Notice</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("AWDNOT")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>RPAD</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("AWDRPA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr>
               <tr>
                   <th scope="row" style={{textAlign:"center"}}>Tracking</th>
                   <td colSpan={2} style={{textAlign:"center"}}>
                     <a onClick={() => {getDocuments("AWDTRA")}}
-                       style={{cursor:'pointer'}}
-                    >View</a></td>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></td>
               </tr> 
           </tbody>
           <thead className="table table-primary">
               <th style={{textAlign:"center"}}>Roznama</th>
               <th style={{textAlign:"center"}}>
                 <a onClick={() => {getDocuments("DOCROZ")}}
-                   style={{cursor:'pointer'}}
-                >View</a></th>
+                       style={{cursor:'pointer', color:'blue'}}
+                       >View</a></th>
           </thead>
           {/* <thead className="table table-primary">
               <th style={{textAlign:"center"}}>Bank Document</th>

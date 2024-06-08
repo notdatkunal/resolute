@@ -44,7 +44,7 @@ export default function UploadBankDocument(){
         return mainTypes.map(mainType => (
             mainType == "bankDocument"
             ?<option value={mainType}>
-            {mainType}
+            Bank Document
             </option>
             :null
         ));

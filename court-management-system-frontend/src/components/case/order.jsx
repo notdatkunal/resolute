@@ -79,7 +79,9 @@ export default function Order({id, togglecomponent}) {
           <tr key={index}>
             <th style={{ textAlign: "center" }}>{interim.date}</th>
             <td style={{ textAlign: "center" }}>
-              <a onClick={() => viewOrder(interim.filName)}>view</a>
+              <a onClick={() => viewOrder(interim.filName)}
+               style={{cursor:'pointer', color:'blue'}}                
+                >view</a>
             </td>
           </tr>
         ))}
@@ -97,8 +99,9 @@ export default function Order({id, togglecomponent}) {
             <th style={{ textAlign: "center" }}>{award.date}</th>
             <td style={{ textAlign: "center" }}>
               <a onClick={() =>
-                {debugger; 
-                viewOrder(award.filName)}}>view</a>
+                {viewOrder(award.filName)}}
+                style={{cursor:'pointer', color:'blue'}}
+                >view</a>
             </td>
           </tr>
         ))}
@@ -114,7 +117,9 @@ export default function Order({id, togglecomponent}) {
           <tr key={index}>
             <th style={{ textAlign: "center" }}>{other.date}</th>
             <td style={{ textAlign: "center" }}>
-              <a onClick={() => viewOrder(other.filName)}>view</a>
+              <a onClick={() => viewOrder(other.filName)}
+               style={{cursor:'pointer', color:'blue'}}
+              >view</a>
             </td>
           </tr>
         ))}
@@ -209,7 +214,7 @@ export default function Order({id, togglecomponent}) {
           <div
               className="iframe-overlay"
               onContextMenu={preventDefaultContextMenu}
-              style={{ width: "90vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 1 }}
+              style={{ width: "85vw", height: "100vh", position: "absolute", top: 0, left: 0, zIndex: 1 }}
           ></div>
           <iframe src={url}
               className="centered-iframe"
