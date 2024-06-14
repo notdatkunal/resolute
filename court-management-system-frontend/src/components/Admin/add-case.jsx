@@ -520,9 +520,9 @@ export default function AddCase({toggleComponent}){
                     defaultValue={"LRN Sent"}
                     onChange={handleFilterChange}>
                 <option value="LRN Sent">LRN Sent</option>
-                <option value="Award Passed">Award Passed</option>
                 <option value="Referance Letter Issued">Referance Letter Issued</option>
                 <option value="Filing Claim Statement">Filing Claim Statement</option>
+                <option value="Award Passed">Award Passed</option>
             </select>
         </div>
         </div>

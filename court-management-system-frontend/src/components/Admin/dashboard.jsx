@@ -22,11 +22,13 @@ import HearingDates from "./hearingDates";
 import UploadOrder from "./upload-order";
 import UpdateHearingDate from "./update-hearingDate";
 import Communication from "./communication";
+import BankCases from "./bank-cases";
+import CaseTypes from "./case-type";
 
 export default function AdminDashboard(){
 
 
-    const [activeComponent, setActiveComponent] = useState("Cases");
+    const [activeComponent, setActiveComponent] = useState("Banks");
     const [id, setId] = useState("1");
     const [hearingId, setHearingId] = useState("1");
     
@@ -53,8 +55,10 @@ export default function AdminDashboard(){
   
     const componentMapping = {
         Cases: <AdminSearchCase toggleComponent={toggleComponent}/>,
+        CaseTypes:<CaseTypes toggleComponent={toggleComponent}/>,
         // AllCases: <Cases/>,
         Banks: <Banks toggleComponent={toggleComponent}/>,
+        BankCases: <BankCases id={id} toggleComponent={toggleComponent}/>,
         Arbitrators:<Arbitrators toggleComponent={toggleComponent}/> ,
         Borrowers: <Borrowers/>,
         DocumentUpload: <UploadDocuments/>,

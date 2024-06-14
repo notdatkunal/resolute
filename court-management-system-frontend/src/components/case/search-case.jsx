@@ -2,12 +2,14 @@ import NavBar from "../navbar";
 import "../../assets/css/components/search-case.css"
 import DatePicker from "react-datepicker";
 import { toast } from "react-toastify";
-import { getAllCasesAPI, getSearchedCaseAPI } from "../../services/adminServices";
+import { getAllBanksAPI, getAllCasesAPI, getSearchedCaseAPI } from "../../services/adminServices";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { format } from 'date-fns';
-import { getArbitratorCasesAPI, getBankCasesAPI } from "../../services/caseServices";
-import { useSelector } from "react-redux";
+import { getArbitratorCasesAPI, getBankCasesAPI, getSearchedArbitratorCaseAPI, getSearchedBankCaseAPI } from "../../services/caseServices";
+import { useDispatch, useSelector } from "react-redux";
+import { addBankId } from "../../features/user/userSlice";
+import { Pagination } from "react-bootstrap";
 
 
 export default function SearchCase({toggleComponent}) {
@@ -18,21 +20,92 @@ export default function SearchCase({toggleComponent}) {
     var [selectedDate, setSelectedDate] = useState("");
     var [searchQuery, setSearchQuery] = useState(""); // State to hold search query
     // const [date, setDate] = useState("");
+    const [bank, setBank] = useState();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const role = useSelector((state)=> state.user.user.role);
-    const bankId = useSelector((state)=> state.user.user.userId);
-    const arbitratorId = useSelector((state)=> state.user.user.userId);
-
-    
+    const userName = useSelector((state)=> state.user.user.userName);
+    const bankId = useSelector((state) => state.user.user.bankId);
+    const MAX_VISIBLE_PAGES = 5;    
 
     const headerMapping = {
         // "Case Id":"id",
         "Case No.":"caseNo",
         "Case Type":"caseType",
-        "Filling Date":"fillingDate",
+        "Filling Date":"socFillingDate",
         "Registration Date":"registrationDate",
     };
   
+
+
+
+    // Pagination
+    const ITEMS_PER_PAGE = 5;
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageCount, setPageCount] = useState(0); // Total number of pages
+
+
+    const handlePageChange = (pageNumber) => {
+      setCurrentPage(pageNumber);
+    };
+
+    const paginatedCases = cases.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+
+
+
+
+    const renderPagination = () => {
+
+      if (pageCount > 1) {
+        const visiblePageCount = Math.min(pageCount, MAX_VISIBLE_PAGES); // Adjust MAX_VISIBLE_PAGES as needed
+
+        const startIndex = Math.max(
+          Math.min(currentPage - Math.floor((visiblePageCount - 1) / 2), pageCount - visiblePageCount + 1),
+          1
+        );
+        const endIndex = Math.min(startIndex + visiblePageCount - 1, pageCount);
+    
+        return (
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Pagination activePage={currentPage} onSelect={handlePageChange}>
+            <Pagination.First onClick={() => handlePageChange(1)} />
+            <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+            {startIndex > 2 && (
+              <>
+                <a href="#" className="page-link" onClick={() => handlePageChange(1)}>1</a>
+                <Pagination.Ellipsis />
+              </>
+            )}
+            {Array.from({ length: endIndex - startIndex + 1 }, (_, i) => (
+              <a
+                href="#"
+                key={startIndex + i}
+                className={`page-link ${currentPage === startIndex + i ? "active btn-primary" : ""}`}
+                onClick={() => handlePageChange(startIndex + i)}
+              >
+                {startIndex + i}
+              </a>
+            ))}
+            {endIndex < pageCount - 1 && (
+              <>
+                <Pagination.Ellipsis />
+                <a href="#" className="page-link" onClick={() => handlePageChange(pageCount)}>{pageCount}</a>
+              </>
+            )}
+            <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === pageCount} />
+            <Pagination.Last onClick={() => handlePageChange(pageCount)} />
+          </Pagination>
+        </div>          
+        );
+      }
+  
+      return null; // Hide pagination if there's only one page
+    };
+  
+
+
 
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -50,46 +123,6 @@ export default function SearchCase({toggleComponent}) {
     
 
 
-    const getCases = async() => {
-        // debugger;
-        if(role == "arbitrator"){
-          const response = await getArbitratorCasesAPI(arbitratorId);
-        }else if(role == "bank"){
-          const response = await getBankCasesAPI(bankId);
-        }
-        if(response.status == 200){
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-            //   navigate("/login");
-            // toast.warning("Session Time Expired");
-            // }
-            // else{
-              
-              const formattedCases = response.data.map(caseData => ({
-                ...caseData,
-                  // fillingDate: formatDate(caseData.fillingDate),
-                  fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
-                  registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
-                  // registrationDate: formatDate(caseData.registrationDate),
-                }));
-
-              setCases(formattedCases);
-              // }
-            }else{
-              toast.error('Error while calling get banks api')
-            }
-          }
-
-
-    const AddCase = () => {
-        // debugger;
-        toggleComponent("AddCase");
-    }
-
-
-    const updateCase = async(id) => {
-      debugger;
-      toggleComponent("UpdateCase", id);
-    }
 
     const openCase = async(id) => {
       debugger;
@@ -101,17 +134,6 @@ export default function SearchCase({toggleComponent}) {
       navigate(`/casePanel/${id}/hearingDates`);
     }
   
-    const formatDate = (dateString) => {
-      const options = {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-      };
-      return new Date(dateString).toLocaleString(undefined, options);
-  };
-
 
 
   const ActionModal = ({ caseData, closeModal }) => (
@@ -150,41 +172,12 @@ export default function SearchCase({toggleComponent}) {
 
     
     const renderCases = () =>
-        cases.map((caseData, index) => (
+        paginatedCases.map((caseData, index) => (
           <tr key={caseData.caseId}>
             <td style={{textAlign:'center'}}>{index + 1}</td>
             {Object.keys(headerMapping).map(label => (
               <td style={{textAlign:'center'}} key={label}>{caseData[headerMapping[label]]}</td>
             ))}
-          {/* <td style={{display:"flex", flexDirection:"column", justifyContent:'center', alignItems:'center'}}>
-            <div className="row" style={{gap:"1rem"}}> 
-              <button className="btn btn-primary" 
-                      style={{marginBottom:'5px'}}
-                      onClick={() => updateCase(caseData.id)}
-                      >
-                Update
-              </button>
-              <button className="btn btn-primary" 
-                      style={{marginBottom:'5px'}}
-                      onClick={() => openCase(caseData.id)}
-                      >
-                Open
-              </button>
-            </div>
-            <div>
-             <button className="btn btn-danger"
-                    onClick={() => deleteBank(bank.bankId)}
-                    >
-                    Delete
-                  </button> 
-              <button className="btn btn-primary"
-                      style={{margin:'0px', padding:'5px'}}
-                      onClick={() => addHearingDate(caseData.id)}
-                      >
-              Add Hearing Date
-              </button>
-            </div>
-          </td> */}
           <td style={{textAlign:'center'}}>
               <i 
                   className="fa-solid fa-up-right-from-square" 
@@ -194,7 +187,55 @@ export default function SearchCase({toggleComponent}) {
           </td>          
           </tr>
         ));
-        
+
+
+
+    const getBanks = async() => {
+      debugger;
+      const response = await getAllBanksAPI();
+      if(response.status == 200){
+            console.log(response.data);
+            const formattedBanks = response.data.map(bankData => {
+              debugger;
+                if(bankData.username == userName){
+                  setBank(bankData);
+                  dispatch(addBankId(bankData));
+                }
+              });
+            // }
+          }else{
+            toast.error('Error while calling get banks api')
+          }
+        }
+  
+
+        const getCases = async() => {
+          debugger;
+          var response = "";
+          if(role == "arbitrator"){
+            response = await getArbitratorCasesAPI(bankId);
+          }else if(role == "bank"){
+            console.log(bank);
+            response = await getBankCasesAPI(bankId);
+          }
+          if(response.status == 200){
+                debugger;
+                const formattedCases = response.data.map(caseData => ({
+                  ...caseData,
+                    // fillingDate: formatDate(caseData.fillingDate),
+                    socFillingDate: caseData.socFillingDate?format(caseData.socFillingDate, "dd MMM yyyy"):null,
+                    registrationDate: caseData.registrationDate?format(caseData.registrationDate, "dd MMM yyyy"):null,
+                    // registrationDate: formatDate(caseData.registrationDate),
+                  }));
+    
+                setCases(formattedCases);
+                setPageCount(Math.ceil(formattedCases.length / ITEMS_PER_PAGE));                     
+                // }
+              }else{
+                toast.error('Error while calling get banks api')
+              }
+        }
+            
         
     const renderHeader = () => {
       return (
@@ -208,7 +249,7 @@ export default function SearchCase({toggleComponent}) {
           </tr>
         </thead>
         );
-      }
+    }
 
 
     const handleDateChange = (date) => {
@@ -217,30 +258,34 @@ export default function SearchCase({toggleComponent}) {
   
 
   // Function to handle form submission
-  const handleSubmit = async (event) => {
-    debugger;
-    event.preventDefault(); // Prevent default form submission behavior
-    // console.log("clicked");
-    try {
-        const searchRequest = {
-            'searchParameter':searchQuery,
-            'date':selectedDate
-          }
-      // console.log(searchQuery);
-      const response = await getSearchedCaseAPI(searchRequest);  // Send Axios request with search query
-      const formattedCases = response.data.map(caseData => ({
-        ...caseData,
-        // fillingDate: formatDate(caseData.fillingDate),
-        fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
-        registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
-        // registrationDate: formatDate(caseData.registrationDate),
-      }));
-      setCases(formattedCases); // Update cases state with response data
-    } catch (error) {
-      console.error("Error searching cases:", error);
-      // Handle error, show toast message, etc.
-    }
-  };
+  // const handleSubmit = async (event) => {
+  //   debugger;
+  //   event.preventDefault(); // Prevent default form submission behavior
+  //   // console.log("clicked");
+  //   try {
+  //       const searchRequest = {
+  //           'searchParameter':searchQuery,
+  //           'date':selectedDate
+  //         }
+  //     // console.log(searchQuery);
+  //     if(role == 'arbitrator'){
+  //       const response = await getSearchedArbitratorCaseAPI(arbitratorId, searchRequest); // Send Axios request with search query
+  //     }else if(role == 'bank'){
+  //       const response = await getSearchedBankCaseAPI(bankId, searchRequest);
+  //     }
+  //     const formattedCases = response.data.map(caseData => ({
+  //       ...caseData,
+  //       // fillingDate: formatDate(caseData.fillingDate),
+  //       fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
+  //       registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
+  //       // registrationDate: formatDate(caseData.registrationDate),
+  //     }));
+  //     setCases(formattedCases); // Update cases state with response data
+  //   } catch (error) {
+  //     console.error("Error searching cases:", error);
+  //     // Handle error, show toast message, etc.
+  //   }
+  // };
 
 
   const handleSearch = async () => {
@@ -251,16 +296,22 @@ export default function SearchCase({toggleComponent}) {
             'searchParameter':searchQuery,
             'date':selectedDate
           }
+          var response = "";
       // console.log(searchQuery);
-      const response = await getSearchedCaseAPI(searchRequest); // Send Axios request with search query
+      if(role == 'arbitrator'){
+        response = await getSearchedArbitratorCaseAPI(arbitratorId, searchRequest); // Send Axios request with search query
+      }else if(role == 'bank'){
+        response = await getSearchedBankCaseAPI(bankId, searchRequest);
+      }
       const formattedCases = response.data.map(caseData => ({
         ...caseData,
         // fillingDate: formatDate(caseData.fillingDate),
-        fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
-        registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
+        socFillingDate: caseData.socFillingDate?format(caseData.socFillingDate, "dd MMM yyyy"):null,
+        registrationDate: caseData.registrationDate?format(caseData.registrationDate, "dd MMM yyyy"):null,
         // registrationDate: formatDate(caseData.registrationDate),
       }));
       setCases(formattedCases); // Update cases state with response data
+      setPageCount(Math.ceil(formattedCases.length / ITEMS_PER_PAGE));      
     } catch (error) {
       console.error("Error searching cases:", error);
       // Handle error, show toast message, etc.
@@ -278,8 +329,14 @@ export default function SearchCase({toggleComponent}) {
 
     useEffect(() => {
       debugger;
-      getCases();
+      getBanks();
     },[]);
+
+
+    useEffect(() => {
+      debugger;
+      getCases();
+    },[bankId]);
 
     useEffect(() => {
       debugger;
@@ -293,7 +350,7 @@ export default function SearchCase({toggleComponent}) {
     <div>
         <NavBar/>
     </div>
-    <div className="container1">
+    <div className="container2">
         <h1>Find The Case</h1>
         {/* <h2>Try below!</h2> */}
         <div className="search-box">
@@ -314,7 +371,7 @@ export default function SearchCase({toggleComponent}) {
               <button 
                 className="go-icon" 
                 type="submit"
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
                 style={{
                   backgroundColor:'white',
                   border:'none',
@@ -359,6 +416,7 @@ export default function SearchCase({toggleComponent}) {
                 {renderCases()}
             </tbody>
         </table>
+        {renderPagination()}        
     </div>
     </main>
     {modalVisible && <ActionModal caseData={selectedCase} closeModal={closeModal} />}

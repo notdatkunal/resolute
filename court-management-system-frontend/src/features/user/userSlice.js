@@ -8,6 +8,7 @@ export const userSlice = createSlice({
     token:"",
     isLoggedIn: false,
     role: "",
+    bankId: 0,
   },
   reducers: {
     login: (state, action) => {
@@ -18,6 +19,10 @@ export const userSlice = createSlice({
       state.role = role;
       state.isLoggedIn = true;
       console.log('USER PAYLOAD:', state);
+    },
+    addBankId: (state, action) => {
+      const { bankId } = action.payload;
+      state.bankId = bankId;
     },
     logout: (state) => {
       state.userId = 0;
@@ -30,6 +35,6 @@ export const userSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { login, logout } = userSlice.actions
+export const { login, addBankId, logout } = userSlice.actions
 
 export default userSlice.reducer

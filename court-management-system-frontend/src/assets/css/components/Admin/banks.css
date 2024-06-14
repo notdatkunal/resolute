@@ -1,0 +1,12 @@
+.addBtn{
+    background-color: lightgrey;
+    color: #000000;
+    transition: all .3s ease;
+    height:40px;
+  }
+  
+.addBtn:hover{
+    background-color: #000000;
+    color: white;
+    transform: translateY(-3px);
+}

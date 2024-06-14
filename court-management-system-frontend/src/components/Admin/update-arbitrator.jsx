@@ -142,6 +142,7 @@ export default function UpdateArbitrator({id, toggleComponent}){
             className="form-control mt-1"
             placeholder="Email"
             onChange={onTextChange}
+            disabled
             required
             />
         </div>
@@ -154,6 +155,7 @@ export default function UpdateArbitrator({id, toggleComponent}){
             className="form-control mt-1"
             placeholder="Username"
             onChange={onTextChange}
+            disabled
             required
             />
         </div>

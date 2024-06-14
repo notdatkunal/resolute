@@ -139,7 +139,7 @@ export default function UpdateBank({id, toggleComponent}){
             className="form-control mt-1"
             placeholder="Email"
             onChange={onTextChange}
-            required
+            disabled
             />
         </div>
         <div className="form-group mt-1 col">
@@ -164,6 +164,7 @@ export default function UpdateBank({id, toggleComponent}){
             placeholder="Username"
             onChange={onTextChange}
             required
+            disabled
             />
         </div>
         <div color="red" id="ErrorBox">

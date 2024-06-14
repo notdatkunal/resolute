@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getAllArbitratorsAPI } from "../../services/adminServices";
 import { format } from "date-fns";
+import "../../assets/css/components/Admin/banks.css";
+import { Pagination } from "react-bootstrap";
+
+
+
+
 
 export default function Arbitrators({toggleComponent}) {
 
@@ -17,6 +23,53 @@ export default function Arbitrators({toggleComponent}) {
     'Username': 'username',
     'Registration Date': 'registrationDate',
   };
+
+
+    // Pagination
+    const ITEMS_PER_PAGE = 5;
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageCount, setPageCount] = useState(0); // Total number of pages
+
+
+    const handlePageChange = (pageNumber) => {
+      setCurrentPage(pageNumber);
+    };
+
+    const paginatedArbitrators = arbitrators.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+
+
+    const renderPagination = () => {
+      if (pageCount > 1) {
+        return (
+          <div style={{display:"flex", justifyContent:'center', alignItems:"center"}}>
+            <Pagination activePage={currentPage} onSelect={handlePageChange}>
+              <Pagination.First onClick={() => handlePageChange(1)} />
+              <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+              {Array.from({ length: pageCount }, (_, i) => (
+                  <li 
+                      className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+                      aria-current="page"
+                      onClick={() => handlePageChange(i + 1)}>
+                    <span className="page-link">
+                      {i+1}
+                    </span>
+                  </li>
+              ))}
+              <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === pageCount} />
+              <Pagination.Last onClick={() => handlePageChange(pageCount)} />
+            </Pagination>
+          </div>
+        );
+      }
+    }
+      
+
+
+
+
+
 
 
 
@@ -60,10 +113,11 @@ export default function Arbitrators({toggleComponent}) {
       // else{
         const formattedArbitrators = response.data.map(arbitratorData => ({
           ...arbitratorData,
-            registrationDate: arbitratorData.registrationDate?format(arbitratorData.registrationDate, "MMM dd, yyyy"):null,
+            registrationDate: arbitratorData.registrationDate?format(arbitratorData.registrationDate, "dd MMM yyyy"):null,
           }));
 
         setArbitrators(formattedArbitrators);
+        setPageCount(Math.ceil(formattedArbitrators.length / ITEMS_PER_PAGE));         
       // }
     }else{
       toast.error('Error while calling get arbitrators api')
@@ -123,7 +177,7 @@ export default function Arbitrators({toggleComponent}) {
 
 
   const renderArbitrators = () =>
-    arbitrators.map((arbitrator,index) => (
+    paginatedArbitrators.map((arbitrator,index) => (
       <tr key={arbitrator.arbitratorId}>
         <td style={{textAlign:'center'}}>{index + 1}</td>
         {Object.keys(headerMapping).map(label => (
@@ -193,8 +247,7 @@ export default function Arbitrators({toggleComponent}) {
                    justifyContent:"space-between",
                    marginBottom:"10px"}}> 
         <div style={{display:'flex', justifyContent:'flex-end', }}>
-          <button className="btn" 
-          style={{backgroundColor:"#F3525A", color:'white'}} 
+          <button className="btn addBtn" 
           onClick={AddArbitrator}
           >
           Add Arbitrator</button>
@@ -215,6 +268,7 @@ export default function Arbitrators({toggleComponent}) {
         {renderArbitrators()}
         </tbody>
       </table>
+      {renderPagination()}        
     </div>
 </>  );
 }

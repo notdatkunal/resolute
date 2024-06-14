@@ -114,28 +114,38 @@ export default function Home(){
                         <div className="icon_1"><img src="src/assets/images/icon-1.png"/></div>
                      </div>
                      <h4 className="selection_text">Arbitration</h4>
-                     <p className="row" style={{textAlign:"center", marginRight:'100px'}}>Arbitration is a method of resolving disputes outside of the court system.</p>
+                     {/* <p className="row" style={{textAlign:"center", marginRight:'100px'}}> */}
+                     <p className="ipsum_text">
+                        Arbitration is a method of resolving disputes outside of the court system. In arbitration, parties present their case to a neutral third party, who then renders a decision that is binding on both parties.
+                     </p>
                   </div>
                   <div className="col">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-4.png"/></div>
                      </div>
                      <h4 className="selection_text">Mediation</h4>
-                     <p className="row" style={{textAlign:"center", marginRight:'80px'}}>Mediation involves a neutral third party, the mediator, who facilitates communication and negotiation between disputing parties to help them reach a voluntary agreement.</p>
+                     {/* <p className="row" style={{textAlign:"center", marginRight:'80px'}}> */}
+                     <p className="ipsum_text">
+                        Mediation involves a neutral third party, the mediator, who facilitates communication and negotiation between disputing parties to help them reach a voluntary agreement.</p>
                   </div>
                   <div className="col">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-2.png"/></div>
                      </div>
                      <h4 className="selection_text">Conciliation</h4>
-                     <p className="row" style={{textAlign:"justify", marginRight:'40px'}}>Conciliation shares similarities with mediation but typically involves a more active role for the conciliator in proposing solutions and encouraging compromise.</p>
+                     {/* <p className="row" style={{textAlign:"justify", marginRight:'40px'}}> */}
+                     <p className="ipsum_text">
+                        Conciliation shares similarities with mediation but typically involves a more active role for the conciliator in proposing solutions and encouraging compromise.
+                     </p>
                   </div>
                   <div className="col">
                      <div className="icon_box">
                         <div className="icon_1"><img src="src/assets/images/icon-5.png"/></div>
                      </div>
                      <h4 className="selection_text">Free Legal Aid</h4>
-                     {/* <p className="ipsum_text"></p> */}
+                     <p className="ipsum_text">
+                       JM Swift is committed to delivering free legal aid to those in need. By offering pro bono legal services, the organization ensures that financial barriers do not prevent individuals from accessing justice.
+                     </p>
                   </div>
                   {/* <div className="col-lg-4">
                      <div className="icon_box">

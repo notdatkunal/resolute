@@ -20,13 +20,20 @@ const Sidebar = ({toggleComponent}) => {
     toggleComponent("Banks");
   };
 
-
   const toggleArbitrators = () => {
     // debugger;
     // console.log("Clicked on Documents");
     toggleComponent("Arbitrators");
   };
 
+
+  const toggleCaseTypes = () => {
+    // debugger;
+    // console.log("Clicked on Documents");
+    toggleComponent("CaseTypes");
+  };
+
+  
   const toggleBorrowers = () => {
     toggleComponent("Borrowers");
   };
@@ -77,8 +84,19 @@ const Sidebar = ({toggleComponent}) => {
               <li className="nav-divider">
                 Menu
               </li>
+                <li className="nav-item">
+                  <a className="nav-link active" 
+                    onClick={() => toggleBanks()}
+                    data-toggle="collapse" 
+                    aria-expanded="false" 
+                    data-target="#submenu-2" 
+                    aria-controls="submenu-2">
+                    <i className="fa-solid fa-building-columns"></i>
+                    Banks
+                    </a>
+                </li>
               <li className="nav-item ">
-                <a className="nav-link active" 
+                <a className="nav-link" 
                    onClick={() => {toggleCases()}}
                    data-toggle="collapse" 
                    aria-expanded="false" 
@@ -110,42 +128,6 @@ const Sidebar = ({toggleComponent}) => {
               </li> 
               <li className="nav-item">
                 <a className="nav-link" 
-                   onClick={() => toggleBanks()}
-                   data-toggle="collapse" 
-                   aria-expanded="false" 
-                   data-target="#submenu-2" 
-                   aria-controls="submenu-2">
-                  <i className="fa-solid fa-building-columns"></i>
-                   Banks
-                  </a>
-                {/* <div id="submenu-2" className="collapse submenu" style={{}}>
-                  <ul className="nav flex-column">
-                    <li className="nav-item">
-                      <a className="nav-link" href="pages/cards.html">Cards <span className="badge badge-secondary">New</span></a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="pages/general.html">General</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="pages/carousel.html">Carousel</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="pages/listgroup.html">List Group</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="pages/typography.html">Typography</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="pages/accordions.html">Accordions</a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="pages/tabs.html">Tabs</a>
-                    </li>
-                  </ul>
-                </div> */}
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" 
                    onClick={() => toggleArbitrators()}
                    data-toggle="collapse" 
                    aria-expanded="false" 
@@ -153,6 +135,17 @@ const Sidebar = ({toggleComponent}) => {
                    aria-controls="submenu-2">
                   <i className="fa-solid fa-gavel"></i>
                    Arbitrators
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" 
+                   onClick={() => toggleCaseTypes()}
+                   data-toggle="collapse" 
+                   aria-expanded="false" 
+                   data-target="#submenu-3" 
+                   aria-controls="submenu-3">
+                  <i class="fa-solid fa-layer-group"></i>                    
+                    CaseTypes
                 </a>
               </li>
               {/* <li className="nav-item">
@@ -165,7 +158,7 @@ const Sidebar = ({toggleComponent}) => {
                     <i className="fa-solid fa-users-line"></i>
                     Borrowers
                 </a>
-              </li> */}
+              </li> */}              
               <li className="nav-item">
                 <a className="nav-link" 
                   //  onClick={() => toggleUpload()}

@@ -239,7 +239,7 @@ button {
 .bg-light {
     /* background-image: url(../images/header-bg.png); */
 
-    background-color:  lightgrey !important;
+    background-color:  grey !important;
     background-size: 100%;
     background-repeat: no-repeat;
     /* padding: 20px 60px 17px 70px; */
@@ -249,7 +249,7 @@ button {
     padding-left: 15px;
     /* padding-bottom: 40px; */
     font-size: 18px;    
-    color: #acabab;
+    color: white;
     text-transform: uppercase;
 }
 .navbar-light .navbar-nav .nav-link:focus, 
@@ -263,8 +263,9 @@ button {
     color: #070707;
 }
 .logo{ 
-    width: 25%;
+    width: 4%;
     float: left;
+    margin-left: 1rem;
 }
 
 .mr-auto, .mx-auto {

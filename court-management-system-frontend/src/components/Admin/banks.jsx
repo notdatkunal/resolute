@@ -3,7 +3,8 @@ import { deleteBankAPI, getAllBanksAPI } from "../../services/adminServices";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { format } from "date-fns";
-
+import "../../assets/css/components/Admin/banks.css";
+import { Pagination } from "react-bootstrap";
 
 
 
@@ -22,14 +23,59 @@ export default function Banks({toggleComponent}){
     };
   
   
-  
+    const bankDetails = (id) =>{
+        toggleComponent("BankCases", id)
+    }
   
     
     // useEffect(() => {
       //   getBanks(selectedFilter);
       // },[selectedFilter]);
       
+
+    // Pagination
+    const ITEMS_PER_PAGE = 5;
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageCount, setPageCount] = useState(0); // Total number of pages
+
+
+    const handlePageChange = (pageNumber) => {
+      setCurrentPage(pageNumber);
+    };
+
+    const paginatedBanks = banks.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+
+
+    const renderPagination = () => {
+      if (pageCount > 1) {
+        return (
+          <div style={{display:"flex", justifyContent:'center', alignItems:"center"}}>
+            <Pagination activePage={currentPage} onSelect={handlePageChange}>
+              <Pagination.First onClick={() => handlePageChange(1)} />
+              <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+              {Array.from({ length: pageCount }, (_, i) => (
+                  <li 
+                      className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+                      aria-current="page"
+                      onClick={() => handlePageChange(i + 1)}>
+                    <span className="page-link">
+                      {i+1}
+                    </span>
+                  </li>
+              ))}
+              <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === pageCount} />
+              <Pagination.Last onClick={() => handlePageChange(pageCount)} />
+            </Pagination>
+          </div>
+        );
+      }
+    }
       
+
+
+
       const getBanks = async() => {
         debugger;
         const response = await getAllBanksAPI();
@@ -41,9 +87,11 @@ export default function Banks({toggleComponent}){
             // else{
               const formattedBanks = response.data.map(bankData => ({
                 ...bankData,
-                  registrationDate: bankData.registrationDate?format(bankData.registrationDate, "MMM dd, yyyy"):null,
+                  registrationDate: bankData.registrationDate?format(bankData.registrationDate, "dd MMM yyyy"):null,
                 }));
               setBanks(formattedBanks);
+              setPageCount(Math.ceil(formattedBanks.length / ITEMS_PER_PAGE));      
+
               // }
             }else{
               toast.error('Error while calling get banks api')
@@ -86,11 +134,19 @@ export default function Banks({toggleComponent}){
     
     
     const renderBanks = () =>
-      banks?.map((bank, index) => (
+      paginatedBanks?.map((bank, index) => (
         <tr key={bank.bankId}>
-          <td style={{textAlign:'center'}}>{index + 1}</td>
+          {/* <td style={{textAlign:'center'}}>{index + 1}</td> */}
           {Object.keys(headerMapping).map(label => (
-            <td style={{textAlign:'center'}} key={label}>{bank[headerMapping[label]]}</td>
+            <td style={{textAlign:'center'}} key={label}>
+            {label === 'Bank Name' ? (
+              <a onClick={() => {bankDetails(bank.bankId)}}
+                 style={{color:'blue'}}
+              >{bank[headerMapping[label]]}</a>
+            ) : (
+            bank[headerMapping[label]]
+            )}
+          </td>
           ))}
           <td style={{textAlign:'center'}}>
             <button className="btn btn-primary" 
@@ -99,11 +155,6 @@ export default function Banks({toggleComponent}){
             >
               Update
             </button>
-            {/* <button className="btn btn-danger"
-                    onClick={() => deleteBank(bank.bankId)}
-            >
-              Delete
-            </button> */}
           </td>
         </tr>
       ));
@@ -113,7 +164,7 @@ export default function Banks({toggleComponent}){
         return (
           <thead className="table-active table-dark">
         <tr>
-            <th style={{textAlign:'center'}}>Serial No.</th>
+            {/* <th style={{textAlign:'center'}}>Serial No.</th> */}
             {Object.keys(headerMapping).map(label => (
               <th style={{textAlign:'center'}} key={label}>{label}</th>
             ))}
@@ -154,8 +205,7 @@ export default function Banks({toggleComponent}){
                      justifyContent:"space-between",
                      marginBottom:"10px"}}> 
           <div style={{display:'flex', justifyContent:'flex-end', }}>
-            <button className="btn" 
-            style={{backgroundColor:"#F3525A", color:'white'}} 
+            <button className="btn addBtn" 
             onClick={() => AddBank()}
             >
             Add Bank</button>
@@ -176,6 +226,7 @@ export default function Banks({toggleComponent}){
           {renderBanks()}
           </tbody>
         </table>
+        {renderPagination()}        
       </div>
   </>  );
 }

@@ -142,6 +142,11 @@ export async function getAllBanksAPI(){
 }
 
 
+
+
+
+
+
 export async function getBankAPI(id){
     try{
         debugger;
@@ -157,6 +162,52 @@ export async function getBankAPI(id){
 
 
 
+
+
+export async function getCasesByBankAndTypeAPI(bankId, caseType){
+    try{
+        debugger;
+        let url = createUrl(`/admin/caseByBankIdAndType/${bankId}?type=${caseType}`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        debugger;
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+
+
+export async function getCaseCountByCaseTypeAPI(bankId){
+    try{
+        debugger;
+        let url = createUrl(`/admin/caseTypeCount/${bankId}`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        debugger;
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+export async function getCaseCountByCaseTypeCaseStatusAPI(bankId, type, status){
+    try{
+        debugger;
+        let url = createUrl(`/admin/caseCountByTypeAndStatus/${bankId}?type=${type}&status=${status}`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        debugger;
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
 
 
 
@@ -241,7 +292,7 @@ export async function getSearchedCaseAPI(data){
         let url = ""
         debugger;
         if (data.date){
-            data.date = format(data.date, "yyyy/MM/dd")
+            data.date = format(data.date, "dd/MM/yyyy")
             // url = createUrl(`/admin/search/case?parameter=${data.searchParameter}&date=${data.date}`);
             url = createUrl(`/admin/search/case?date=${data.date}`);
             
@@ -555,3 +606,38 @@ export async function singleWhatsAppMessageApi(data) {
     }
   };
 
+  export async function addCaseTypeAPI(data){
+    try{
+        debugger;
+        let type = data.get('type');
+        let url = createUrl(`/admin/caseType/${type}`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+
+export async function uploadBulkCaseAPI(data) {
+    try {
+        debugger;
+        let url = createUrl(`/admin/case/bulk`);
+        const response = await axiosInstance.post(url, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                // You can include any additional headers here if needed
+            },
+        });
+        
+        return response; // Assuming your server returns JSON data
+    } catch (ex) {
+        debugger;
+        //   console.error('Error uploading file:', error);
+        //   throw error; // Throw the error for handling in the component
+        return ex.response;
+    }
+  };

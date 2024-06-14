@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { getCaseDocumentsListAPI, getDocumentsAPI } from "../../services/caseServices";
 import { toast } from "react-toastify";
 import "../../assets/css/components/documents.css"
+import { useSelector } from "react-redux";
 
 
 export default function Documents({id}){
@@ -10,6 +11,7 @@ export default function Documents({id}){
     const [documents, setDocuments] = useState([]);
     const [showIframe, setShowIframe] = useState(false);
     const iframeRef = useRef(null);
+    const role = useSelector((state)=> state.user.user.role);
 
 
     const getDocuments = async(filename) => {
@@ -17,6 +19,7 @@ export default function Documents({id}){
       //   var role_name = selectedFilter;
       //   var data = authState;
       documents.map((document)=>{
+        debugger;
         if(document.imageName.includes(filename)){
           filename = document.imageName
         }
@@ -25,16 +28,15 @@ export default function Documents({id}){
       const response = await getDocumentsAPI(filename);
       if(response.status == 200){
           debugger;
-          // if(response.data == "EXPIRED" || response.data == "INVALID"){
-          //   navigate("/login");
-          //   toast.warning("Session Time Expired");
-          // }
-          // else{
             var reader = new FileReader();
             // const blob = dataURItoBlob(response.data);
             // const blobUrl = URL.createObjectURL(blob);
             // const blobUrl = URL.createObjectURL(blob);
-            setURL(response.data  + "#toolbar=0");
+            if(role == "arbitrator"){
+              setURL(response.data  + "#toolbar=0");
+            }else if(role == "bank" || role == "admin"){
+              setURL(response.data);
+            }
             setShowIframe(true);
             // reader.readAsText(response.data);            
             // reader.readAsDataURL(response.data); 

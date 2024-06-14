@@ -2,10 +2,11 @@ import NavBar from "../navbar";
 import "../../assets/css/components/search-case.css"
 import DatePicker from "react-datepicker";
 import { toast } from "react-toastify";
-import { getAllCasesAPI, getSearchedCaseAPI } from "../../services/adminServices";
+import { getAllCasesAPI, getSearchedCaseAPI, uploadBulkCaseAPI } from "../../services/adminServices";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { format } from 'date-fns';
+import { Pagination } from 'react-bootstrap';
 
 
 const AdminSearchCase = ({toggleComponent}) => {
@@ -14,10 +15,81 @@ const AdminSearchCase = ({toggleComponent}) => {
     var [cases, setCases] = useState([
     ]);
     var [selectedDate, setSelectedDate] = useState("");
+    const [showSingleModal, setShowSingleModal] = useState(false);
     var [searchQuery, setSearchQuery] = useState(""); // State to hold search query
     // const [date, setDate] = useState("");
     const navigate = useNavigate();
     
+
+    // Pagination
+    const ITEMS_PER_PAGE = 8;
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageCount, setPageCount] = useState(0); // Total number of pages
+
+
+    const handlePageChange = (pageNumber) => {
+      setCurrentPage(pageNumber);
+    };
+
+    const paginatedCases = cases.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+    const MAX_VISIBLE_PAGES = 5
+
+
+
+
+
+    const renderPagination = () => {
+
+      if (pageCount > 1) {
+        const visiblePageCount = Math.min(pageCount, MAX_VISIBLE_PAGES); // Adjust MAX_VISIBLE_PAGES as needed
+  
+        const startIndex = Math.max(
+          Math.min(currentPage - Math.floor((visiblePageCount - 1) / 2), pageCount - visiblePageCount + 1),
+          1
+        );
+        const endIndex = Math.min(startIndex + visiblePageCount - 1, pageCount);
+    
+        return (
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Pagination activePage={currentPage} onSelect={handlePageChange}>
+            <Pagination.First onClick={() => handlePageChange(1)} />
+            <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+            {startIndex > 2 && (
+              <>
+                <a href="#" className="page-link" onClick={() => handlePageChange(1)}>1</a>
+                <Pagination.Ellipsis />
+              </>
+            )}
+            {Array.from({ length: endIndex - startIndex + 1 }, (_, i) => (
+              <a
+                href="#"
+                key={startIndex + i}
+                className={`page-link ${currentPage === startIndex + i ? "active btn-primary" : ""}`}
+                onClick={() => handlePageChange(startIndex + i)}
+              >
+                {startIndex + i}
+              </a>
+            ))}
+            {endIndex < pageCount - 1 && (
+              <>
+                <Pagination.Ellipsis />
+                <a href="#" className="page-link" onClick={() => handlePageChange(pageCount)}>{pageCount}</a>
+              </>
+            )}
+            <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === pageCount} />
+            <Pagination.Last onClick={() => handlePageChange(pageCount)} />
+          </Pagination>
+        </div>          
+        );
+      }
+  
+      return null; // Hide pagination if there's only one page
+    };
+  
+
+
 
     const headerMapping = {
         "Case Id":"id",
@@ -42,6 +114,9 @@ const AdminSearchCase = ({toggleComponent}) => {
         setSelectedCase(null);
     };
     
+    const toggleSingleModal = () =>{
+      setShowSingleModal(!showSingleModal);
+   }
 
 
     const getCases = async() => {
@@ -57,8 +132,8 @@ const AdminSearchCase = ({toggleComponent}) => {
               const formattedCases = response.data.map(caseData => ({
                 ...caseData,
                   // fillingDate: formatDate(caseData.fillingDate),
-                  fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
-                  registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
+                  fillingDate: caseData.fillingDate?format(caseData.fillingDate, "dd MMM yyyy"):null,
+                  registrationDate: caseData.registrationDate?format(caseData.registrationDate, "dd MMM yyyy"):null,
                   // registrationDate: formatDate(caseData.registrationDate),
                 }));
 
@@ -74,6 +149,44 @@ const AdminSearchCase = ({toggleComponent}) => {
         // debugger;
         toggleComponent("AddCase");
     }
+        
+    const AddBulkCases = () => {
+        // debugger;
+        toggleSingleModal();
+    }
+        
+
+
+
+    const handleSingleFileSubmit = async(event) => {
+      debugger;
+      event.preventDefault();
+    //   var role_name = selectedFilter;
+    //   var data = authState;
+      var formData = new FormData(event.target);          
+
+      const response = await uploadBulkCaseAPI(formData);
+
+      if(response.status == 200){
+        // if(response.data == "EXPIRED" || response.data == "INVALID"){
+        //   navigate("/login");
+        //   toast.warning("Session Time Expired");
+        // }
+        // else{
+          debugger;
+          // toggleComponent("Cases");
+          toast.success("Document Added Successfully");
+          setShowSingleModal(false);
+        // }  
+      }else{
+        toast.error("Failed To Add Document");
+      }
+
+  }
+
+
+
+
 
 
     const updateCase = async(id) => {
@@ -91,16 +204,6 @@ const AdminSearchCase = ({toggleComponent}) => {
       toggleComponent("HearingDates", id);
     }
   
-    const formatDate = (dateString) => {
-      const options = {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "numeric",
-          minute: "numeric",
-      };
-      return new Date(dateString).toLocaleString(undefined, options);
-  };
 
 
 
@@ -140,7 +243,7 @@ const AdminSearchCase = ({toggleComponent}) => {
 
     
     const renderCases = () =>
-        cases.map((caseData, index) => (
+        paginatedCases.map((caseData, index) => (
           <tr key={caseData.caseId}>
             {/* <td style={{textAlign:'center'}}>{index + 1}</td> */}
             {Object.keys(headerMapping).map(label => (
@@ -221,16 +324,19 @@ const AdminSearchCase = ({toggleComponent}) => {
       const formattedCases = response.data.map(caseData => ({
         ...caseData,
         // fillingDate: formatDate(caseData.fillingDate),
-        fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
-        registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
+        fillingDate: caseData.fillingDate?format(caseData.fillingDate, "dd MMM yyyy"):null,
+        registrationDate: caseData.registrationDate?format(caseData.registrationDate, "dd MMM yyyy"):null,
         // registrationDate: formatDate(caseData.registrationDate),
       }));
       setCases(formattedCases); // Update cases state with response data
+      // Calculate total number of pages based on case count
+      setPageCount(Math.ceil(formattedCases.length / ITEMS_PER_PAGE));      
     } catch (error) {
       console.error("Error searching cases:", error);
       // Handle error, show toast message, etc.
     }
   };
+
 
 
   const handleSearch = async () => {
@@ -246,11 +352,13 @@ const AdminSearchCase = ({toggleComponent}) => {
       const formattedCases = response.data.map(caseData => ({
         ...caseData,
         // fillingDate: formatDate(caseData.fillingDate),
-        fillingDate: caseData.fillingDate?format(caseData.fillingDate, "MMM dd, yyyy"):null,
-        registrationDate: caseData.registrationDate?format(caseData.registrationDate, "MMM dd, yyyy"):null,
+        fillingDate: caseData.fillingDate?format(caseData.fillingDate, "dd MMM yyyy"):null,
+        registrationDate: caseData.registrationDate?format(caseData.registrationDate, "dd MMM yyyy"):null,
         // registrationDate: formatDate(caseData.registrationDate),
       }));
       setCases(formattedCases); // Update cases state with response data
+      // Calculate total number of pages based on case count
+      setPageCount(Math.ceil(formattedCases.length / ITEMS_PER_PAGE));
     } catch (error) {
       console.error("Error searching cases:", error);
       // Handle error, show toast message, etc.
@@ -322,14 +430,20 @@ const AdminSearchCase = ({toggleComponent}) => {
             justifyContent:'space-between', 
             marginLeft:'5em',
             marginRight:"5em",
-            marginTop:'1em'}}>
+            marginTop:'2em'}}>
       {/* <div style={{position:'absolute', float:"left", marginTop:"4em", marginLeft:"5em"}}> */}
       <div>
-              <button className="btn" 
-              style={{backgroundColor:"#F3525A", color:'white', height:"40px"}} 
+              <button className="btn addBtn" 
               onClick={() => AddCase()}
               >
               Add Case</button>
+
+              <button 
+                className="btn addBtn" 
+                onClick={() => AddBulkCases()}
+                style={{marginLeft:"20px"}}
+              >
+              Add Bulk Cases</button>
       </div>
       <div>
       <DatePicker
@@ -348,7 +462,57 @@ const AdminSearchCase = ({toggleComponent}) => {
                 {renderCases()}
             </tbody>
         </table>
+        {renderPagination()}        
     </div>
+    <div className={`modal ${showSingleModal ? 'show' : 'hide'}`} tabindex="-1" role="dialog"
+            style={{marginLeft:"15em"}}>
+        <div className="modal-dialog" role="document">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h3 className="modal-title" 
+                        style={{marginLeft:"5.5em", marginTop:"5px",
+                            fontFamily: "'Montserrat', sans-serif",
+                            fontWeight: "bold",
+                            color:'black'
+                         }}
+                    >Bulk Cases Upload</h3>
+                    <button 
+                            type="button" 
+                            className="close" 
+                            data-dismiss="modal" 
+                            aria-label="Close"
+                            onClick={() => toggleSingleModal()}>
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <form enctype='multipart/form-data' onSubmit={handleSingleFileSubmit}> 
+            <div className="modal-body">
+                <div style={{textAlign:"end"}}>
+                  <a href="../src/assets/documents/sample.xlsx">Sample.xlsx</a>
+                </div>
+                <div className="form-group mt-1 col">
+                    <label style={{marginRight:"20px"}}></label>
+                    <input  type='file' 
+                            name='sheet'
+                            accept=".xlsx"
+                    /> 
+                </div>
+            </div>
+            <div className="modal-footer">
+                <button 
+                        type="submit" 
+                        className="btn btn-primary"
+                    >Submit</button>
+                <button 
+                        type="button" 
+                        className="btn btn-secondary" 
+                        data-dismiss="modal" 
+                        onClick={() => toggleSingleModal()}>Close</button>
+            </div>
+           </form>            
+            </div>        
+        </div>
+        </div>
     </main>
     {modalVisible && <ActionModal caseData={selectedCase} closeModal={closeModal} />}
     </>);

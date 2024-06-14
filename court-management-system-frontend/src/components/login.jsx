@@ -175,7 +175,7 @@ const Submit = async (e) =>{
         </svg>
       </div>
       <form action="" className="log-in, form" autoComplete="off" onSubmit={Submit}>
-        <h4>We are <span>JMSWIFT</span></h4>
+        <h4>We are <span>J.M.SWIFT</span></h4>
         <p>Welcome back! Log in to your account to view today's clients:</p>
         <div className="floating-label">
           <input 
@@ -229,7 +229,7 @@ const Submit = async (e) =>{
             </svg>
           </div>
         </div>
-        <button type="submit">Log in</button>
+        <button type="submit">Log In</button>
       </form>
     </div>  
   </div>  

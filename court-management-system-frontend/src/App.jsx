@@ -50,7 +50,9 @@ const App = createBrowserRouter([
   },
   {
     path: '/signin',
-    element: <Login></Login>,
+    element: <LoginRoute>
+                <Login/>
+             </LoginRoute>,
     errorElement: <ErrorPage />,
   },
   {
@@ -116,5 +118,25 @@ function AdminPrivateRoute({ children }) {
 
   return <PrivateRoute>{children}</PrivateRoute>; // Nested PrivateRoute for combined protection
 }
+
+
+function LoginRoute({ children }) {
+  debugger;
+  // const { isLoggedIn } = useAuth(); // Assuming isLoggedIn state from AuthContext
+  const isLoggedIn = useSelector((state)=> state.user.user.isLoggedIn);
+  const role = useSelector((state) => state.user.user.role);
+
+  if (isLoggedIn) {
+    if(role == 'admin'){
+      return <Navigate to="/adminPanel" replace />;
+    }else if(role == 'arbitrator' || role == 'bank'){
+      return <Navigate to="/search-case" replace />;
+    }
+  }else if(!isLoggedIn){
+    return children;
+  }
+
+}
+
 
 export default App
