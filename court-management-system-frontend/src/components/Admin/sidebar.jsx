@@ -70,6 +70,14 @@ const Sidebar = ({toggleComponent}) => {
     toggleComponent("Communication");
   }
 
+  const toggleEnquiries = () => {
+    toggleComponent("Enquiries");
+  }
+
+  const toggleLogInDetails = () => {
+    toggleComponent("LogInDetails");
+  }
+
 
   return (
     <div className="nav-left-sidebar sidebar-dark" style={{}}>
@@ -237,6 +245,28 @@ const Sidebar = ({toggleComponent}) => {
                     aria-controls="submenu-6">
                       <i class="fa-brands fa-whatsapp"></i>
                       Communication
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" 
+                     onClick={() => toggleEnquiries()}
+                    data-toggle="collapse" 
+                    aria-expanded="false" 
+                    data-target="#submenu-7" 
+                    aria-controls="submenu-7">
+                      <i class="fa-solid fa-message"></i>
+                      Enquiries
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" 
+                     onClick={() => toggleLogInDetails()}
+                    data-toggle="collapse" 
+                    aria-expanded="false" 
+                    data-target="#submenu-8" 
+                    aria-controls="submenu-8">
+                      <i class="fa-solid fa-lock"></i>
+                      Log In Details
                   </a>
                 </li>
               </li>

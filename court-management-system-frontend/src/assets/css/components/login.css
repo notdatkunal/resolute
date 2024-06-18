@@ -17,7 +17,6 @@
     padding-bottom: 20px;
     border-radius: 8px;
     background-color: white;
-
   }
   
   .Auth-form-content {
@@ -80,7 +79,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding-bottom: 20px;
-    width: 300px;
+    width: 350px;
   }
   
   form h4 {
@@ -93,7 +92,7 @@
     font-weight: 700;
   }
   
-  form p {
+  form .paragraph{
     line-height: 155%;
     margin-bottom: 5px;
     font-size: 14px;
@@ -103,6 +102,41 @@
     max-width: 200px;
     margin-bottom: 40px;
   }
+
+  form p{
+    line-height: 155%;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #000;
+    opacity: .65;
+    font-weight: 400;
+    margin-bottom: 40px;
+  }
+
+  form .para {
+    line-height: 155%;
+    font-size: 14px;
+    color: #000;
+    opacity: .65;
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  form .resendOtp {
+    /* line-height: 155%; */
+    /* font-size: 14px; */
+    /* color: #000; */
+    margin-top: 20px;
+    opacity: .6;
+    /* font-weight: 400; */
+    /* margin-bottom: 20px; */
+    font-style: italic;
+    color: blue;
+    cursor: pointer;
+    text-align: end;
+  }
+
+
   
   form a.discrete {
     color: rgba(0, 0, 0, .4);
@@ -296,4 +330,13 @@
     form {
       width: 40%;
     }
+  }
+
+
+
+  .error-message{
+    color: red;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
   }

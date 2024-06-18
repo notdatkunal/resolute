@@ -143,6 +143,36 @@ export async function getAllBanksAPI(){
 
 
 
+export async function getAllEnquiriesAPI(){
+    try{
+        debugger;
+        let url = createUrl(`/list/enquiries`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+
+export async function getAllLogInDetailsAPI(){
+    try{
+        debugger;
+        let url = createUrl(`/loginRecords`);
+        const response = await axiosInstance.get(url);
+        return response;
+    }catch(ex){
+        // console.log(ex);
+        // toast.error(ex.message);
+        return null;
+    }
+}
+
+
+
 
 
 

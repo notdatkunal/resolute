@@ -16,6 +16,8 @@ import ARB from './components/arb'
 import Medi from './components/medi'
 import Conciliation from './components/conciliation'
 import HearingDates from './components/case/heaing-dates'
+import ForgetPassword from './components/forget-password'
+import ResetPassword from './components/reset-password'
 
 const App = createBrowserRouter([
   {
@@ -86,6 +88,16 @@ const App = createBrowserRouter([
     element: <AdminPrivateRoute>
       <AdminDashboard />
     </AdminPrivateRoute>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/forgetPassword',
+    element: <ForgetPassword/>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/resetPassword/:email',
+    element: <ResetPassword />,
     errorElement: <ErrorPage />,
   },
 ]);

@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../features/user/userSlice';
 import { loginAPI } from '../services/loginService';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 
 
@@ -19,68 +20,25 @@ export default function Login() {
   const dispatch = useDispatch();
   var [username, setUsername] = useState("");
   var [password, setPassword] = useState("");
-//   const [authState,setAuthState] = useContext(AuthContext);
+  const [details, setDetails] = useState();
   
-  // const GoToSignUp = () =>{
-  //   navigate("/register");
-  // }
-
-
-
-  // const ResetPassword = () =>{
-  //   navigate("/reset");
-  // }
-
-// const sendLoginData = async() => {
-//   if(email == "" || password == ""){
-//       toast.warning("Please Enter Email And Password");
-//     }else{
-//         const user = {
-//           email: email,
-//           password: password
-//         };
-//       const response = await loginAPI(user);
-//       if(response.status == 200){
-//         setAuthState({
-//           ...authState,
-//           user_id:response.data.user_id,
-//           token:response.data.token,
-//           role_id:response.data.role_id
-//         });
-//           dispatch(login(response.data))
-//
-//         if (response.data != 0) {
-//           switch (response.data.role_id) {
-//             case 1:
-//               navigate("/admin");              
-//               break;
-//             case 2:
-//               navigate("/dispatcher");              
-//               break;
-//             case 3:
-//               navigate("/deliverypersonnel");              
-//               break;
-//             case 4:
-//               navigate("/customer");              
-//               break;
-//             default:
-//               break;
-//           }
-//           toast.success(`Welcome ${response.data.first_name}!`);
-//         }else{
-//           toast.warning("Please Enter Correct Password");
-//         }
-//       }else{
-//         toast.error("Customer Login Failed. Please Try Again!");
-//       }
-//     }
-// }
   
+const getData = async () => {
+  debugger;
+  // const res = await axios.get("https://api.ipify.org/?format=json");
+  const res = await axios.get("https://geolocation-db.com/json/");
+  setDetails({
+    ip: res.data.IPv4,
+    country: res.data.country_name,
+  });
+};  
 
 const Submit = async (e) =>{
   e.preventDefault();
   debugger;
-  const response = await loginAPI(username, password);
+  await getData();
+  console.log(details);
+  const response = await loginAPI(username, password, details);
   if (response){
     if(response.status == 200){
       dispatch(login(response.data))
@@ -116,46 +74,6 @@ const Submit = async (e) =>{
   </div>
   <div className='container'>
 
-{/*  <div className="Auth-form-container">
-      <div className="Auth-form-content mb-5">
-      <h3 className="Auth-form-title">Sign In</h3>
-      <div className="text-center">
-      Not Registered?{" "}
-      <span className="link-primary" onClick={GoToSignUp}>
-      Sign Up
-      </span>
-      </div>
-      <div className="form-group mt-3">
-      <label>Email address</label>
-      <input
-      type="email"
-      name='LoginEmail'
-      className="form-control mt-1"
-      placeholder="Enter email"
-      required
-      onChange={e => setEmail(e.target.value)}/>
-      </div>
-      <div className="form-group mt-3">
-      <label>Password</label>
-      <input
-      type="password"
-      name='LoginPassword'
-      className="form-control mt-1"
-      placeholder="Enter password"
-      required
-      onChange={e => setPassword(e.target.value)}/>
-      </div>
-      <div className="d-grid gap-2 mt-3">
-      <button type="submit" className="btn btn-primary" onClick={sendLoginData}>
-      Submit
-      </button>
-        </div>
-        <p className="forgot-password text-center mt-2">
-        <a onClick={ResetPassword}> Forgot password?</a>
-        </p>
-        </div>
-        </div>
-        */}  
     <div className="main">
     <div className="session">
       <div className="left">
@@ -176,7 +94,7 @@ const Submit = async (e) =>{
       </div>
       <form action="" className="log-in, form" autoComplete="off" onSubmit={Submit}>
         <h4>We are <span>J.M.SWIFT</span></h4>
-        <p>Welcome back! Log in to your account to view today's clients:</p>
+        <p className='paragraph'>Welcome back! Log in to your account to view today's clients:</p>
         <div className="floating-label">
           <input 
               placeholder="Username" 
@@ -187,7 +105,7 @@ const Submit = async (e) =>{
               onChange={(e) => setUsername(e.target.value)}/>
           <label htmlFor="email">Username:</label>
           <div className="icon">
-            <svg
+            <svg  
               enableBackground="new 0 0 100 100"
               version="1.1"
               viewBox="0 0 100 100"
@@ -229,7 +147,10 @@ const Submit = async (e) =>{
             </svg>
           </div>
         </div>
-        <button type="submit">Log In</button>
+        <div>
+          <a href="./forgetPassword">Forget Password?</a>
+        </div>
+          <button type="submit">Log In</button>
       </form>
     </div>  
   </div>  

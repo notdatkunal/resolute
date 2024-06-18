@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "./footer";
 import NavBar from "./navbar";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { enquiriesAPI } from "../services/loginService";
 
 
 
@@ -10,7 +13,12 @@ import NavBar from "./navbar";
 export default function Home(){
 
    const navigate = useNavigate();
-
+   const [contactData, setContactData] = useState({
+      fullName: "",
+      contact:"",
+      email: "",
+      message: ""
+   }) ;
 
 
    const aboutUs = () =>{
@@ -18,7 +26,29 @@ export default function Home(){
       navigate('/about');
    }
 
-    return(<>
+
+   const handleChange = (e) => {
+      const { name, value } = e.target;
+      setContactData((prevData) => ({
+        ...prevData,
+        [name]: value
+      }));
+    };
+
+
+   const handleSubmit = async(event) => {
+      debugger;
+      event.preventDefault();
+      const response = await enquiriesAPI(contactData);
+      if(response.status == 200){
+         debugger;
+         toast.success("Our Firm Will Contact You Soon!!")
+      }else{
+         toast.error("Server is busy. Please Try Again!!")
+      }   
+   };
+
+    return(<>  
     <div className="header_section">
         <NavBar></NavBar>
         {/* <!--banner section start --> */}
@@ -201,13 +231,37 @@ export default function Home(){
             <div className="contact_section_2 layout_padding">
                <div className="row">
                   <div className="col-md-6">
+                     <form action="" onSubmit={handleSubmit}>
                      <div className="contact_main">
-                        <input type="text" className="mail_text" placeholder="Full Name" name="Full Name"/>
-                        <input type="text" className="mail_text" placeholder="Phone Number" name="Phone Number"/>
-                        <input type="text" className="mail_text" placeholder="Email" name="Email"/>
-                        <textarea className="massage-bt" placeholder="Massage" rows="5" id="comment" name="Massage"></textarea>
-                        <div className="send_bt"><a href="#">SEND</a></div>
+                        <input type="text" 
+                               className="mail_text" 
+                               placeholder="Full Name" 
+                               name="fullName"
+                               onChange={handleChange}
+                               required/>
+                        <input type="number" 
+                               className="mail_text" 
+                               placeholder="Phone Number" 
+                               name="contact"
+                               onChange={handleChange}
+                               required/>
+                        <input type="email" 
+                               className="mail_text" 
+                               placeholder="Email" 
+                               name="email"
+                               onChange={handleChange}
+                               required/>
+                        <textarea className="massage-bt" 
+                                  placeholder="Massage" 
+                                  rows="5" id="comment" 
+                                  name="message"
+                                  onChange={handleChange}
+                                  required></textarea>
+                        <div className="send_bt">
+                           <button type="submit">SEND</button>
+                        </div>
                      </div>
+                     </form>
                   </div>
                   <div className="col-md-6">
                      <div className="map_main">

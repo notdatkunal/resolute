@@ -24,6 +24,8 @@ import UpdateHearingDate from "./update-hearingDate";
 import Communication from "./communication";
 import BankCases from "./bank-cases";
 import CaseTypes from "./case-type";
+import Enquiries from "./list-enquiries";
+import LogInDetails from "./login-deails";
 
 export default function AdminDashboard(){
 
@@ -58,6 +60,8 @@ export default function AdminDashboard(){
         CaseTypes:<CaseTypes toggleComponent={toggleComponent}/>,
         // AllCases: <Cases/>,
         Banks: <Banks toggleComponent={toggleComponent}/>,
+        Enquiries: <Enquiries toggleComponent={toggleComponent}/>,
+        LogInDetails: <LogInDetails toggleComponent={toggleComponent}/>,
         BankCases: <BankCases id={id} toggleComponent={toggleComponent}/>,
         Arbitrators:<Arbitrators toggleComponent={toggleComponent}/> ,
         Borrowers: <Borrowers/>,
